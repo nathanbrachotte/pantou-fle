@@ -2,7 +2,7 @@ import React from 'react'
 import { Image } from 'rebass'
 import { graphql, StaticQuery } from 'gatsby'
 
-import Layout from '../Layout'
+import Layout from '../components/Layout'
 import Landing from '../old-components/screens/Landing/Landing'
 import About from '../old-components/screens/About'
 import Projects from '../old-components/screens/Projects/Projects'

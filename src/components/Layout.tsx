@@ -7,7 +7,7 @@ import config from 'react-reveal/globals'
 import { ThemeProvider } from 'styled-components'
 import { ScrollingProvider } from 'react-scroll-section'
 import preset from '@rebass/preset'
-import colors from '../colors'
+import colors from '../../colors'
 
 // eslint-disable-next-line import/no-unresolved
 import Helmet from './Helmet'
