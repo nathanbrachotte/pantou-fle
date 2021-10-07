@@ -85,19 +85,19 @@ const BlogPostTemplate: React.FC<PageProps> = ({ pageContext }) => {
   const createdAt = new Date('2020-10-13T15:51:52.796Z')
   const createdAt2 = dateTimeFormat.format(createdAt)
 
-  const AssetComponent = currentPost?.video ? (
-    <>
-      <VideoBox video={currentPost.video} title={currentPost.title} />
-      <Spacer height="10px" />
-    </>
-  ) : (
-    currentPost?.image && (
-      <>
-        <Image alt={currentPost?.title} src={currentPost?.image} />
-        <Spacer height="10px" />
-      </>
-    )
-  )
+  // const AssetComponent = currentPost?.video ? (
+  //   <>
+  //     <VideoBox video={currentPost.video} title={currentPost.title} />
+  //     <Spacer height="10px" />
+  //   </>
+  // ) : (
+  //   currentPost?.image && (
+  //     <>
+  //       <Image alt={currentPost?.title} src={currentPost?.image} />
+  //       <Spacer height="10px" />
+  //     </>
+  //   )
+  // )
   return null
   // return (
   //   <Layout>
