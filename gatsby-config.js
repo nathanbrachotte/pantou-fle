@@ -29,12 +29,6 @@ const plugins = [
   },
   'gatsby-transformer-remark',
   'gatsby-plugin-offline',
-  {
-    resolve: 'gatsby-source-medium',
-    options: {
-      username: about.mediumUser || '@medium',
-    },
-  },
   'gatsby-plugin-use-dark-mode',
 ]
 

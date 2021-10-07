@@ -12,48 +12,41 @@ import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import { allExerciseSheetQuery } from '../api/queries'
 
-const IndexPage: React.FC = () => {
+export const query = graphql`
+  query ExerciseSheetQuery {
+    allContentfulFicheExercice {
+      nodes {
+        title
+        slug
+        pdf {
+          id
+          file {
+            fileName
+            url
+            contentType
+          }
+        }
+        level {
+          id
+        }
+      }
+    }
+  }
+`
+
+const IndexPage: React.FC = ({ data }: any) => {
   console.log({ allExerciseSheetQuery })
 
   return (
     <Layout>
       {/* <Header /> */}
-      <StaticQuery
-        query={graphql`
-          query ExerciseSheetQuery {
-            allContentfulFicheExercice {
-              nodes {
-                title
-                slug
-                pdf {
-                  id
-                  file {
-                    fileName
-                    url
-                    contentType
-                  }
-                }
-                level {
-                  id
-                }
-              }
-            }
-          }
-        `}
-        render={(data) => {
-          console.log({ data })
-          return (
-            <iframe
-              title={data.allContentfulFicheExercice.nodes[0].title}
-              src={`${data.allContentfulFicheExercice.nodes[0].pdf.file.url}#toolbar=0`}
-              // style={{ pointerEvents: 'none' }}
-              width="100%"
-              height="1000px"
-            />
-          )
-        }}
+      <iframe
+        title={data.allContentfulFicheExercice.nodes[0].title}
+        src={`${data.allContentfulFicheExercice.nodes[0].pdf.file.url}#toolbar=0`}
+        // style={{ pointerEvents: 'none' }}
+        width="100%"
+        height="1000px"
       />
-
       {/* <Landing />
     <About />
     <BlogPosts />

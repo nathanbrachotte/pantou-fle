@@ -20,27 +20,26 @@ const EllipsisHeading = styled(Heading)`
   -webkit-box-orient: vertical;
   border-bottom: ${(props) => props.theme.colors.primary} 5px solid;
 `
-const parsePost = (author: { username: string; name: string }) => (
-  postFromGraphql: any,
-) => {
-  const { id, uniqueSlug, createdAt, title, virtuals } = postFromGraphql
-  const image =
-    virtuals.previewImage.imageId &&
-    `${MEDIUM_CDN}/${virtuals.previewImage.imageId}`
+const parsePost =
+  (author: { username: string; name: string }) => (postFromGraphql: any) => {
+    const { id, uniqueSlug, createdAt, title, virtuals } = postFromGraphql
+    const image =
+      virtuals.previewImage.imageId &&
+      `${MEDIUM_CDN}/${virtuals.previewImage.imageId}`
 
-  console.log(createdAt)
+    console.log(createdAt)
 
-  return {
-    id,
-    title,
-    time: virtuals.readingTime,
-    date: createdAt,
-    text: virtuals.subtitle,
-    image,
-    url: `${MEDIUM_URL}/@${author.username}/${uniqueSlug}`,
-    Component: ExternalArticle,
+    return {
+      id,
+      title,
+      time: virtuals.readingTime,
+      date: createdAt,
+      text: virtuals.subtitle,
+      image,
+      url: `${MEDIUM_URL}/@${author.username}/${uniqueSlug}`,
+      Component: ExternalArticle,
+    }
   }
-}
 
 interface MorePostsProps {
   username: string
@@ -81,69 +80,69 @@ const edgeToArray = (data: { edges: { node: any }[]; totalCount: number }) => {
   return data.edges.map((edge) => edge.node)
 }
 
-const Writing: React.FC = () => (
-  <StaticQuery
-    query={graphql`
-      query MediumPostQuery {
-        site {
-          siteMetadata {
-            isMediumUserDefined
-          }
-        }
-        allMediumPost(limit: 7, sort: { fields: createdAt, order: DESC }) {
-          totalCount
-          edges {
-            node {
-              id
-              uniqueSlug
-              title
-              createdAt(formatString: "MMM YYYY")
-              virtuals {
-                subtitle
-                readingTime
-                previewImage {
-                  imageId
-                }
-              }
-            }
-          }
-        }
-        author: mediumUser {
-          username
-          name
-        }
-      }
-    `}
-    render={({ allMediumPost, site, author }) => {
-      const posts = edgeToArray(allMediumPost).map(parsePost(author))
-      const diffAmountArticles = allMediumPost.totalCount - posts.length
-      if (diffAmountArticles > 0) {
-        posts.push({
-          ...author,
-          id: 'more-field',
-          number: diffAmountArticles,
-          Component: MorePosts,
-        })
-      }
+// const Writing: React.FC = () => (
+//   <StaticQuery
+//     query={graphql`
+//       query MediumPostQuery {
+//         site {
+//           siteMetadata {
+//             isMediumUserDefined
+//           }
+//         }
+//         allMediumPost(limit: 7, sort: { fields: createdAt, order: DESC }) {
+//           totalCount
+//           edges {
+//             node {
+//               id
+//               uniqueSlug
+//               title
+//               createdAt(formatString: "MMM YYYY")
+//               virtuals {
+//                 subtitle
+//                 readingTime
+//                 previewImage {
+//                   imageId
+//                 }
+//               }
+//             }
+//           }
+//         }
+//         author: mediumUser {
+//           username
+//           name
+//         }
+//       }
+//     `}
+//     render={({ allMediumPost, site, author }) => {
+//       const posts = edgeToArray(allMediumPost).map(parsePost(author))
+//       const diffAmountArticles = allMediumPost.totalCount - posts.length
+//       if (diffAmountArticles > 0) {
+//         posts.push({
+//           ...author,
+//           id: 'more-field',
+//           number: diffAmountArticles,
+//           Component: MorePosts,
+//         })
+//       }
 
-      const { isMediumUserDefined } = site.siteMetadata
+//       const { isMediumUserDefined } = site.siteMetadata
 
-      return (
-        isMediumUserDefined && (
-          <Section.Container id="writing" Background={Background}>
-            <Section.Header name="Writing" icon="✍️" label="writing" />
-            <CardContainer>
-              {posts.map(({ Component, ...rest }) => (
-                <Fade bottom key={rest.id}>
-                  <Component {...rest} key={rest.id} />
-                </Fade>
-              ))}
-            </CardContainer>
-          </Section.Container>
-        )
-      )
-    }}
-  />
-)
+//       return (
+//         isMediumUserDefined && (
+//           <Section.Container id="writing" Background={Background}>
+//             <Section.Header name="Writing" icon="✍️" label="writing" />
+//             <CardContainer>
+//               {posts.map(({ Component, ...rest }) => (
+//                 <Fade bottom key={rest.id}>
+//                   <Component {...rest} key={rest.id} />
+//                 </Fade>
+//               ))}
+//             </CardContainer>
+//           </Section.Container>
+//         )
+//       )
+//     }}
+//   />
+// )
 
-export default Writing
+export default Writing = () => null
