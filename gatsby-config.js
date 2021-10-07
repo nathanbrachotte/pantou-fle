@@ -44,7 +44,7 @@ if (ANALYTICS_ID) {
 module.exports = {
   plugins,
   siteMetadata: {
-    isMediumUserDefined: !!about.mediumUser,
+    // isMediumUserDefined: !!about.mediumUser,
     deterministicBehaviour: !!DETERMINISTIC,
   },
 }
