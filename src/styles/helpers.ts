@@ -1,0 +1,1 @@
+export const centerHorizontally = { marginRight: 'auto', marginLeft: 'auto' }

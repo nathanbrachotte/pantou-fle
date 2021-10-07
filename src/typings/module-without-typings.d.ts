@@ -1,0 +1,7 @@
+declare module 'react-scroll-section'
+declare module 'react-reveal/globals'
+declare module 'react-reveal/Fade'
+declare module 'react-reveal'
+declare module '@rebass/preset'
+declare module 'react-reveal/Slide'
+declare module 'react-headroom'
