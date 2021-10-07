@@ -1,5 +1,5 @@
 import React from 'react'
-import Triangle from '../../../shared/Triangle'
+import Triangle from '../../Triangle'
 
 const Background: React.FC = () => (
   <div>

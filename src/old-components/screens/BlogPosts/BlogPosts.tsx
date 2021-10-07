@@ -2,8 +2,8 @@ import React from 'react'
 import { StaticQuery, graphql, navigate } from 'gatsby'
 
 import Fade from 'react-reveal/Fade'
-import Section from '../../components/Section'
-import { CardContainer } from '../../components/Card'
+import Section from '../../Section'
+import { CardContainer } from '../../Card'
 import Background from './Background'
 import { InternalArticle } from '../../Article/Article'
 
