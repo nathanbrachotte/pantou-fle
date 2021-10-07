@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 
 import Section from '../components/Section'
-import Triangle from '../shared/Triangle'
+import Triangle from '../../shared/Triangle'
 import markdownRenderer from '../components/MarkdownRenderer'
 
 const Fade = require('react-reveal/Fade')

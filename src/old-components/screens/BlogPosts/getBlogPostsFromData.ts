@@ -1,5 +1,5 @@
-import { DEV } from '../../constants'
-import { BlogPost } from '../../types'
+import { DEV } from '../../../constants'
+import { BlogPost } from '../../../types'
 
 export const getBlogPostsFromData = (data: any): BlogPost[] => {
   const posts: BlogPost[] = data.allContentfulBlogPost.edges.map(

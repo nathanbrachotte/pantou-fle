@@ -2,7 +2,7 @@ import React from 'react'
 import TextLoop from 'react-text-loop'
 
 import { Heading, Text } from 'rebass/styled-components'
-import { centerHorizontally } from '../../styles/helpers'
+import { centerHorizontally } from '../../../styles/helpers'
 import { SocialLinksWrapper } from './SocialLink'
 
 const CentralInfo: React.FC<CentralInfoProps> = ({

@@ -4,7 +4,7 @@ import Fade from 'react-reveal/Fade'
 
 import Section from '../../components/Section'
 import { CardContainer } from '../../components/Card'
-import Triangle from '../../shared/Triangle'
+import Triangle from '../../../shared/Triangle'
 import Project from './Project'
 
 const Background = () => (

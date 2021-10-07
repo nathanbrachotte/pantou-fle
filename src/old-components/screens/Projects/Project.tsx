@@ -5,7 +5,7 @@ import { Card } from '../../components/Card'
 import { SocialLink } from '../Landing/SocialLink'
 import ImageSubtitle from '../../components/ImageSubtitle'
 import Hide from '../../components/Hide'
-import { breakpoints } from '../../styles/sizes'
+import { breakpoints } from '../../../styles/sizes'
 
 const CARD_HEIGHT = '200px'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from 'rebass/styled-components'
-import LinkAnimated from './LinkAnimated'
+import LinkAnimated from '../components/LinkAnimated'
 
 interface RouteLinkProps {
   onClick: () => void

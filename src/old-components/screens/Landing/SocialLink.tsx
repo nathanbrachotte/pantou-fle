@@ -3,9 +3,9 @@ import React from 'react'
 import FontAwesomeIcon from 'react-fontawesome'
 import { Box, Flex, Link } from 'rebass/styled-components'
 import styled from 'styled-components'
-import { Tooltip } from '../../shared/Tooltip'
+import { Tooltip } from '../../../shared/Tooltip'
 
-import { Color } from '../../typings/colors'
+import { Color } from '../../../typings/colors'
 
 interface SocialLinkProps {
   fontAwesomeIcon: string

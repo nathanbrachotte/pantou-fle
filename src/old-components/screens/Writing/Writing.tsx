@@ -7,7 +7,7 @@ import Fade from 'react-reveal/Fade'
 import Section from '../../components/Section'
 import { CardContainer, Card } from '../../components/Card'
 import Background from './Background'
-import { ExternalArticle } from '../../components/Article/Article'
+import { ExternalArticle } from '../../Article/Article'
 
 const MEDIUM_CDN = 'https://cdn-images-1.medium.com/max/400'
 const MEDIUM_URL = 'https://medium.com'

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import { Text, Box, Link, Flex } from 'rebass/styled-components'
-import { SocialLink } from '../../screens/Landing/SocialLink'
+import { SocialLink } from '../screens/Landing/SocialLink'
 import { breakpoints } from '../../styles/sizes'
 
 const Fade = require('react-reveal/Fade')

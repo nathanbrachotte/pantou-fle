@@ -4,7 +4,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import Section from '../../components/Section'
 import CentralInfo from './CentralInfo'
 import Background from './Background'
-import { Mouse } from '../../shared/Mouse'
+import { Mouse } from '../../Mouse'
 import { WebsiteScreen } from '../types'
 
 const LandingPage = () => (

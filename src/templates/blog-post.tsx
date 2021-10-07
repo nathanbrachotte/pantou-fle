@@ -3,15 +3,15 @@ import { PageProps } from 'gatsby'
 import { Image, Text, Flex, Box, Heading } from 'rebass/styled-components'
 
 import RehypeReact from 'rehype-react'
-import Section from '../components/Section'
+// import Section from '../components/Section'
 import Background from './Background'
 import { BlogPost } from '../types'
-import { Badge } from '../shared/Badge'
-import VideoBox from '../components/VideoBox'
+import { Badge } from '../old-components/Badge'
+import VideoBox from '../old-components/VideoBox'
 import Layout from '../Layout'
-import SimpleHeader from '../components/Header/SimpleHeader'
-import Footer from '../components/Footer/Footer'
-import Spacer from '../shared/Spacer'
+// import SimpleHeader from '../components/Header/SimpleHeader'
+// import Footer from '../components/Footer/Footer'
+// import Spacer from '../shared/Spacer'
 
 function getBlogPostFromContext(pageContext: any) {
   const post: BlogPost = {
@@ -98,34 +98,34 @@ const BlogPostTemplate: React.FC<PageProps> = ({ pageContext }) => {
       </>
     )
   )
-
-  return (
-    <Layout>
-      <SimpleHeader />
-      <Section.Container
-        id={currentPost?.title || 'error'}
-        Background={Background}>
-        <Flex flexWrap="wrap" justifyContent="center">
-          <Box width={[0.95, 0.8, 0.7]}>
-            <Heading fontSize={[5, 6, 7]} color="textDark">
-              {currentPost?.title}
-            </Heading>
-            <Spacer height="30px" />
-            {AssetComponent}
-            {currentPost?.tags?.map((text, id) => (
-              <Badge key={`badge-${text}-${id}`}>{text}</Badge>
-            ))}
-            <Spacer height="10px" />
-            {renderAst(currentPost?.bodyAst)}
-            <Text style={{ textAlign: 'right' }} color="text">
-              {createdAt2}
-            </Text>
-          </Box>
-        </Flex>
-      </Section.Container>
-      <Footer />
-    </Layout>
-  )
+  return null
+  // return (
+  //   <Layout>
+  //     <SimpleHeader />
+  //     <Section.Container
+  //       id={currentPost?.title || 'error'}
+  //       Background={Background}>
+  //       <Flex flexWrap="wrap" justifyContent="center">
+  //         <Box width={[0.95, 0.8, 0.7]}>
+  //           <Heading fontSize={[5, 6, 7]} color="textDark">
+  //             {currentPost?.title}
+  //           </Heading>
+  //           <Spacer height="30px" />
+  //           {AssetComponent}
+  //           {currentPost?.tags?.map((text, id) => (
+  //             <Badge key={`badge-${text}-${id}`}>{text}</Badge>
+  //           ))}
+  //           <Spacer height="10px" />
+  //           {renderAst(currentPost?.bodyAst)}
+  //           <Text style={{ textAlign: 'right' }} color="text">
+  //             {createdAt2}
+  //           </Text>
+  //         </Box>
+  //       </Flex>
+  //     </Section.Container>
+  //     <Footer />
+  //   </Layout>
+  // )
 }
 
 export default BlogPostTemplate

@@ -5,7 +5,7 @@ import Fade from 'react-reveal/Fade'
 import Section from '../../components/Section'
 import { CardContainer } from '../../components/Card'
 import Background from './Background'
-import { InternalArticle } from '../../components/Article/Article'
+import { InternalArticle } from '../../Article/Article'
 
 import { getBlogPostsFromData } from './getBlogPostsFromData'
 
