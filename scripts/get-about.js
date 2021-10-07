@@ -19,10 +19,10 @@ const main = async () => {
   // TODO: Check what this does and fix it
   // const about = entries.items.find(getAboutEntry).fields
 
-  fs.writeFileSync(
-    path.join(process.cwd(), 'about.json'),
-    JSON.stringify(about, null, 2),
-  )
+  // fs.writeFileSync(
+  //   path.join(process.cwd(), 'about.json'),
+  //   JSON.stringify(about, null, 2),
+  // )
 }
 
 main()

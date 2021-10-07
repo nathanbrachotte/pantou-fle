@@ -1,5 +1,5 @@
 const colors = require('./colors')
-const about = require('./about.json')
+// const about = require('./about.json')
 
 require('dotenv').config()
 
@@ -10,8 +10,8 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
-      name: `${about.name} Portfolio`,
-      short_name: `${about.name} Portfolio`,
+      // name: `${about.name} Portfolio`,
+      // short_name: `${about.name} Portfolio`,
       start_url: '/',
       background_color: colors.background,
       theme_color: colors.primary,
