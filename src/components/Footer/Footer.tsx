@@ -37,59 +37,59 @@ const TextFooter = styled(Text)`
   }
 `
 
-const Footer: React.FC = () => (
-  <StaticQuery
-    query={graphql`
-      query FooterQuery {
-        contentfulAbout {
-          name
-          roles
-          socialLinks {
-            id
-            url
-            name
-            fontAwesomeIcon
-          }
-        }
-      }
-    `}
-    render={(data) => {
-      const { name, socialLinks } = data.contentfulAbout
+// const Footer: React.FC = () => (
+// <StaticQuery
+//   query={graphql`
+//     query FooterQuery {
+//       contentfulAbout {
+//         name
+//         roles
+//         socialLinks {
+//           id
+//           url
+//           name
+//           fontAwesomeIcon
+//         }
+//       }
+//     }
+//   `}
+//   render={(data) => {
+//     const { name, socialLinks } = data.contentfulAbout
 
-      return (
-        <Box p={[2, 3]} backgroundColor="primaryDark" id="footer">
-          <FooterContainer>
-            <Fade left>
-              <TextFooter fontSize={[2, 3]}>
-                <span> Powered by </span>
-                <Link href="https://www.gatsbyjs.org/">Gatsby</Link>
-                <span>, </span>
-                <Link href="https://www.contentful.com/" mr={1}>
-                  Contentful
-                </Link>
-                <span> and </span>
-                <Link href="https://www.netlify.com/" mr={1}>
-                  Netlify
-                </Link>
-                <span role="img" aria-label="heart">
-                  ❤️
-                </span>
-              </TextFooter>
-            </Fade>
-            <Flex>
-              <Fade right>
-                {socialLinks.map(({ id, ...rest }) => (
-                  <Box mx={[2, 3]} fontSize={[4, 5]} key={id}>
-                    <SocialLink {...rest} color="background" />
-                  </Box>
-                ))}
-              </Fade>
-            </Flex>
-          </FooterContainer>
-        </Box>
-      )
-    }}
-  />
-)
+//     return (
+//       <Box p={[2, 3]} backgroundColor="primaryDark" id="footer">
+//         <FooterContainer>
+//           <Fade left>
+//             <TextFooter fontSize={[2, 3]}>
+//               <span> Powered by </span>
+//               <Link href="https://www.gatsbyjs.org/">Gatsby</Link>
+//               <span>, </span>
+//               <Link href="https://www.contentful.com/" mr={1}>
+//                 Contentful
+//               </Link>
+//               <span> and </span>
+//               <Link href="https://www.netlify.com/" mr={1}>
+//                 Netlify
+//               </Link>
+//               <span role="img" aria-label="heart">
+//                 ❤️
+//               </span>
+//             </TextFooter>
+//           </Fade>
+//           <Flex>
+//             <Fade right>
+//               {socialLinks.map(({ id, ...rest }) => (
+//                 <Box mx={[2, 3]} fontSize={[4, 5]} key={id}>
+//                   <SocialLink {...rest} color="background" />
+//                 </Box>
+//               ))}
+//             </Fade>
+//           </Flex>
+//         </FooterContainer>
+//       </Box>
+//     )
+//   }}
+// />
+// )
 
-export default Footer
+export default () => null

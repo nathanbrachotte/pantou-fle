@@ -9,7 +9,7 @@ import { WebsiteScreen } from '../types'
 
 const LandingPage = () => (
   <Section.Container id="home" Background={Background}>
-    <StaticQuery
+    {/* <StaticQuery
       query={graphql`
         query SiteTitleQuery {
           contentfulAbout {
@@ -40,7 +40,7 @@ const LandingPage = () => (
           </>
         )
       }}
-    />
+    /> */}
   </Section.Container>
 )
 

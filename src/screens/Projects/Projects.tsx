@@ -40,7 +40,7 @@ const Background = () => (
 const Projects: React.FC = () => (
   <Section.Container id="projects" Background={Background}>
     <Section.Header name="Projects" icon="💻" label="notebook" />
-    <StaticQuery
+    {/* <StaticQuery
       query={graphql`
         query ProjectsQuery {
           contentfulAbout {
@@ -74,7 +74,7 @@ const Projects: React.FC = () => (
           })}
         </CardContainer>
       )}
-    />
+    /> */}
   </Section.Container>
 )
 
