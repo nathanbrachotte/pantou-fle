@@ -1,12 +1,12 @@
 import React from 'react'
 import { Heading, Box } from 'rebass/styled-components'
 import Layout from '../components/Layout'
-import Section from '../components/Section'
-import Triangle from '../shared/Triangle'
+// import Section from '../components/Section'
+// import Triangle from '../shared/Triangle'
 
 const Background = () => (
   <div>
-    <Triangle
+    {/* <Triangle
       color="backgroundDark"
       height={['35vh', '80vh']}
       width={['95vw', '60vw']}
@@ -25,13 +25,13 @@ const Background = () => (
       width={['50vw', '50vw']}
       invertX
       invertY
-    />
+    /> */}
   </div>
 )
 
 const NotFoundPage = () => (
   <Layout>
-    <Section.Container id="404" Background={Background}>
+    {/* <Section.Container id="404" Background={Background}>
       <Box width={[320, 400, 600]} m="auto">
         <Heading color="textDark" fontSize={['8rem', '12rem', '14rem']} as="h1">
           404
@@ -40,7 +40,7 @@ const NotFoundPage = () => (
           There isn&apos;t anything here
         </Heading>
       </Box>
-    </Section.Container>
+    </Section.Container> */}
   </Layout>
 )
 

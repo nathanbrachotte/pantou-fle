@@ -11,7 +11,7 @@ import colors from '../../colors'
 
 // eslint-disable-next-line import/no-unresolved
 import Helmet from './Helmet'
-import { GlobalStyle } from './shared/GlobalStyles'
+// import { GlobalStyle } from './shared/GlobalStyles'
 
 config({ ssrFadeout: true })
 
@@ -45,7 +45,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <main>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
+        {/* <GlobalStyle /> */}
         <ScrollingProvider>
           <Helmet />
           {children}
