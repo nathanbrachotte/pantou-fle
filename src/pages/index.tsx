@@ -48,6 +48,7 @@ const IndexPage: React.FC = ({ data }: any) => {
     <Layout>
       <Wrapper>
         <SEO />
+        <h1 className="text-3xl font-bold underline">Hello world!</h1>
         {/* <Header /> */}
         <Game link="https://view.genial.ly/61b0ac256b7b2f0d4c0e7ed1" />
         {/* <PDF
