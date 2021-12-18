@@ -12,60 +12,49 @@ import Writing from '../old-components/screens/Writing/Writing'
 import Footer from '../components/Footer/Footer'
 import { allExerciseSheetQuery } from '../api/queries'
 import SEO from '../components/SEO'
+import Game from '../components/Game'
+import PDF from '../components/PDF'
 
-export const query = graphql`
-  query ExerciseSheetQuery {
-    allContentfulFicheExercice {
-      nodes {
-        title
-        slug
-        pdf {
-          id
-          file {
-            fileName
-            url
-            contentType
-          }
-        }
-        level {
-          id
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query ExerciseSheetQuery {
+//     allContentfulFicheExercice {
+//       nodes {
+//         title
+//         slug
+//         pdf {
+//           id
+//           file {
+//             fileName
+//             url
+//             contentType
+//           }
+//         }
+//         level {
+//           id
+//         }
+//       }
+//     }
+//   }
+// `
 
-const IFrameWrapper = styled.div`
-  /* height: 0.7 vh; */
-  min-height: 675px;
-`
-const IFrame = styled.iframe`
+const Wrapper = styled.div`
+  height: 100vh;
   width: 100%;
-  min-height: 675px;
+  background-color: red;
 `
 
 const IndexPage: React.FC = ({ data }: any) => {
   return (
     <Layout>
-      <SEO title="Blog" />
-      {/* <Header /> */}
-      <IFrameWrapper>
-        <IFrame
-          title="iframe"
-          src="https://view.genial.ly/61b0ac256b7b2f0d4c0e7ed1"
-          allowFullScreen={false}
-          scrolling="yes"
-          frameBorder="0"
-        />
-      </IFrameWrapper>
-
-      <iframe
-        title={data.allContentfulFicheExercice.nodes[0].title}
-        src={`${data.allContentfulFicheExercice.nodes[0].pdf.file.url}#toolbar=0`}
-        // style={{ pointerEvents: 'none' }}
-        width="100%"
-        height="1000px"
-      />
+      <Wrapper>
+        <SEO />
+        {/* <Header /> */}
+        <Game link="https://view.genial.ly/61b0ac256b7b2f0d4c0e7ed1" />
+        {/* <PDF
+          title={data.allContentfulFicheExercice.nodes[0].title}
+          url={data.allContentfulFicheExercice.nodes[0].pdf.file.url}
+        /> */}
+      </Wrapper>
       {/* <Landing />
     <About />
     <BlogPosts />
