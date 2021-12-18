@@ -35,7 +35,8 @@ const A1Page: React.FC = () => (
     `}
     render={(data) => {
       console.log('yooo')
-      return null
+      console.log({ data })
+      return <div>hi</div>
     }}
   />
 )
