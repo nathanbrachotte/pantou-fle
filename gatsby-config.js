@@ -61,6 +61,7 @@ const plugins = [
       enableWebVitalsTracking: true,
     },
   },
+  'gatsby-plugin-postcss',
 ]
 
 module.exports = {
