@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Image } from 'rebass'
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, StaticQuery, navigate } from 'gatsby'
 
 import styled from 'styled-components'
 import Layout from '../components/Layout'

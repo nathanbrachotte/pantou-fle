@@ -70,6 +70,7 @@
     "@types/styled-components": "^5.1.4",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
+    "autoprefixer": "^10.4.0",
     "axe-core": "^4.0.1",
     "babel-eslint": "^10.1.0",
     "chalk": "^4.1.0",
@@ -83,8 +84,11 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
+    "gatsby-plugin-postcss": "^5.4.0",
     "inquirer": "^7.3.3",
+    "postcss": "^8.4.5",
     "prettier": "^2.1.1",
-    "start-server-and-test": "^1.11.3"
+    "start-server-and-test": "^1.11.3",
+    "tailwindcss": "^3.0.7"
   }
 }
