@@ -1,5 +1,6 @@
 import React from 'react'
 import { StaticQuery, graphql, navigate } from 'gatsby'
+import Header from '../../components/Header'
 
 const A1Page: React.FC = () => (
   <StaticQuery
@@ -36,7 +37,7 @@ const A1Page: React.FC = () => (
     render={(data) => {
       console.log('yooo')
       console.log({ data })
-      return <div>hi</div>
+      return <Header />
     }}
   />
 )

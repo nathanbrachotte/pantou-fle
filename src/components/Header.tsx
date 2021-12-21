@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
   BookmarkAltIcon,
@@ -255,7 +255,7 @@ export default function Example() {
                             <h3 className="text-sm tracking-wide font-medium text-gray-500 uppercase">
                               Recent Posts
                             </h3>
-                            <ul role="list" className="mt-4 space-y-4">
+                            <ul className="mt-4 space-y-4">
                               {recentPosts.map((post) => (
                                 <li
                                   key={post.id}
@@ -273,8 +273,7 @@ export default function Example() {
                             <a
                               href="#"
                               className="font-medium text-indigo-600 hover:text-indigo-500">
-                              {' '}
-                              View all posts{' '}
+                              View all posts
                               <span aria-hidden="true">&rarr;</span>
                             </a>
                           </div>
