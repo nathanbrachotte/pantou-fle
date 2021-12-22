@@ -62,7 +62,7 @@ netlify.toml
 
 # mac FS
 .DS_Store
-.vscode/
+# .vscode/
 about.json
 
 dist
