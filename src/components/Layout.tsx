@@ -10,7 +10,7 @@ import preset from '@rebass/preset'
 import colors from '../../colors'
 
 // eslint-disable-next-line import/no-unresolved
-import Helmet from './Helmet'
+// import Helmet from './Helmet'
 // import { GlobalStyle } from './shared/GlobalStyles'
 
 config({ ssrFadeout: true })
@@ -47,7 +47,7 @@ const Layout: React.FC = ({ children }) => {
       <ThemeProvider theme={theme}>
         {/* <GlobalStyle /> */}
         <ScrollingProvider>
-          <Helmet />
+          {/* <Helmet /> */}
           {children}
         </ScrollingProvider>
       </ThemeProvider>

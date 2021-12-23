@@ -14,6 +14,7 @@ import { allExerciseSheetQuery } from '../api/queries'
 import SEO from '../components/SEO'
 import Game from '../components/Game'
 import PDF from '../components/PDF'
+import Header from '../components/Header'
 
 // export const query = graphql`
 //   query ExerciseSheetQuery {
@@ -46,6 +47,7 @@ const Wrapper = styled.div`
 const IndexPage: React.FC = ({ data }: any) => {
   return (
     <Layout>
+      <Header />
       <div className="h-screen w-screen bg-red-400">
         <SEO />
         <h1 className="text-3xl font-mono underline text-stone-100">

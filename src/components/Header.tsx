@@ -16,6 +16,8 @@ import {
 } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
+import Logo from './Logo'
+
 const solutions = [
   {
     name: 'Analytics',
@@ -105,11 +107,7 @@ export default function Example() {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
               <span className="sr-only">Workflow</span>
-              <img
-                className="h-8 w-auto sm:h-10"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt=""
-              />
+              <Logo />
             </a>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
