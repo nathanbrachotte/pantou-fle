@@ -7,7 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
     }
 
-  body {
+  /* body {
     box-sizing: border-box; 
     margin: 0;
     font-family: Cabin, 'Open Sans', sans-serif;
@@ -15,5 +15,5 @@ export const GlobalStyle = createGlobalStyle`
     width: 100vw;
     background: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.text};
-  }
+  } */
 `

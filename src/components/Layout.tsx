@@ -33,13 +33,13 @@ const Layout: React.FC = ({ children }) => {
   }, [])
 
   const theme = {
-    ...preset,
-    colors: darkMode.value ? colors.dark : colors.light,
-    fonts: {
-      body: 'Cabin, Open Sans, sans-serif',
-      heading: 'inherit',
-      monospace: 'monospace',
-    },
+    // ...preset,
+    // colors: darkMode.value ? colors.dark : colors.light,
+    // fonts: {
+    //   body: 'Cabin, Open Sans, sans-serif',
+    //   heading: 'inherit',
+    //   monospace: 'monospace',
+    // },
   }
 
   return (
