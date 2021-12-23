@@ -2,7 +2,7 @@ import React from 'react'
 import { StaticQuery, graphql, navigate } from 'gatsby'
 import Header from '../../components/Header'
 
-const A1Page: React.FC = () => (
+const A1Page: React.FC = ({ ...rest }) => (
   <StaticQuery
     query={graphql`
       query AllA1Query {
@@ -35,6 +35,7 @@ const A1Page: React.FC = () => (
       }
     `}
     render={(data) => {
+      console.log({ rest })
       console.log('yooo')
       console.log({ data })
       return <Header />

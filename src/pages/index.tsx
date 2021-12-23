@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Image } from 'rebass'
-import { graphql, StaticQuery, navigate } from 'gatsby'
+import { graphql, StaticQuery, navigate, PageProps } from 'gatsby'
 
 import styled from 'styled-components'
 import Layout from '../components/Layout'
@@ -44,10 +44,9 @@ const Wrapper = styled.div`
   /* background-color: red; */
 `
 
-const IndexPage: React.FC = ({ data }: any) => {
+const IndexPage: React.FC<PageProps> = ({ data, uri }) => {
   return (
-    <Layout>
-      <Header />
+    <Root uri={uri}>
       <div className="h-screen w-screen bg-red-400">
         <SEO />
         <h1 className="text-3xl font-mono underline text-stone-100">
@@ -70,7 +69,7 @@ const IndexPage: React.FC = ({ data }: any) => {
     <About />
     <BlogPosts />
     <Footer /> */}
-    </Layout>
+    </Root>
   )
 }
 

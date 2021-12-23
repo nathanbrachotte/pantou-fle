@@ -17,6 +17,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
 import Logo from './Logo'
+import { classNames } from '../styles/helpers'
 
 const solutions = [
   {
@@ -95,46 +96,33 @@ const recentPosts = [
   { id: 3, name: 'Improve your customer experience', href: '#' },
 ]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-export default function Example() {
+const Header: React.FC<{ uri: string }> = ({ uri }) => {
+  console.log({ uri })
   return (
     <Popover className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+        <div className="flex justify-between items-center border-b-2 border-red py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
               <span className="sr-only">Workflow</span>
               <Logo />
             </a>
           </div>
-          <div className="-mr-2 -my-2 md:hidden">
-            <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-              <span className="sr-only">Open menu</span>
-              <MenuIcon className="h-6 w-6" aria-hidden="true" />
-            </Popover.Button>
-          </div>
+          <a
+            href="/a1"
+            className={classNames(
+              uri === '/a1'
+                ? 'bg-primary-dark text-white'
+                : 'bg-white text-primary-dark hover:text-secondary-dark',
+              'rounded-md inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-dark',
+            )}>
+            <span>A1 🐣</span>
+          </a>
+
           <Popover.Group as="nav" className="hidden md:flex space-x-10">
             <Popover className="relative">
               {({ open }) => (
                 <>
-                  <Popover.Button
-                    className={classNames(
-                      open ? 'text-gray-900' : 'text-gray-500',
-                      'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
-                    )}>
-                    <span>Solutions</span>
-                    <ChevronDownIcon
-                      className={classNames(
-                        open ? 'text-gray-600' : 'text-gray-400',
-                        'ml-2 h-5 w-5 group-hover:text-gray-500',
-                      )}
-                      aria-hidden="true"
-                    />
-                  </Popover.Button>
-
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-200"
@@ -387,3 +375,5 @@ export default function Example() {
     </Popover>
   )
 }
+
+export default Header

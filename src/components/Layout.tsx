@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components'
 import { ScrollingProvider } from 'react-scroll-section'
 import preset from '@rebass/preset'
 import colors from '../../colors'
+import Header from './Header'
 
 // eslint-disable-next-line import/no-unresolved
 // import Helmet from './Helmet'
@@ -23,7 +24,7 @@ const loadScript = (src: string) => {
   document.getElementsByTagName('body')[0].appendChild(tag)
 }
 
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FC = ({ children, uri }) => {
   const darkMode = useDarkMode(false, {
     storageKey: 'darkMode',
   })
@@ -48,6 +49,7 @@ const Layout: React.FC = ({ children }) => {
         {/* <GlobalStyle /> */}
         <ScrollingProvider>
           {/* <Helmet /> */}
+          <Header uri={uri} />
           {children}
         </ScrollingProvider>
       </ThemeProvider>
