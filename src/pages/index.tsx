@@ -40,22 +40,30 @@ import PDF from '../components/PDF'
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
-  background-color: red;
+  /* background-color: red; */
 `
 
 const IndexPage: React.FC = ({ data }: any) => {
   return (
     <Layout>
-      <Wrapper>
+      <div className="h-screen w-screen bg-red-400">
         <SEO />
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <h1 className="text-3xl font-mono underline text-stone-100">
+          Hello world!
+        </h1>
+        <h1 className="text-3xl font-mono underline text-primary">
+          Hello world!
+        </h1>
+        <h1 className="text-3xl font-mono underline text-secondary-light">
+          Hello world!
+        </h1>
         {/* <Header /> */}
         <Game link="https://view.genial.ly/61b0ac256b7b2f0d4c0e7ed1" />
         {/* <PDF
           title={data.allContentfulFicheExercice.nodes[0].title}
           url={data.allContentfulFicheExercice.nodes[0].pdf.file.url}
         /> */}
-      </Wrapper>
+      </div>
       {/* <Landing />
     <About />
     <BlogPosts />

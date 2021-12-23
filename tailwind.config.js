@@ -1,7 +1,7 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    theme: {
+    extend: {
       screens: {
         sm: '480px',
         md: '768px',
@@ -9,30 +9,31 @@ module.exports = {
         xl: '1440px',
       },
       colors: {
-        blue: '#1fb6ff',
-        purple: '#7e5bef',
-        pink: '#ff49db',
-        orange: '#ff7849',
-        green: '#13ce66',
-        yellow: '#ffc82c',
-        'gray-dark': '#273444',
-        gray: '#8492a6',
-        'gray-light': '#d3dce6',
+        transparent: 'transparent',
+        current: 'currentColor',
+        white: '#F9FAFF',
+        'primary-light': '#BFC0F0',
+        'primary-dark': '#1C1E52',
+        primary: '#393A73',
+        'secondary-very-light': '#FEC0A0',
+        'secondary-light': '#FD8061',
+        'secondary-dark': '#DE5E78',
+        'tertiary-light': '#E6F8FF',
+        tertiary: '#00B5FF',
+        error: '#DE5E78',
+        success: '#24997F',
       },
       fontFamily: {
         sans: ['Graphik', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
       },
-      extend: {
-        spacing: {
-          128: '32rem',
-          144: '36rem',
-        },
-        borderRadius: {
-          '4xl': '2rem',
-        },
+      spacing: {
+        128: '32rem',
+        144: '36rem',
+      },
+      borderRadius: {
+        '4xl': '2rem',
       },
     },
   },
-  plugins: [],
 }
