@@ -6,9 +6,9 @@ import config from 'react-reveal/globals'
 
 import { ThemeProvider } from 'styled-components'
 import { ScrollingProvider } from 'react-scroll-section'
-import preset from '@rebass/preset'
-import colors from '../../colors'
+
 import Header from './Header'
+import SEO from './SEO'
 
 // eslint-disable-next-line import/no-unresolved
 // import Helmet from './Helmet'
@@ -24,13 +24,13 @@ const loadScript = (src: string) => {
   document.getElementsByTagName('body')[0].appendChild(tag)
 }
 
-const Layout: React.FC = ({ children, uri }) => {
+const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
   const darkMode = useDarkMode(false, {
     storageKey: 'darkMode',
   })
 
   useEffect(() => {
-    loadScript('https://use.fontawesome.com/fd58d214b9.js')
+    // loadScript('https://use.fontawesome.com/fd58d214b9.js')
   }, [])
 
   const theme = {
@@ -44,17 +44,19 @@ const Layout: React.FC = ({ children, uri }) => {
   }
 
   return (
-    <main>
-      <ThemeProvider theme={theme}>
+    <>
+      <SEO />
+      <main>
+        <Header uri={uri} />
+        {/* <ThemeProvider theme={theme}> */}
         {/* <GlobalStyle /> */}
-        <ScrollingProvider>
-          {/* <Helmet /> */}
-          <Header uri={uri} />
-          {children}
-        </ScrollingProvider>
-      </ThemeProvider>
-    </main>
+        {/* <ScrollingProvider> */}
+        {children}
+        {/* </ScrollingProvider> */}
+        {/* </ThemeProvider> */}
+      </main>
+    </>
   )
 }
 
-export default Layout
+export default Root
