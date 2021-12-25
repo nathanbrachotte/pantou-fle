@@ -46,7 +46,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
   return (
     <>
       <SEO />
-      <main>
+      <main className="bg-background h-screen w-screen">
         <Header uri={uri} />
         {/* <ThemeProvider theme={theme}> */}
         {/* <GlobalStyle /> */}

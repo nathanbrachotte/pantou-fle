@@ -14,47 +14,53 @@ import {
   XIcon,
 } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import '@fontsource/m-plus-rounded-1c'
 
 import Logo from './Logo'
 import { classNames } from '../styles/helpers'
+import Splash from './Splash'
 
 const Header: React.FC<{ uri: string }> = ({ uri }) => {
   return (
-    <div className="relative bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center border-b-2 border-red py-6 md:justify-start md:space-x-4">
-          <div className="flex justify-start">
-            <a href="/" className="mr-6">
-              <span className="sr-only">Home</span>
-              <Logo />
+    <>
+      <div className="sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
+      <div className="relative bg-white">
+        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}
+        <div className="mx-auto px-4">
+          {/* <div className="flex justify-between items-center border-b-2 border-red py-6 md:justify-start md:space-x-4"> */}
+          <div className="flex items-center border-b-2 border-red py-6 justify-start space-x-4">
+            <div className="flex justify-start">
+              <a href="/" className="mr-6">
+                <span className="sr-only">Home</span>
+                <Logo withLabel />
+              </a>
+            </div>
+            <a
+              href="/a1"
+              className={classNames(
+                uri === '/a1'
+                  ? 'bg-primary-dark text-white'
+                  : 'bg-white text-primary-dark hover:text-secondary-dark',
+                'rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3',
+              )}>
+              <span role="img" aria-label="A1 chick in egg">
+                A1 🐣
+              </span>
             </a>
-          </div>
-          <a
-            href="/a1"
-            className={classNames(
-              uri === '/a1'
-                ? 'bg-primary-dark text-white'
-                : 'bg-white text-primary-dark hover:text-secondary-dark',
-              'rounded-md inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark p-1',
-            )}>
-            <span role="img" aria-label="A1 chick in egg">
-              A1 🐣
-            </span>
-          </a>
-          <a
-            href="/a2"
-            className={classNames(
-              uri === '/a2'
-                ? 'bg-primary-dark text-white'
-                : 'bg-white text-primary-dark hover:text-secondary-dark',
-              'rounded-md inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark p-1',
-            )}>
-            <span role="img" aria-label="A2 chick">
-              A2 🐥
-            </span>
-          </a>
-
-          {/* <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+            <a
+              href="/a2"
+              className={classNames(
+                uri === '/a2'
+                  ? 'bg-primary-dark text-white'
+                  : 'bg-white text-primary-dark hover:text-secondary-dark',
+                'rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3',
+              )}>
+              <span role="img" aria-label="A2 chick">
+                A2 🐥
+              </span>
+            </a>
+            <Splash />
+            {/* <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             <a
               href="#"
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
@@ -66,9 +72,10 @@ const Header: React.FC<{ uri: string }> = ({ uri }) => {
               Sign up
             </a>
           </div> */}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
