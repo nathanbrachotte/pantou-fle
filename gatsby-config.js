@@ -68,6 +68,7 @@ const plugins = [
     },
   },
   'gatsby-plugin-postcss',
+  'gatsby-plugin-image',
 ]
 
 module.exports = {
