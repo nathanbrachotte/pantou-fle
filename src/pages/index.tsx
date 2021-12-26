@@ -14,6 +14,7 @@ import { allExerciseSheetQuery } from '../api/queries'
 import Game from '../components/Game'
 import PDF from '../components/PDF'
 import Header from '../components/Header'
+import { Badge } from '../components/Badge'
 
 // export const query = graphql`
 //   query ExerciseSheetQuery {
@@ -47,10 +48,13 @@ const IndexPage: React.FC<PageProps> = ({ data, uri }) => {
       <h1 className="text-3xl font-nunito font-bold text-primary">
         Hello world!
       </h1>
-      <h1 className="text-3xl font-mPlusRounded font-bold text-primary">
+      <Badge text="yo" />
+      <Badge text="yo" />
+      <Badge text="yo" />
+      <Badge text="yo" />
+      <h1 className="text-3xl font-logo font-bold text-primary">
         Hello world!
       </h1>
-
       <Game link="https://view.genial.ly/61b0ac256b7b2f0d4c0e7ed1" />
       {/* <PDF
           title={data.allContentfulFicheExercice.nodes[0].title}
