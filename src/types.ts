@@ -16,3 +16,35 @@ const colors = {
 } as const
 
 export type Color = keyof typeof colors
+export type URL = string
+
+type AllContentfulRequests = 'allContentfulFicheExercice'
+
+export type ContenfulResponse<
+  Request extends AllContentfulRequests,
+  Data extends Record<string, any>
+> = {
+  [key in Request]: {
+    nodes: Data[]
+  }
+}
+
+export interface FicheExercice {
+  level: { id: string }
+  pdf: {
+    id: string
+    file: {
+      contentType: string
+      fileName: string
+      url: URL
+      id: URL
+    }
+  }
+  slug: string
+  title: string
+}
+
+export type IndexContenfulResponse = ContenfulResponse<
+  'allContentfulFicheExercice',
+  FicheExercice
+>
