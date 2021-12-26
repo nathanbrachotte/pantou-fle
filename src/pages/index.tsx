@@ -15,6 +15,9 @@ import Game from '../components/Game'
 import PDF from '../components/PDF'
 import Header from '../components/Header'
 import { Badge } from '../components/Badge'
+import { Article } from '../components/Article'
+import CardSection from '../components/CardSection'
+import KoFiButton from '../components/KoFiButton'
 
 // export const query = graphql`
 //   query ExerciseSheetQuery {
@@ -52,6 +55,7 @@ const IndexPage: React.FC<PageProps> = ({ data, uri }) => {
       <Badge text="yo" />
       <Badge text="yo" />
       <Badge text="yo" />
+      <CardSection />
       <h1 className="text-3xl font-logo font-bold text-primary">
         Hello world!
       </h1>
@@ -64,6 +68,21 @@ const IndexPage: React.FC<PageProps> = ({ data, uri }) => {
     <About />
     <BlogPosts />
     <Footer /> */}
+      <KoFiButton />
+      <iframe
+        width="960"
+        height="633.6"
+        data-original-width="1050"
+        data-original-height="693"
+        src="https://www.thinglink.com/card/1531686867668303873"
+        type="text/html"
+        frameBorder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowFullScreen
+        scrolling="no"
+      />
+      <script async src="//cdn.thinglink.me/jse/responsive.js" />
     </Root>
   )
 }
