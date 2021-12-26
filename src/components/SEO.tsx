@@ -24,6 +24,22 @@ const SEO: React.FC = () => {
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
 
+  React.useEffect(() => {
+    const scriptTag = document.createElement('script')
+    console.log('yo', scriptTag)
+    scriptTag.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'
+    scriptTag.addEventListener('load', (e) => {
+      console.log('KoFi Loaded', e)
+      kofiWidgetOverlay.draw('pantou_fle', {
+        type: 'floating-chat',
+        'floating-chat.donateButton.text': 'Aidez-nous!',
+        'floating-chat.donateButton.background-color': '#1C1E52',
+        'floating-chat.donateButton.text-color': '#F9FAFF',
+      })
+    })
+    document.body.appendChild(scriptTag)
+  }, [])
+
   return (
     <Helmet
       htmlAttributes={{

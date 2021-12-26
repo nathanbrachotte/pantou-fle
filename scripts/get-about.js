@@ -15,7 +15,8 @@ const getAboutEntry = (entry) => entry.sys.contentType.sys.id === 'about'
 
 const main = async () => {
   const entries = await client.getEntries()
-  console.log(entries)
+  // console.log(entries)
+
   // TODO: Check what this does and fix it
   // const about = entries.items.find(getAboutEntry).fields
 

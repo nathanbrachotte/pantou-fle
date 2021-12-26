@@ -10,6 +10,7 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
           query AllA1Query {
             allContentfulFicheExercice(
               filter: { level: { title: { eq: "A1" } } }
+              sort: { fields: createdAt, order: DESC }
             ) {
               edges {
                 node {
@@ -18,6 +19,7 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
                     file {
                       url
                     }
+                    createdAt
                   }
                   level {
                     title
@@ -25,7 +27,10 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
                 }
               }
             }
-            allContentfulGame(filter: { level: { title: { eq: "A1" } } }) {
+            allContentfulGame(
+              filter: { level: { title: { eq: "A1" } } }
+              sort: { fields: createdAt, order: DESC }
+            ) {
               edges {
                 node {
                   title
@@ -33,6 +38,7 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
                   level {
                     title
                   }
+                  createdAt
                 }
               }
             }

@@ -3,7 +3,7 @@ import { Image } from 'rebass'
 
 import logo from '../../assets/logo.svg'
 import logoCircle from '../../assets/logo_circle.svg'
-import logoTitle from '../../assets/logo_title.svg'
+import logoTitle from '../../assets/title_and_subtitle.svg'
 
 const Logo: React.FC<{
   withCircleBackground?: boolean

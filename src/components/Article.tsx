@@ -22,10 +22,6 @@ interface SharedArticleProps {
   date: string
 }
 
-interface ExternalArticleProps extends SharedArticleProps {
-  url: string
-}
-
 interface InternalArticleProps extends SharedArticleProps {
   onClick: () => void
 }
@@ -36,35 +32,7 @@ const CoverImage = styled.img`
   object-fit: cover;
 `
 
-export const ExternalArticle: React.FC<ExternalArticleProps> = ({
-  title,
-  text,
-  image,
-  url,
-  date,
-  time,
-}) => (
-  <a
-    href={url}
-    target="__blank"
-    title={title}
-    style={{ textDecoration: 'none' }}>
-    <Card pb={4} onClick={() => null}>
-      <EllipsisHeading m={3} p={1} color="text">
-        {title}
-      </EllipsisHeading>
-      {image && <CoverImage src={image} height="200px" alt={title} />}
-      <Text m={3} color="text">
-        {text}
-      </Text>
-      <ImageSubtitle bg="primary" color="white" x="right" y="bottom" round>
-        {`${date} - ${Math.ceil(time)} min`}
-      </ImageSubtitle>
-    </Card>
-  </a>
-)
-
-export const InternalArticle: React.FC<InternalArticleProps> = ({
+export const Article: React.FC<InternalArticleProps> = ({
   title,
   text,
   image,

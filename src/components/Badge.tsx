@@ -10,7 +10,7 @@ interface BadgeProps {
 
 export const Badge: React.FC<BadgeProps> = ({
   text,
-  color = 'secondary-dark',
+  color = 'primary-dark',
   logo,
 }) => {
   return (
