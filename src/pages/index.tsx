@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { Image } from 'rebass'
-import { graphql, StaticQuery, navigate, PageProps } from 'gatsby'
+import {
+  graphql,
+  StaticQuery,
+  navigate,
+  PageProps,
+  useStaticQuery,
+} from 'gatsby'
 
 import styled from 'styled-components'
 import Root from '../components/Root'
@@ -16,32 +22,40 @@ import PDF from '../components/PDF'
 import Header from '../components/Header'
 import { Badge } from '../components/Badge'
 import { Article } from '../components/Article'
-import CardSection from '../components/CardSection'
+import CardSection from '../components/FicheExerciceSection'
 import KoFiButton from '../components/KoFiButton'
+import useKoFiButton from '../hooks/useKoFiButton'
+import { IndexContenfulResponse } from '../types'
+import FicheExerciceSection from '../components/FicheExerciceSection'
 
-// export const query = graphql`
-//   query ExerciseSheetQuery {
-//     allContentfulFicheExercice {
-//       nodes {
-//         title
-//         slug
-//         pdf {
-//           id
-//           file {
-//             fileName
-//             url
-//             contentType
-//           }
-//         }
-//         level {
-//           id
-//         }
-//       }
-//     }
-//   }
-// `
+export const query = graphql`
+  query ExerciseSheetQuery {
+    allContentfulFicheExercice {
+      nodes {
+        title
+        slug
+        pdf {
+          id
+          file {
+            fileName
+            url
+            contentType
+          }
+        }
+        level {
+          id
+        }
+      }
+    }
+  }
+`
 
-const IndexPage: React.FC<PageProps> = ({ data, uri }) => {
+const IndexPage: React.FC<PageProps> = ({ uri }) => {
+  useKoFiButton()
+
+  // TODO: https://dev.to/kojikanao/generate-types-from-contentful-49p8
+  const staticData = useStaticQuery(query) as IndexContenfulResponse
+
   return (
     <Root uri={uri}>
       <h1 className="text-3xl font-nunito font-light text-secondary-light">
@@ -55,7 +69,9 @@ const IndexPage: React.FC<PageProps> = ({ data, uri }) => {
       <Badge text="yo" />
       <Badge text="yo" />
       <Badge text="yo" />
-      <CardSection />
+      <FicheExerciceSection
+        fiches={staticData.allContentfulFicheExercice.nodes}
+      />
       <h1 className="text-3xl font-logo font-bold text-primary">
         Hello world!
       </h1>
@@ -77,8 +93,8 @@ const IndexPage: React.FC<PageProps> = ({ data, uri }) => {
         src="https://www.thinglink.com/card/1531686867668303873"
         type="text/html"
         frameBorder="0"
-        webkitallowfullscreen
-        mozallowfullscreen
+        webkitallowfullscreen="true"
+        mozallowfullscreen="true"
         allowFullScreen
         scrolling="no"
       />

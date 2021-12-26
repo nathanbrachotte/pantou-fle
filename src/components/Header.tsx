@@ -20,7 +20,33 @@ import Logo from './Logo'
 import { classNames } from '../styles/helpers'
 import Splash from './Splash'
 
-const Header: React.FC<{ uri: string }> = ({ uri }) => {
+interface Props {
+  uri: string
+}
+
+const LEVELS = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'] as const
+const LEVELS_LOGOS = ['🐣', '🐥', '👶', '🎓', '👨', '🧓'] as const
+
+const Item: React.FC<
+  Props & { level: typeof LEVELS[number]; index: number }
+> = ({ uri, level, index }) => {
+  return (
+    <a
+      href={`/${level}`}
+      className={classNames(
+        uri === `/${level}`
+          ? 'bg-primary-dark text-white'
+          : 'bg-white text-primary-dark hover:text-secondary-dark',
+        'rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3',
+      )}>
+      <span role="img" aria-label={`${level} logo`}>
+        {`${level.toUpperCase()} ${LEVELS_LOGOS[index]}`}
+      </span>
+    </a>
+  )
+}
+
+const Header: React.FC<Props> = ({ uri }) => {
   return (
     <>
       <div className="sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
@@ -35,31 +61,12 @@ const Header: React.FC<{ uri: string }> = ({ uri }) => {
                 <Logo withLabel />
               </a>
             </div>
-            <a
-              href="/a1"
-              className={classNames(
-                uri === '/a1'
-                  ? 'bg-primary-dark text-white'
-                  : 'bg-white text-primary-dark hover:text-secondary-dark',
-                'rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3',
-              )}>
-              <span role="img" aria-label="A1 chick in egg">
-                A1 🐣
-              </span>
-            </a>
-            <a
-              href="/a2"
-              className={classNames(
-                uri === '/a2'
-                  ? 'bg-primary-dark text-white'
-                  : 'bg-white text-primary-dark hover:text-secondary-dark',
-                'rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3',
-              )}>
-              <span role="img" aria-label="A2 chick">
-                A2 🐥
-              </span>
-            </a>
+            {LEVELS.map((level, index) => (
+              <Item uri={uri} level={level} index={index} key={level} />
+            ))}
+
             <Splash />
+            {/* TODO: Log In */}
             {/* <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             <a
               href="#"
