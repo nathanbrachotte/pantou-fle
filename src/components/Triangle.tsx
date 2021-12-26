@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Color } from '../typings/colors'
+import { Color } from '../../colors'
 
 interface TriangleProps {
   color: string

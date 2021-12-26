@@ -1,6 +1,7 @@
+import { PageProps } from 'gatsby'
 import React from 'react'
 import { Heading, Box } from 'rebass/styled-components'
-import Layout from '../components/Layout'
+import Root from '../components/Root'
 // import Section from '../components/Section'
 // import Triangle from '../shared/Triangle'
 
@@ -29,8 +30,9 @@ const Background = () => (
   </div>
 )
 
-const NotFoundPage = () => (
-  <Layout>
+const NotFoundPage: React.FC<PageProps> = ({ uri }) => (
+  <Root uri={uri}>
+    40404040404040404040404040404040404040404040404040
     {/* <Section.Container id="404" Background={Background}>
       <Box width={[320, 400, 600]} m="auto">
         <Heading color="textDark" fontSize={['8rem', '12rem', '14rem']} as="h1">
@@ -41,7 +43,7 @@ const NotFoundPage = () => (
         </Heading>
       </Box>
     </Section.Container> */}
-  </Layout>
+  </Root>
 )
 
 export default NotFoundPage

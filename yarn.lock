@@ -1178,6 +1178,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/m-plus-rounded-1c@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/m-plus-rounded-1c/-/m-plus-rounded-1c-4.5.0.tgz#cff45a53f932ce2ca4c65f4838fd0030e1aed762"
+  integrity sha512-1aEtf8LHAlihD4UrFI8rIhhBP/xZ62fvefKUqh5b1E+kcGYDOBSk6BaH3q0R7vmZHUjpjUCxrqIdt7GfUWc9yg==
+
 "@fortawesome/fontawesome-free@^5.14.0":
   version "5.15.2"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.2.tgz#218cd7276ab4f9ab57cc3d2efa2697e6a579f25d"

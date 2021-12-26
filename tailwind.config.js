@@ -12,6 +12,7 @@ module.exports = {
         transparent: 'transparent',
         current: 'currentColor',
         white: '#F9FAFF',
+        background: '#F9FAFF',
         'primary-light': '#BFC0F0',
         'primary-dark': '#1C1E52',
         primary: '#393A73',
@@ -26,6 +27,7 @@ module.exports = {
       fontFamily: {
         sans: ['Graphik', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
+        nunito: ['Nunito'],
       },
       spacing: {
         128: '32rem',
@@ -36,4 +38,5 @@ module.exports = {
       },
     },
   },
+  plugin: [],
 }

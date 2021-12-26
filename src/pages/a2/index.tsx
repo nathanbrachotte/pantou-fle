@@ -7,9 +7,9 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
     <Root uri={uri}>
       <StaticQuery
         query={graphql`
-          query AllA1Query {
+          query AllA2Query {
             allContentfulFicheExercice(
-              filter: { level: { title: { eq: "A1" } } }
+              filter: { level: { title: { eq: "A2" } } }
             ) {
               edges {
                 node {
@@ -25,7 +25,7 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
                 }
               }
             }
-            allContentfulGame(filter: { level: { title: { eq: "A1" } } }) {
+            allContentfulGame(filter: { level: { title: { eq: "A2" } } }) {
               edges {
                 node {
                   title
@@ -41,7 +41,7 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
         render={(data) => {
           console.log('yooo')
           console.log({ data })
-          return <span>yooo A1</span>
+          return <span>yooo A2</span>
         }}
       />
     </Root>
