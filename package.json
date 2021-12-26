@@ -3,6 +3,7 @@
   "author": "Nathan Brachotte",
   "description": "my personal website",
   "version": "0.1.0",
+  "license": "UNLICENSED",
   "scripts": {
     "pre-build": "node scripts/get-about",
     "build": "yarn pre-build && gatsby build",
