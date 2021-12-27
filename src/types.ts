@@ -51,6 +51,10 @@ export interface FicheExercice {
   }
   slug: string
   title: string
+  createdAt: string
+  description: {
+    raw: string
+  }
 }
 
 export interface Game {

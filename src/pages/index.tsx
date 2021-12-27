@@ -10,19 +10,11 @@ import {
 
 import styled from 'styled-components'
 import Root from '../components/Root'
-import Landing from '../old-components/screens/Landing/Landing'
-import About from '../old-components/screens/About'
-import Projects from '../old-components/screens/Projects/Projects'
-import BlogPosts from '../old-components/screens/BlogPosts/BlogPosts'
-import Writing from '../old-components/screens/Writing/Writing'
-import Footer from '../components/Footer/Footer'
-import { allExerciseSheetQuery } from '../api/queries'
 import Game from '../components/Game'
 import PDF from '../components/PDF'
 import Header from '../components/Header'
 import { Badge } from '../components/Badge'
 import { Article } from '../components/Article'
-import CardSection from '../components/FicheExerciceSection'
 import KoFiButton from '../components/KoFiButton'
 import useKoFiButton from '../hooks/useKoFiButton'
 import { IndexContenfulResponse } from '../types'
@@ -45,6 +37,10 @@ export const query = graphql`
         }
         level {
           id
+        }
+        createdAt
+        description {
+          raw
         }
       }
     }

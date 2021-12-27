@@ -6,13 +6,12 @@ interface FicheExerciceSectionProps {
 }
 
 const FichePreview: React.FC<{ fiche: FicheExercice }> = ({ fiche }) => {
-  console.log({ fiche })
   return (
     <li className="overflow-hidden rounded-2xl bg-white p-2 max-w-lg">
       <a
         href={`/${fiche.slug}`}
         className="flex flex-row items-center justify-center">
-        <div className="flex-1 w-1/2">
+        <div className="flex-1 w-1/2 self-start">
           <img
             src="https://wallpapercave.com/wp/wp4676582.jpg"
             alt=""
@@ -20,13 +19,24 @@ const FichePreview: React.FC<{ fiche: FicheExercice }> = ({ fiche }) => {
           />
         </div>
         {/* <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-black/75" /> */}
-        <div className="flex-1 w-1/2 p-2 self-start">
-          <div>
-            <p className="text-xs text-secondary-light font-light pb-1">
+        <div className="flex-1 w-1/2 p-2 self-stretch">
+          <div className="flex flex-col justify-between items-stretch h-full">
+            <p className="flex-none text-xs text-secondary-light font-light pb-1">
               Fiche Exercice
             </p>
-            <h2 className="text-primary-dark font-semi-bold">{fiche.title}</h2>
-            <p className="text-primary-dark text-xs">Lorem ipsum dolo</p>
+            <div className="flex-1 h-full">
+              <h2 className="text-primary-dark font-semi-bold">
+                {fiche.title}
+              </h2>
+              <p className=" text-primary-dark text-xs">
+                Lorem ipsum doloipsum dolo ipsum dolo ipsum dolo ipsum dolo
+                ipsum dolo ipsum dolo ipsum dolo ipsum doloipsum dolo ipsum dolo
+                ipsum doloipsum dolo
+              </p>
+            </div>
+            <p className="flex-none text-primary text-xs pt-1">
+              {fiche.createdAt}
+            </p>
           </div>
         </div>
       </a>
