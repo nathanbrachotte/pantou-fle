@@ -9,52 +9,70 @@ const path = require('path')
 exports.onPostBuild = ({ reporter }) => {
   reporter.info(`Your Gatsby site has been built!`)
 }
+
 // Create blog pages dynamically
-// exports.createPages = async ({ graphql, actions }) => {
-//   const { createPage } = actions
-//   const ficheExerciceTemplate = path.resolve(`src/templates/blog-post.tsx`)
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+  const ficheExerciceTemplate = path.resolve(`src/templates/fiche-exercice.tsx`)
+  const gameTemplate = path.resolve(`src/templates/game.tsx`)
 
-//   const result = await graphql(`
-//     query BlogPostQuery {
-//       allContentfulBlogPost {
-//         edges {
-//           node {
-//             id
-//             tags
-//             title
-//             createdAt
-//             body {
-//               body
-//               childMarkdownRemark {
-//                 htmlAst
-//               }
-//             }
-//             description {
-//               description
-//             }
-//             heroImage {
-//               id
-//               file {
-//                 fileName
-//                 url
-//               }
-//             }
-//             video {
-//               video
-//             }
-//             dev
-//             slug
-//           }
-//         }
-//       }
-//     }
-//   `)
+  const result = await graphql(`
+    query AllElementsQuery {
+      allContentfulFicheExercice {
+        edges {
+          node {
+            pdf {
+              id
+              file {
+                url
+              }
+              createdAt
+            }
+            level {
+              title
+            }
+            slug
+          }
+        }
+      }
+      allContentfulGame {
+        edges {
+          node {
+            title
+            link
+            level {
+              title
+            }
+            createdAt
+            slug
+          }
+        }
+      }
+    }
+  `)
 
-//   result.data.allContentfulBlogPost.edges.forEach((edge) => {
-//     createPage({
-//       path: `blog/${edge.node.slug}`,
-//       component: blogPostTemplate,
-//       context: edge.node,
-//     })
-//   })
-// }
+  // console.log({ result })
+  // console.log({
+  //   allContentfulFicheExercice: JSON.stringify(
+  //     result.data.allContentfulFicheExercice.edges,
+  //     null,
+  //     2,
+  //   ),
+  // })
+  result.data.allContentfulFicheExercice.edges.forEach((edge) => {
+    // console.log({ edge: JSON.stringify(edge, null, 2) })
+    createPage({
+      path: `/${edge.node.slug}`,
+      component: ficheExerciceTemplate,
+      context: edge.node,
+    })
+  })
+  result.data.allContentfulGame.edges.forEach((edge) => {
+    // console.log({ edge: JSON.stringify(edge, null, 2) })
+    createPage({
+      path: `/${edge.node.slug}`,
+      component: gameTemplate,
+      context: edge.node,
+    })
+  })
+}

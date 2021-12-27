@@ -28,6 +28,7 @@ import useKoFiButton from '../hooks/useKoFiButton'
 import { IndexContenfulResponse } from '../types'
 import FicheExerciceSection from '../components/FicheExerciceSection'
 
+// TODO: DESC and filter to last 4
 export const query = graphql`
   query ExerciseSheetQuery {
     allContentfulFicheExercice {
