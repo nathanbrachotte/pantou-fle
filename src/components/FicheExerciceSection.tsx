@@ -28,14 +28,10 @@ const FichePreview: React.FC<{ fiche: FicheExercice }> = ({ fiche }) => {
               <h2 className="text-primary-dark font-semi-bold">
                 {fiche.title}
               </h2>
-              <p className=" text-primary-dark text-xs">
-                Lorem ipsum doloipsum dolo ipsum dolo ipsum dolo ipsum dolo
-                ipsum dolo ipsum dolo ipsum dolo ipsum doloipsum dolo ipsum dolo
-                ipsum doloipsum dolo
-              </p>
+              <p className=" text-primary-dark text-xs">{fiche.description}</p>
             </div>
             <p className="flex-none text-primary text-xs pt-1">
-              {fiche.createdAt}
+              {new Date(fiche.createdAt).toLocaleDateString()}
             </p>
           </div>
         </div>
