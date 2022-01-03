@@ -36,7 +36,7 @@ export const query = graphql`
           }
         }
         level {
-          id
+          title
         }
         createdAt
         description {
