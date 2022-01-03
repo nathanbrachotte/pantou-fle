@@ -21,17 +21,23 @@ exports.createPages = async ({ graphql, actions }) => {
       allContentfulFicheExercice {
         edges {
           node {
+            title
+            slug
             pdf {
               id
               file {
+                fileName
                 url
+                contentType
               }
-              createdAt
             }
             level {
               title
             }
-            slug
+            createdAt
+            description {
+              raw
+            }
           }
         }
       }
