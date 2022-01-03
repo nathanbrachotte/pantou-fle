@@ -54,9 +54,9 @@ const Header: React.FC<Props> = ({ uri }) => {
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}
         <div className="mx-auto px-4">
           {/* <div className="flex justify-between items-center border-b-2 border-red py-6 md:justify-start md:space-x-4"> */}
-          <div className="flex items-center border-b-2 border-red py-6 justify-start space-x-4">
-            <div className="flex justify-start">
-              <a href="/" className="mr-6">
+          <div className="flex items-center py-6 justify-start space-x-4">
+            <div className="flex justify-start mr-4">
+              <a href="/">
                 <span className="sr-only">Home</span>
                 <Logo withLabel />
               </a>
