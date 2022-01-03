@@ -1,7 +1,8 @@
 import React from 'react'
+import { Color } from '../src/types'
 
 interface InstagramProps {
-  color: string
+  color: Color
   size?: number
 }
 

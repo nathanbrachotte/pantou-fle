@@ -1,4 +1,9 @@
+import {
+  ChevronDoubleRightIcon,
+  ChevronRightIcon,
+} from '@heroicons/react/outline'
 import React from 'react'
+import { Section } from 'react-scroll-section'
 import styled from 'styled-components'
 import { colors, FicheExercice } from '../types'
 import { richText } from './RichText'
@@ -7,7 +12,7 @@ interface FicheExerciceSectionProps {
   fiches: FicheExercice[]
 }
 
-const EllipsisText = styled.p`
+const EllipsisText = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-inline-box;
@@ -41,6 +46,7 @@ const FichePreview: React.FC<{ fiche: FicheExercice }> = ({ fiche }) => {
               <p className="text-primary-dark font-semi-bold text-xl">
                 {fiche.title}
               </p>
+              {/* FIXME: inside is an <a> tag created within rich text which throws an error */}
               <EllipsisText className="text-primary text-sm">
                 {description && richText(fiche)}
               </EllipsisText>
@@ -58,17 +64,22 @@ const FichePreview: React.FC<{ fiche: FicheExercice }> = ({ fiche }) => {
 const FicheExerciceSection: React.FC<FicheExerciceSectionProps> = ({
   fiches,
 }) => {
+  // <div className="mt-32 relative max-w-full">
   return (
-    // <div className="mt-32 relative max-w-full">
-    <div className="relative max-w-full">
-      <h1 className="text-2xl font-bold tracking-tight text-left">YO</h1>
-      {/* <ul className="mt-10 pb-8 px-[4rem] w-full flex overflow-x-auto gap-8 snap-x"> */}
-      <ul className="grid px-4 py-2 gap-x-4 gap-y-4 sm:grid-cols-1 md:grid-cols-2">
-        {fiches.map((fiche) => {
-          return <FichePreview key={fiche.slug} fiche={fiche} />
-        })}
-      </ul>
-    </div>
+    <Section id="FicheExerciceSection">
+      <div className="relative max-w-full">
+        <h1 className="flex flex-row text-2xl font-bold tracking-tight text-left">
+          <p className="pr-2">Fiche Exercices</p>
+          <ChevronRightIcon width={20} />
+        </h1>
+        {/* <ul className="mt-10 pb-8 px-[4rem] w-full flex overflow-x-auto gap-8 snap-x"> */}
+        <ul className="grid px-4 py-2 gap-x-4 gap-y-4 sm:grid-cols-1 md:grid-cols-2">
+          {fiches.map((fiche) => {
+            return <FichePreview key={fiche.slug} fiche={fiche} />
+          })}
+        </ul>
+      </div>
+    </Section>
   )
 }
 

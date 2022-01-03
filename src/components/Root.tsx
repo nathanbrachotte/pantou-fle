@@ -10,6 +10,7 @@ import { ScrollingProvider } from 'react-scroll-section'
 import Header from './Header'
 import SEO from './SEO'
 import Aside from './Aside'
+import KoFiFrame from './KoFiFrame'
 
 // eslint-disable-next-line import/no-unresolved
 // import Helmet from './Helmet'
@@ -47,18 +48,21 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
   return (
     <>
       <SEO />
-      <main className="bg-background h-screen w-screen">
-        <Header uri={uri} />
-        <div className="grid sm:grid-cols-1 gap-x-0 gap-y-0 auto-cols-max md:grid-cols-10">
-          <Aside />
-          {/* <ThemeProvider theme={theme}> */}
-          {/* <GlobalStyle /> */}
-          {/* <ScrollingProvider> */}
-          <div className="col-span-8">{children}</div>
-          {/* </ScrollingProvider> */}
-          {/* </ThemeProvider> */}
-        </div>
-      </main>
+      <ScrollingProvider>
+        <main className="bg-background h-screen w-screen">
+          <Header uri={uri} />
+          <div className="grid sm:grid-cols-1 gap-x-0 gap-y-0 auto-cols-max md:grid-cols-10">
+            <Aside />
+            {/* <ThemeProvider theme={theme}> */}
+            {/* <GlobalStyle /> */}
+            {/* <ScrollingProvider> */}
+            <div className="col-span-8">{children}</div>
+            {/* </ScrollingProvider> */}
+            {/* </ThemeProvider> */}
+          </div>
+          <KoFiFrame />
+        </main>
+      </ScrollingProvider>
     </>
   )
 }

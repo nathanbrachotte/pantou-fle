@@ -5,10 +5,7 @@ interface YoutubeProps {
   size: number
 }
 
-const Youtube: React.FC<YoutubeProps> = ({
-  color = 'text-primary-dark',
-  size = 24,
-}) => {
+const Youtube: React.FC<YoutubeProps> = ({ color, size }) => {
   return (
     <svg
       width={size}

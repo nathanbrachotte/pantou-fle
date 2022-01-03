@@ -1,24 +1,56 @@
 import React from 'react'
 
 import { VideoCameraIcon } from '@heroicons/react/outline'
+import { useScrollSection } from 'react-scroll-section'
 import Image from './Image'
 import { Facebook, Instagram, Youtube } from '../../assets/index'
-import { colors } from '../types'
+import { Color, colors } from '../types'
+import { classNames } from '../styles/helpers'
 
-interface RoundButtonProps {
+type RoundButtonProps = {
   label: string
-  link: string
-}
+  Icon: React.FC
+  // FIXME: Make paasing bgColor a bit more elegant
+  bgColor: string
+} & (
+  | {
+      link: string
+    }
+  | {
+      id: string
+    }
+)
 
-const RoundButton: React.FC<RoundButtonProps> = ({ label, link }) => {
+const RoundButton: React.FC<RoundButtonProps> = ({
+  label,
+  Icon,
+  bgColor,
+  ...otherProps
+}) => {
+  let aProps = {}
+
+  if ('link' in otherProps) {
+    const { link } = otherProps
+    aProps = { href: link }
+  } else {
+    const { id } = otherProps
+    const section = useScrollSection(id)
+    aProps = { onClick: section.onClick }
+  }
+
+  console.log({ bgColor, t: `bg-${bgColor}` })
   return (
-    <a className="" href="/">
-      <div>logo</div>
-      <VideoCameraIcon className="text-primary-dark" height={50} width={50} />
-      <Instagram color={colors['primary-dark']} size={50} />
-      <Facebook color={colors['primary-dark']} size={50} />
-      <Youtube color={colors['primary-dark']} size={50} />
-      <p>{label}</p>
+    <a
+      className="flex flex-row items-center justify-start my-4 cursor-pointer"
+      {...aProps}>
+      <div
+        className={classNames(
+          bgColor,
+          'rounded-full items-center justify-center mr-2 flex-none p-2',
+        )}>
+        <Icon />
+      </div>
+      <p className="text-sm">{label}</p>
     </a>
   )
 }
