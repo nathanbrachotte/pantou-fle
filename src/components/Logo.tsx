@@ -12,10 +12,10 @@ const Logo: React.FC<{
   return (
     <div className="flex flex-col items-center justify-center">
       <Image
-        className="h-16 w-16"
+        className="h-20 w-20"
         src={withCircleBackground ? logoCircle : logo}
       />
-      {withLabel && <Image className="h-16 w-24 p-1" src={logoTitle} />}
+      {withLabel && <Image className="h-16 w-24 -m-3" src={logoTitle} />}
     </div>
   )
   // <span className="font-logo font-extrabold text-base text-primary-dark">

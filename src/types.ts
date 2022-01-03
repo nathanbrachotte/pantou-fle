@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   transparent: 'transparent',
   current: 'currentColor',
   white: '#F9FAFF',
