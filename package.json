@@ -27,6 +27,8 @@
   ],
   "dependencies": {
     "@babel/preset-env": "^7.11.5",
+    "@contentful/rich-text-react-renderer": "^15.11.0",
+    "@contentful/rich-text-types": "^15.11.0",
     "@fontsource/m-plus-rounded-1c": "^4.5.0",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@headlessui/react": "^1.4.2",
