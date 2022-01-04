@@ -1,40 +1,62 @@
+import {
+  ChevronDoubleRightIcon,
+  ChevronRightIcon,
+} from '@heroicons/react/outline'
 import React from 'react'
-import { FicheExercice } from '../types'
+import { Section } from 'react-scroll-section'
+import styled from 'styled-components'
+import { colors, FicheExercice } from '../types'
+import { richText } from './RichText'
 
 interface FicheExerciceSectionProps {
-  fiches?: FicheExercice[]
+  fiches: FicheExercice[]
 }
 
-const fakeData = [
-  {
-    title: 'do brazil',
-    img: 'fill me',
-  },
-]
+const EllipsisText = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`
 
-const FichePreview: React.FC<FicheExerciceSectionProps> = ({ fiches }) => {
-  console.log({ fiches })
+const FichePreview: React.FC<{ fiche: FicheExercice }> = ({ fiche }) => {
+  const description = fiche?.description?.raw
+
+  // return null
   return (
-    <li className="relative flex-1 max-w-sm  overflow-hidden rounded-3xl">
-      <img
-        src="https://wallpapercave.com/wp/wp4676582.jpg"
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover object-bottom"
-      />
-      <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-black/75" />
-      <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
-        <div>
-          <p className="font-medium text-white">Destinations</p>
-          <h2 className="mt-3 w-2/3 text-3xl font-semibold tracking-tight text-white">
-            Go to see the best sunsets in the world
-          </h2>
+    <li className="overflow-hidden rounded-2xl bg-white p-2 max-w-xl">
+      <a
+        href={`/${fiche.slug}`}
+        className="flex flex-row items-center justify-center">
+        <div className="flex-auto w-5/12 self-start">
+          <img
+            src="https://wallpapercave.com/wp/wp4676582.jpg"
+            alt=""
+            className="rounded-xl"
+          />
         </div>
-        <a
-          href="#"
-          className="px-4 py-3 rounded-lg bg-white text-slate-900 text-sm font-medium">
-          Browse Destinations
-        </a>
-      </div>
+        {/* <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-black/75" /> */}
+        <div className="flex-auto w-7/12 p-2 self-stretch">
+          <div className="flex flex-col justify-between items-stretch h-full">
+            <p className="flex-none text-xs text-secondary-light font-light pb-1">
+              Fiche Exercice
+            </p>
+            <div className="flex-1 h-full">
+              <p className="text-primary-dark font-semi-bold text-xl">
+                {fiche.title}
+              </p>
+              {/* FIXME: inside is an <a> tag created within rich text which throws an error */}
+              <EllipsisText className="text-primary text-sm">
+                {description && richText(fiche)}
+              </EllipsisText>
+            </div>
+            <p className="flex-none text-primary text-xs pt-1">
+              {new Date(fiche.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        </div>
+      </a>
     </li>
   )
 }
@@ -42,18 +64,22 @@ const FichePreview: React.FC<FicheExerciceSectionProps> = ({ fiches }) => {
 const FicheExerciceSection: React.FC<FicheExerciceSectionProps> = ({
   fiches,
 }) => {
+  // <div className="mt-32 relative max-w-full">
   return (
-    // <div className="mt-32 relative max-w-full">
-    <div className="relative max-w-full bg-slate-300">
-      <h1 className="text-2xl font-bold tracking-tight text-left">YO</h1>
-      {/* <ul className="mt-10 pb-8 px-[4rem] w-full flex overflow-x-auto gap-8 snap-x"> */}
-      <ul className="mt-10 pb-8 px-[4rem] w-full flex flex-wrap gap-8">
-        <FichePreview />
-        <FichePreview />
-        <FichePreview />
-        <FichePreview />
-      </ul>
-    </div>
+    <Section id="FicheExerciceSection">
+      <div className="relative max-w-full">
+        <h1 className="flex flex-row text-2xl font-bold tracking-tight text-left">
+          <p className="pr-2">Fiche Exercices</p>
+          <ChevronRightIcon width={20} />
+        </h1>
+        {/* <ul className="mt-10 pb-8 px-[4rem] w-full flex overflow-x-auto gap-8 snap-x"> */}
+        <ul className="grid px-4 py-2 gap-x-4 gap-y-4 sm:grid-cols-1 md:grid-cols-2">
+          {fiches.map((fiche) => {
+            return <FichePreview key={fiche.slug} fiche={fiche} />
+          })}
+        </ul>
+      </div>
+    </Section>
   )
 }
 

@@ -4,17 +4,15 @@ import { Image, Text, Flex, Box, Heading } from 'rebass/styled-components'
 
 import RehypeReact from 'rehype-react'
 // import Section from '../components/Section'
-import Background from './Background'
-import { BlogPost } from '../types'
-import { Badge } from '../old-components/Badge'
-import VideoBox from '../old-components/VideoBox'
-import Layout from '../components/Root'
+
+import { FicheExercice } from '../types'
+import Root from '../components/Root'
 // import SimpleHeader from '../components/Header/SimpleHeader'
 // import Footer from '../components/Footer/Footer'
 // import Spacer from '../shared/Spacer'
 
 function getBlogPostFromContext(pageContext: any) {
-  const post: BlogPost = {
+  const post: any = {
     id: pageContext?.id,
     body: pageContext?.body?.body,
     bodyAst: pageContext?.body?.childMarkdownRemark?.htmlAst,
@@ -69,7 +67,9 @@ const renderAst = new RehypeReact({
   },
 }).Compiler
 
-const BlogPostTemplate: React.FC<PageProps> = ({ pageContext }) => {
+const BlogPostTemplate: React.FC<PageProps> = ({ pageContext, ...rest }) => {
+  console.log({ pageContext, ...rest })
+  const gameContext = pageContext as FicheExercice
   const currentPost = getBlogPostFromContext(pageContext)
 
   if (!currentPost) {
@@ -98,9 +98,8 @@ const BlogPostTemplate: React.FC<PageProps> = ({ pageContext }) => {
   //     </>
   //   )
   // )
-  return null
+  return <Root />
   // return (
-  //   <Layout>
   //     <SimpleHeader />
   //     <Section.Container
   //       id={currentPost?.title || 'error'}
@@ -124,7 +123,6 @@ const BlogPostTemplate: React.FC<PageProps> = ({ pageContext }) => {
   //       </Flex>
   //     </Section.Container>
   //     <Footer />
-  //   </Layout>
   // )
 }
 

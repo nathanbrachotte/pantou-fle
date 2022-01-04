@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   transparent: 'transparent',
   current: 'currentColor',
   white: '#F9FAFF',
@@ -18,6 +18,15 @@ const colors = {
 export type Color = keyof typeof colors
 export type URL = string
 
+enum Level {
+  A1 = 'a1',
+  A2 = 'a2',
+  B1 = 'b1',
+  B2 = 'b2',
+  C1 = 'c1',
+  C2 = 'c2',
+}
+
 type AllContentfulRequests = 'allContentfulFicheExercice'
 
 export type ContenfulResponse<
@@ -30,7 +39,7 @@ export type ContenfulResponse<
 }
 
 export interface FicheExercice {
-  level: { id: string }
+  level: { id: string; title: Level }
   pdf: {
     id: string
     file: {
@@ -40,6 +49,20 @@ export interface FicheExercice {
       id: URL
     }
   }
+  slug: string
+  title: string
+  createdAt: string
+  description: {
+    raw: string
+  }
+}
+
+export interface Game {
+  createdAt: string
+  level: {
+    title: Level
+  }
+  link: string
   slug: string
   title: string
 }
