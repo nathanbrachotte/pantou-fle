@@ -2,10 +2,10 @@ import React from 'react'
 
 import { VideoCameraIcon } from '@heroicons/react/outline'
 import { useScrollSection } from 'react-scroll-section'
+import clsx from 'clsx'
 import Image from './Image'
 import { Facebook, Instagram, Youtube } from '../../assets/index'
 import { Color, colors } from '../types'
-import { classNames } from '../styles/helpers'
 
 type RoundButtonProps = {
   label: string
@@ -44,7 +44,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
       className="flex flex-row items-center justify-start my-4 cursor-pointer"
       {...aProps}>
       <div
-        className={classNames(
+        className={clsx(
           bgColor,
           'rounded-full items-center justify-center mr-2 flex-none p-2',
         )}>

@@ -1,15 +1,11 @@
-import { VideoCameraIcon } from '@heroicons/react/outline'
 import React from 'react'
 import { FicheExercice, Rocket, Youtube } from '../../assets'
 import { colors } from '../types'
-import KoFiFrame from './KoFiFrame'
 import RoundButton from './RoundButton'
-
-interface AsideProps {}
 
 const ICON_SIZE = 20
 
-const Aside: React.FC<AsideProps> = () => {
+const Aside: React.FC = () => {
   return (
     <aside className="px-4">
       <RoundButton

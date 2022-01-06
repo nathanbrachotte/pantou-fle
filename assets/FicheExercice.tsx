@@ -2,7 +2,7 @@ import React from 'react'
 import { Color } from '../src/types'
 
 interface FicheExerciceProps {
-  color: Color
+  color: string
   size: number
 }
 

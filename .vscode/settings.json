@@ -8,5 +8,6 @@
     "statusBarItem.remoteForeground": "#15202b",
     "tab.activeBorder": "#e7889b"
   },
-  "peacock.color": "DE5E78"
+  "peacock.color": "DE5E78",
+  "cSpell.words": ["clsx"]
 }

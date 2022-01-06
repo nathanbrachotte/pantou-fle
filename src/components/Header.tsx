@@ -16,8 +16,8 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import '@fontsource/m-plus-rounded-1c'
 
+import clsx from 'clsx'
 import Logo from './Logo'
-import { classNames } from '../styles/helpers'
 import Splash from './Splash'
 
 interface Props {
@@ -33,7 +33,7 @@ const Item: React.FC<
   return (
     <a
       href={`/${level}`}
-      className={classNames(
+      className={clsx(
         uri === `/${level}`
           ? 'bg-primary-dark text-white'
           : 'bg-white text-primary-dark hover:text-secondary-dark',

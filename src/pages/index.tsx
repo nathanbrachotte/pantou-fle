@@ -1,12 +1,5 @@
-import React, { useState } from 'react'
-import { Image } from 'rebass'
-import {
-  graphql,
-  StaticQuery,
-  navigate,
-  PageProps,
-  useStaticQuery,
-} from 'gatsby'
+import React from 'react'
+import { graphql, PageProps, useStaticQuery } from 'gatsby'
 
 import styled from 'styled-components'
 import Root from '../components/Root'
@@ -18,7 +11,7 @@ import { Article } from '../components/Article'
 import KoFiFrame from '../components/KoFiFrame'
 import useKoFiButton from '../hooks/useKoFiButton'
 import { IndexContenfulResponse } from '../types'
-import FicheExerciceSection from '../components/FicheExerciceSection'
+import FicheExerciceSection from '../components/FicheExercice/FicheExerciceSection'
 
 // TODO: DESC and filter to last 4
 export const query = graphql`
