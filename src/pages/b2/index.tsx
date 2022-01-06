@@ -39,7 +39,6 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
           }
         `}
         render={(data) => {
-          console.log('yooo')
           console.log({ data })
           return <span>yooo B2</span>
         }}
