@@ -13,7 +13,7 @@ module.exports = {
         current: 'currentColor',
         whitish: '#F9FAFF',
         background: '#F9FAFF',
-        'primary-light': '#BFC0F0',
+        'primary-light': '#DEDEF7',
         'primary-dark': '#1C1E52',
         primary: '#393A73',
         'secondary-very-light': '#FEC0A0',
