@@ -5,7 +5,8 @@ import { useScrollSection } from 'react-scroll-section'
 import clsx from 'clsx'
 import Image from './Image'
 import { Facebook, Instagram, Youtube } from '../../assets/index'
-import { Color, colors } from '../types'
+import { colors } from '../colors'
+import { Color } from '../types'
 
 type RoundButtonProps = {
   label: string

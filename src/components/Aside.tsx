@@ -1,6 +1,6 @@
 import React from 'react'
 import { FicheExercice, Rocket, Youtube } from '../../assets'
-import { colors } from '../types'
+import { colors } from '../colors'
 import RoundButton from './RoundButton'
 
 const ICON_SIZE = 20

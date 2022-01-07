@@ -3,14 +3,14 @@ import React from 'react'
 import { Facebook, Instagram, Youtube } from '../../assets'
 import SquareButton from '../shared/SquareButton'
 import { Tooltip } from '../shared/Tooltip'
-import { colors } from '../types'
+import { colors } from '../colors'
 import Label from './Label'
 import Logo from './Logo'
 
 const Footer: React.FC = () => {
   return (
-    <>
-      <div className="bg-background  grid px-8 pt-6 sm:pb-48 md:pb-0 md:grid-cols-2 md:grid-rows-1">
+    <div className="bg-whitish">
+      <div className="grid px-8 pt-6 sm:pb-48 md:pb-0 md:grid-cols-2 md:grid-rows-1">
         <div className="flex-1 flex flex-col justify-between row-start-2 sm:h-0 md:h-full md:row-start-1">
           <div className="pt-4">
             <div className="flex flex-row justify-start items-end">
@@ -58,9 +58,9 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="flex-1 flex sm:justify-center md:justify-end">
-          <div className="w-2/3 sm:w-full lg:w-2/3">
+          <div className="w-2/3 sm:w-full lg:w-2/3 max-w-lg">
             <form
-              className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8"
+              className="bg-background shadow-lg rounded-lg px-8 pt-6 pb-2"
               action="https://www.getrevue.co/profile/nathan-brachotte/add_subscriber"
               method="post"
               id="revue-form"
@@ -69,6 +69,7 @@ const Footer: React.FC = () => {
               <span role="img" aria-label="Newsletter" className="text-6xl">
                 📫
               </span>
+
               <div className="mb-6">
                 <input
                   className="bg-gray-100 appearance-none rounded-lg w-full py-2 px-3 text-gray-600 mb-3 leading-large mt-2"
@@ -79,22 +80,20 @@ const Footer: React.FC = () => {
                 />
                 <div className="flex flex-row">
                   <input
-                    className="bg-gray-100 appearance-none rounded-lg w-full py-2 px-3 text-gray-600 mb-3 leading-large"
+                    className="bg-gray-100 appearance-none rounded-l-lg w-full py-2 px-3 text-gray-600 mb-3 leading-large"
                     placeholder="Adresse email"
                     type="email"
                     name="member[email]"
                     id="member_email"
                   />
-                  <Tooltip content="yoo les kheyyy">
-                    <input
-                      type="submit"
-                      value="Subscribe"
-                      name="member[subscribe]"
-                      id="member_submit"
-                    />
-                    {/* <SquareButton /> */}
-                  </Tooltip>
+                  {/* <Tooltip content="yoo les kheyyy"> */}
+                  <SquareButton />
+                  {/* </Tooltip> */}
                 </div>
+                <p className="text-sm text-primary-dark">
+                  Ne manquez aucune nouvelle resource en vous abonnant à notre
+                  newsletter!
+                </p>
                 {/* <p className="text-red-500 text-xs italic">
                   Please enter a valid address.
                 </p> */}
@@ -103,8 +102,8 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="h-16 sm:h-20 bg-background" />
-    </>
+      <div className="h-16 sm:h-20" />
+    </div>
   )
 }
 

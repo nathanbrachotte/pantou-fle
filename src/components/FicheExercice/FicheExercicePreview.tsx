@@ -13,7 +13,7 @@ const FicheExercicePreview: React.FC<FicheExercicePreviewProps> = ({
   const description = fiche?.description?.raw
 
   return (
-    <li className="overflow-hidden rounded-2xl bg-whitish p-2 max-w-xl">
+    <li className="overflow-hidden rounded-2xl bg-background p-2 max-w-xl">
       <a
         href={`/${fiche.slug}`}
         className="flex flex-row items-center justify-center">
