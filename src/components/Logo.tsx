@@ -18,9 +18,6 @@ const Logo: React.FC<{
       {withLabel && <Image className="h-16 w-24 -m-3" src={logoTitle} />}
     </div>
   )
-  // <span className="font-logo font-extrabold text-base text-primary-dark">
-  //   La Gamelle
-  // </span>
 }
 
 export default Logo

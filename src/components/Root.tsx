@@ -11,6 +11,7 @@ import Header from './Header'
 import SEO from './SEO'
 import Aside from './Aside'
 import KoFiFrame from './KoFiFrame'
+import Footer from './Footer'
 
 // eslint-disable-next-line import/no-unresolved
 // import Helmet from './Helmet'
@@ -49,7 +50,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
     <>
       <SEO />
       <ScrollingProvider>
-        <main className="bg-background h-screen w-screen">
+        <main className="bg-whitish h-screen w-screen">
           <Header uri={uri} />
           <div className="grid sm:grid-cols-1 gap-x-0 gap-y-0 auto-cols-max md:grid-cols-10">
             <Aside />
@@ -61,6 +62,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
             {/* </ThemeProvider> */}
           </div>
           <KoFiFrame />
+          <Footer />
         </main>
       </ScrollingProvider>
     </>

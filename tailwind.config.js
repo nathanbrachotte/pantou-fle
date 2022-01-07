@@ -11,7 +11,7 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
-        white: '#F9FAFF',
+        whitish: '#F9FAFF',
         background: '#F9FAFF',
         'primary-light': '#BFC0F0',
         'primary-dark': '#1C1E52',
@@ -28,6 +28,7 @@ module.exports = {
         sans: ['Graphik', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
         nunito: ['Nunito'],
+        'nunito-sans': ['Nunito Sans'],
       },
       spacing: {
         128: '32rem',

@@ -5,8 +5,8 @@ const KoFiFrame: React.FC = () => {
     <iframe
       id="kofiframe"
       src="https://ko-fi.com/pantou_fle/?hidefeed=true&widget=true&embed=true&preview=true"
-      className="w-full p-4"
-      height="712"
+      className="mt-8 w-full"
+      height="662" // 630 + pt-8
       title="pantou_fle"
     />
   )
