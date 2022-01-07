@@ -36,6 +36,11 @@ export const query = graphql`
         description {
           raw
         }
+        preview {
+          file {
+            url
+          }
+        }
       }
     }
     allContentfulGame {
@@ -48,6 +53,11 @@ export const query = graphql`
         createdAt
         description {
           raw
+        }
+        preview {
+          file {
+            url
+          }
         }
       }
     }
