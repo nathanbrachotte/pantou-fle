@@ -38,6 +38,11 @@ exports.createPages = async ({ graphql, actions }) => {
             description {
               raw
             }
+            preview {
+              file {
+                url
+              }
+            }
           }
         }
       }
@@ -51,6 +56,14 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             createdAt
             slug
+            description {
+              raw
+            }
+            preview {
+              file {
+                url
+              }
+            }
           }
         }
       }

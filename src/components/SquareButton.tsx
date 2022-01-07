@@ -7,7 +7,7 @@ const SquareButton: React.FC = () => {
     <div className=" bg-gray-100 rounded-r-md p-1">
       <div className="relative w-8 h-8 bg-primary-dark hover:bg-primary rounded-lg flex items-center justify-center">
         <input
-          className="absolute inset-0 w-full z-10 "
+          className="absolute inset-0 w-full"
           type="submit"
           value=""
           name="member[subscribe]"

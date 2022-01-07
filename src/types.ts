@@ -40,6 +40,9 @@ export interface FicheExercice {
   description: {
     raw: string
   }
+  preview: {
+    file: { url: string }
+  }
 }
 
 export interface Game {
@@ -53,6 +56,9 @@ export interface Game {
   link: string
   slug: string
   title: string
+  preview: {
+    file: { url: string }
+  }
 }
 
 export type IndexContenfulResponse = ContenfulResponse<

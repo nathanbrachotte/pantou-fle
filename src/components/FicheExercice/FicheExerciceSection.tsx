@@ -13,7 +13,7 @@ const FicheExerciceSection: React.FC<FicheExerciceSectionProps> = ({
   fiches,
 }) => {
   return (
-    <div className="relative max-w-full pr-4">
+    <div className="relative max-w-full pr-4 sm:px-2 sm:pt-2">
       <Section id="FicheExerciceSection">
         <h1 className="flex flex-row text-2xl font-bold tracking-tight text-left">
           <Heading1>Fiche Exercices</Heading1>
