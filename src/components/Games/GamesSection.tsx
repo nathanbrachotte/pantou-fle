@@ -17,7 +17,7 @@ const GamesSection: React.FC<GamesSectionProps> = ({ games }) => {
           <Heading1>Jeux</Heading1>
           <ChevronRightIcon width={18} />
         </h1>
-        <ul className="grid py-2 gap-x-6 gap-y-6 place-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:place-items-stretch">
+        <ul className="grid py-2 gap-x-6 gap-y-6 place-items-center sm:grid-cols-2 sm:place-items-center  md:grid-cols-2 lg:grid-cols-4 lg:place-items-stretch">
           {games?.map((game) => {
             return <GamesPreview key={game.slug} game={game} />
           })}

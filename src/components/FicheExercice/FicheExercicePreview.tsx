@@ -14,7 +14,7 @@ const FicheExercicePreview: React.FC<FicheExercicePreviewProps> = ({
   const preview = fiche?.preview?.file.url
 
   return (
-    <li className="overflow-hidden rounded-lg bg-background ">
+    <li className="overflow-hidden rounded-lg bg-background max-w-3xl">
       <a
         href={`/${fiche.slug}`}
         className="flex flex-row items-center justify-center">

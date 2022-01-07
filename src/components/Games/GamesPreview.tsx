@@ -13,7 +13,7 @@ const GamesPreview: React.FC<GamesPreviewProps> = ({ game }) => {
   const preview = game?.preview?.file.url
 
   return (
-    <li className="overflow-hidden rounded-lg bg-background max-w-m sm:w-3/4">
+    <li className="overflow-hidden rounded-lg bg-background max-w-m sm:w-4/4 max-w-lg">
       <a href={`/${game.slug}`} className="flex flex-col">
         <div className="relative">
           <img
