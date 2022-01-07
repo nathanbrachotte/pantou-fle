@@ -1,6 +1,8 @@
 import React from 'react'
 import { StaticQuery, graphql, PageProps } from 'gatsby'
+import { ArrowLeftIcon } from '@heroicons/react/outline'
 import Root from '../../components/Root'
+import Heading1 from '../../shared/Heading1'
 
 const A1Page: React.FC<PageProps> = ({ uri }) => {
   return (
@@ -47,7 +49,12 @@ const A1Page: React.FC<PageProps> = ({ uri }) => {
         render={(data) => {
           console.log('yooo')
           console.log({ data })
-          return <span>yooo A1</span>
+          return (
+            <>
+              <ArrowLeftIcon height={20} />
+              <Heading1>Tous niveau</Heading1>
+            </>
+          )
         }}
       />
     </Root>

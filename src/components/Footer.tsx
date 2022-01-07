@@ -1,7 +1,7 @@
 import { ExclamationCircleIcon } from '@heroicons/react/outline'
 import React from 'react'
-import { Facebook, Instagram, Youtube } from '../../assets'
-import SquareButton from '../shared/SquareButton'
+import { Email, Facebook, Instagram, Youtube } from '../../assets'
+import SquareButton from './SquareButton'
 import { Tooltip } from '../shared/Tooltip'
 import { colors } from '../colors'
 import Label from './Label'
@@ -26,37 +26,49 @@ const Footer: React.FC = () => {
               manière ludique
             </p>
           </div>
-          <div className="flex flex-row justify-start row-start-1 sm:pt-4">
-            <a
-              className="pr-2"
-              href="https://www.facebook.com/apprendreAvecPantouFLE"
-              target="_blank"
-              rel="noreferrer">
-              <Facebook color={colors['primary-dark']} size={26} />
-            </a>
-            <a
-              className="pr-2"
-              target="_blank"
-              href="https://www.instagram.com/pantou_fle/"
-              rel="noreferrer">
-              <Instagram color={colors['primary-dark']} size={26} />
-            </a>
-            <a
-              className="pr-2"
-              target="_blank"
-              href="https://www.youtube.com/channel/UCYFLgaAWqetra1x03v7XacQ/featured"
-              rel="noreferrer">
-              <Youtube color={colors['primary-dark']} size={26} />
-            </a>
-            <a
-              className="pr-2"
-              target="_blank"
-              href="https://www.youtube.com/channel/UCYFLgaAWqetra1x03v7XacQ/featured"
-              rel="noreferrer">
-              <ExclamationCircleIcon color={colors['primary-dark']} size={26} />
-            </a>
+          <div className="flex flex-col">
+            <div className="flex flex-row justify-start items-end row-start-1 sm:pt-4">
+              <a
+                className="pr-2"
+                href="https://www.facebook.com/apprendreAvecPantouFLE"
+                target="_blank"
+                rel="noreferrer">
+                <Facebook color={colors['primary-dark']} size={26} />
+              </a>
+              <a
+                className="pr-2"
+                target="_blank"
+                href="https://www.instagram.com/pantou_fle/"
+                rel="noreferrer">
+                <Instagram color={colors['primary-dark']} size={26} />
+              </a>
+              <a
+                className="pr-2"
+                target="_blank"
+                href="https://www.youtube.com/channel/UCYFLgaAWqetra1x03v7XacQ/featured"
+                rel="noreferrer">
+                <Youtube color={colors['primary-dark']} size={26} />
+              </a>
+              <a
+                className="pr-2"
+                target="_blank"
+                href="mailto:cathy.nguyen.fle@gmail.com"
+                rel="noreferrer">
+                <Email color={colors['primary-dark']} size={26} />
+              </a>
+            </div>
+            <p className="text-primary text-xs pt-2">
+              @
+              {new Intl.DateTimeFormat('fr-FR', {
+                // dateStyle: 'short',
+                year: 'numeric',
+                // eslint-disable-next-line react/jsx-one-expression-per-line
+              }).format(Date.now())}{' '}
+              Pantou-fle - Tous droits réservés
+            </p>
           </div>
         </div>
+
         <div className="flex-1 flex sm:justify-center md:justify-end">
           <div className="w-2/3 sm:w-full lg:w-2/3 max-w-lg">
             <form
@@ -72,23 +84,21 @@ const Footer: React.FC = () => {
 
               <div className="mb-6">
                 <input
-                  className="bg-gray-100 appearance-none rounded-lg w-full py-2 px-3 text-gray-600 mb-3 leading-large mt-2"
+                  className="bg-gray-100 appearance-none rounded-lg w-full py-2 px-3 text-gray-600 mb-3 leading-large mt-2 outline-none"
                   placeholder="Prénom (optionel)"
                   type="text"
                   name="member[first_name]"
                   id="member_first_name"
                 />
-                <div className="flex flex-row">
+                <div className="flex flex-row mb-3">
                   <input
-                    className="bg-gray-100 appearance-none rounded-l-lg w-full py-2 px-3 text-gray-600 mb-3 leading-large"
+                    className="bg-gray-100 appearance-none rounded-l-lg w-full py-2 px-3 text-gray-600 leading-large outline-none"
                     placeholder="Adresse email"
                     type="email"
                     name="member[email]"
                     id="member_email"
                   />
-                  {/* <Tooltip content="yoo les kheyyy"> */}
                   <SquareButton />
-                  {/* </Tooltip> */}
                 </div>
                 <p className="text-sm text-primary-dark">
                   Ne manquez aucune nouvelle resource en vous abonnant à notre

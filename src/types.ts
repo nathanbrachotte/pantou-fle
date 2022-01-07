@@ -12,7 +12,7 @@ enum Level {
   C2 = 'c2',
 }
 
-type AllContentfulRequests = 'allContentfulFicheExercice'
+type AllContentfulRequests = 'allContentfulFicheExercice' | 'allContentfulGame'
 
 export type ContenfulResponse<
   Request extends AllContentfulRequests,
@@ -47,6 +47,9 @@ export interface Game {
   level: {
     title: Level
   }
+  description: {
+    raw: string
+  }
   link: string
   slug: string
   title: string
@@ -55,4 +58,5 @@ export interface Game {
 export type IndexContenfulResponse = ContenfulResponse<
   'allContentfulFicheExercice',
   FicheExercice
->
+> &
+  ContenfulResponse<'allContentfulGame', Game>

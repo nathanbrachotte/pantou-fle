@@ -12,6 +12,7 @@ import KoFiFrame from '../components/KoFiFrame'
 import useKoFiButton from '../hooks/useKoFiButton'
 import { IndexContenfulResponse } from '../types'
 import FicheExerciceSection from '../components/FicheExercice/FicheExerciceSection'
+import GamesSection from '../components/Games/GamesSection'
 
 // TODO: DESC and filter to last 4
 export const query = graphql`
@@ -37,6 +38,19 @@ export const query = graphql`
         }
       }
     }
+    allContentfulGame {
+      nodes {
+        title
+        link
+        level {
+          title
+        }
+        createdAt
+        description {
+          raw
+        }
+      }
+    }
   }
 `
 
@@ -45,7 +59,7 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
 
   // TODO: https://dev.to/kojikanao/generate-types-from-contentful-49p8
   const staticData = useStaticQuery(query) as IndexContenfulResponse
-
+  console.log({ staticData })
   return (
     <Root uri={uri}>
       {/* <h1 className="text-3xl font-nunito font-light text-secondary-light">
@@ -89,6 +103,8 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
         allowFullScreen
         scrolling="no"
       /> */}
+      <GamesSection games={staticData.allContentfulGame.nodes} />
+
       {/* <script async src="//cdn.thinglink.me/jse/responsive.js" /> */}
     </Root>
   )

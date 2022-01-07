@@ -36,10 +36,11 @@ const RoundButton: React.FC<RoundButtonProps> = ({
   } else {
     const { id } = otherProps
     const section = useScrollSection(id)
+    console.log(label, { section, id })
     aProps = { onClick: section.onClick }
   }
 
-  console.log({ bgColor, t: `bg-${bgColor}` })
+  console.log({ aProps })
   return (
     <a
       className="flex flex-row items-center justify-start my-4 cursor-pointer"

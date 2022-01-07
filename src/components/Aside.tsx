@@ -7,7 +7,7 @@ const ICON_SIZE = 20
 
 const Aside: React.FC = () => {
   return (
-    <aside className="px-4">
+    <aside className="pl-4">
       <RoundButton
         label="Fiche Exercices"
         id="FicheExerciceSection"
@@ -16,7 +16,7 @@ const Aside: React.FC = () => {
       />
       <RoundButton
         label="Jeux"
-        id="FicheExerciceSection"
+        id="GamesSection"
         bgColor="bg-primary-light"
         Icon={() => <Rocket color={colors.primary} size={ICON_SIZE} />}
       />
@@ -28,9 +28,6 @@ const Aside: React.FC = () => {
           <Youtube color={colors['secondary-dark']} size={ICON_SIZE} />
         )}
       />
-      {/* <Instagram color={colors['primary-dark']} size={50} />
-      <Facebook color={colors['primary-dark']} size={50} />
-      <Youtube color={colors['primary-dark']} size={50} /> */}
     </aside>
   )
 }
