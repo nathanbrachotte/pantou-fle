@@ -46,6 +46,7 @@ export const query = graphql`
     allContentfulGame {
       nodes {
         title
+        slug
         link
         level {
           title

@@ -72,7 +72,9 @@ const Header: React.FC<Props> = ({ uri }) => {
           {LEVELS.map((level, index) => (
             <Item uri={uri} level={level} index={index} key={level} />
           ))}
-          <Splash />
+          <div className="-z-10">
+            <Splash />
+          </div>
         </div>
       </div>
     </div>

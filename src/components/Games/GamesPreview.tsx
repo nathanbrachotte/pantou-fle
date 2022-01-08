@@ -9,9 +9,9 @@ interface GamesPreviewProps {
 }
 
 const GamesPreview: React.FC<GamesPreviewProps> = ({ game }) => {
-  const description = game?.description?.raw
+  // const description = game?.description?.raw
   const preview = game?.preview?.file.url
-
+  console.log({ game })
   return (
     <li className="overflow-hidden rounded-lg bg-background max-w-m sm:w-4/4 max-w-lg">
       <a href={`/${game.slug}`} className="flex flex-col">
@@ -25,7 +25,6 @@ const GamesPreview: React.FC<GamesPreviewProps> = ({ game }) => {
             <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-black/75" />
           )}
         </div>
-
         <div className="flex-1 p-2 self-stretch">
           <div className="flex flex-col justify-between items-stretch h-full">
             <p className="flex-none text-xs text-secondary-light font-light pb-1">

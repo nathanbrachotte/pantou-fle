@@ -50,7 +50,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
     <>
       <SEO />
       <ScrollingProvider>
-        <main className="bg-background h-screen w-screen flex flex-col justify-between">
+        <main className="h-screen w-screen flex flex-col justify-between">
           <Header uri={uri} />
           <div className="grid sm:grid-cols-1 gap-x-0 gap-y-0 auto-cols-max md:grid-cols-10 flex-1">
             <div className="col-span-2">
