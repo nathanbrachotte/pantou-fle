@@ -8,7 +8,7 @@ interface PDFProps {
 
 const IFrame = styled.iframe`
   width: 100%;
-  min-height: 675px;
+  /* min-height: 675px; */
 `
 
 const PDF: React.FC<PDFProps> = ({ title, url }) => {
