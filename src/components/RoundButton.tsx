@@ -36,7 +36,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
   } else {
     const { id } = otherProps
     const section = useScrollSection(id)
-    console.log(label, { section, id })
+    // console.log(label, { section, id })
     aProps = { onClick: section.onClick }
   }
 

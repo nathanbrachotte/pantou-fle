@@ -12,15 +12,12 @@ import { colors } from '../colors'
 
 const FicheExercice: React.FC<PageProps<FicheExerciceType>> = ({
   pageContext,
-
   ...rest
 }) => {
   console.log({ pageContext, rest })
   return (
     <Root uri={rest.uri}>
-      <div className="">
-        <PDF title={pageContext.title} url={pageContext.pdf.file.url} />
-      </div>
+      <PDF title={pageContext.title} url={pageContext.pdf.file.url} />
       <a
         href={pageContext.pdf.file.url}
         target="_blank"
