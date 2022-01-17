@@ -66,7 +66,9 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
             {/* </ThemeProvider> */}
           </div>
           {/* <KoFiFrame /> */}
-          <Footer />
+          <div className="px-2 md:px-4">
+            <Footer />
+          </div>
           {/* </ScrollingProvider> */}
         </main>
       </ScrollingProvider>
