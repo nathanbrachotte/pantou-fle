@@ -1,8 +1,5 @@
 import React from 'react'
 import { PageProps, navigate } from 'gatsby'
-import { Image, Text, Flex, Box, Heading } from 'rebass/styled-components'
-
-import RehypeReact from 'rehype-react'
 
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import type { Game as GameType } from '../types'
@@ -21,7 +18,7 @@ const GameTemplate: React.FC<PageProps<GameType>> = ({
     <Root uri={rest.uri}>
       <button
         type="button"
-        className="flex flex-row justify-start items-center pl-4 sm:py-2 md:py-0 "
+        className="flex flex-row justify-start items-center px-4 sm:py-2 md:py-0 "
         onClick={() => navigate(-1)}>
         <ArrowLeftIcon height={30} />
       </button>

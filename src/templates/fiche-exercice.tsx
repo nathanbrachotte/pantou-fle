@@ -1,14 +1,11 @@
 import React from 'react'
 import { PageProps } from 'gatsby'
-import { Image, Text, Flex, Box, Heading } from 'rebass/styled-components'
 
-import RehypeReact from 'rehype-react'
 import { DownloadIcon } from '@heroicons/react/outline'
 import type { FicheExercice as FicheExerciceType } from '../types'
-import { options, richText } from '../components/RichText'
+import { richText } from '../components/RichText'
 import PDF from '../components/PDF'
 import Root from '../components/Root'
-import { colors } from '../colors'
 
 const FicheExercice: React.FC<PageProps<FicheExerciceType>> = ({
   pageContext,
