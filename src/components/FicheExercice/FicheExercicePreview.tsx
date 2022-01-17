@@ -23,7 +23,7 @@ const FicheExercicePreview: React.FC<FicheExercicePreviewProps> = ({
             <img
               src={preview || 'https://wallpapercave.com/wp/wp4676582.jpg'}
               alt=""
-              className="rounded-lg  aspect-video"
+              className="rounded-lg aspect-video"
             />
             {!preview ? (
               <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-black/75 rounded-lg" />

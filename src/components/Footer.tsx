@@ -10,8 +10,8 @@ import Logo from './Logo'
 const Footer: React.FC = () => {
   return (
     <div className="bg-whitish">
-      <div className="grid px-8 pt-6 sm:pb-48 md:pb-0 md:grid-cols-2 md:grid-rows-1">
-        <div className="flex-1 flex flex-col justify-between row-start-2 sm:h-0 md:h-full md:row-start-1">
+      <div className="grid px-8 pt-6 md:pb-0 md:grid-cols-2 md:grid-rows-1">
+        <div className="flex-1 flex flex-col justify-between row-start-2  md:h-full md:row-start-1">
           <div className="pt-4">
             <div className="flex flex-row justify-start items-end">
               <div className="w-14">
@@ -21,13 +21,13 @@ const Footer: React.FC = () => {
                 <Label />
               </div>
             </div>
-            <p className="font-nunito text-gray-600 sm:w-4/5 lg:w-2/3 xl:w-1/2">
+            <p className="font-nunito text-gray-600 py-2 w-4/5 lg:w-2/3 xl:w-1/2">
               Le site de ressource pour apprendre Français langue étrangère de
               manière ludique
             </p>
           </div>
           <div className="flex flex-col">
-            <div className="flex flex-row justify-start items-end row-start-1 sm:pt-4">
+            <div className="flex flex-row justify-start items-end row-start-1 pt-4">
               <a
                 className="pr-2"
                 href="https://www.facebook.com/apprendreAvecPantouFLE"
@@ -69,8 +69,8 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 flex sm:justify-center md:justify-end">
-          <div className="w-2/3 sm:w-full lg:w-2/3 max-w-lg">
+        <div className="flex-1 flex justify-center md:justify-end">
+          <div className="w-full lg:w-2/3 max-w-lg">
             <form
               className="bg-background shadow-lg rounded-lg px-8 pt-6 pb-2"
               action="https://www.getrevue.co/profile/nathan-brachotte/add_subscriber"
@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="h-16 sm:h-20" />
+      <div className="h-20" />
     </div>
   )
 }

@@ -11,7 +11,7 @@ interface GamesPreviewProps {
 const GamesPreview: React.FC<GamesPreviewProps> = ({ game }) => {
   // const description = game?.description?.raw
   const preview = game?.preview?.file.url
-  console.log({ game })
+  // console.log({ game })
   return (
     <li className="overflow-hidden rounded-lg bg-background max-w-m sm:w-4/4 max-w-lg">
       <a href={`/${game.slug}`} className="flex flex-col">

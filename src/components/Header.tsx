@@ -31,7 +31,7 @@ const getItemStyles = (uri: string, level: string) =>
     uri === `/${level}`
       ? 'bg-primary-dark text-white sm:border-2 sm:border-background'
       : 'bg-background text-primary-dark hover:text-secondary-dark',
-    'border-2 border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
+    'my-2 border-2 border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
   )
 
 const Item: React.FC<
@@ -57,11 +57,11 @@ const AllItem: React.FC<{ uri: string }> = ({ uri }) => {
 const Header: React.FC<Props> = ({ uri }) => {
   return (
     <div className="w-full">
-      <div className="sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
+      <div className="bg-pink-500 sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
       {/* <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}
       <div className="relative mx-auto px-4">
         {/* <div className="flex justify-between items-center border-b-2 border-red py-6 md:justify-start md:space-x-4"> */}
-        <div className="flex items-center justify-start space-x-4 flex-wrap sm:py-2 md:py-4 lg:py-6">
+        <div className="flex items-center justify-start space-x-4 flex-wrap py-2 md:py-4 lg:py-6">
           <div className="flex-none justify-start mr-4">
             <a href="/">
               <span className="sr-only">Home</span>

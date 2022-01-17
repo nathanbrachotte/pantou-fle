@@ -25,10 +25,10 @@ const GameTemplate: React.FC<PageProps<GameType>> = ({
         onClick={() => navigate(-1)}>
         <ArrowLeftIcon height={30} />
       </button>
-      <div className="grid place-items-center pt-4 py-2">
+      <div className="mx-auto text-center pt-4 py-2">
         <Heading1>Jeu - {pageContext.title}</Heading1>
       </div>
-      <div className="px-12 z-10 pb-10">
+      <div className="px-1 sm:px-6 md:px-12 z-10 pb-10">
         <Game link={pageContext.link} />
       </div>
       {/* <span>{JSON.stringify(pageContext, null, 2)}</span> */}

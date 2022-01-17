@@ -66,13 +66,16 @@ export const query = graphql`
 `
 
 const IndexPage: React.FC<PageProps> = ({ uri }) => {
-  useKoFiButton()
-
   // TODO: https://dev.to/kojikanao/generate-types-from-contentful-49p8
   const staticData = useStaticQuery(query) as IndexContenfulResponse
+
   console.log({ staticData })
   return (
     <Root uri={uri}>
+      <FicheExerciceSection
+        fiches={staticData.allContentfulFicheExercice.nodes}
+      />
+      <GamesSection games={staticData.allContentfulGame.nodes} />
       {/* <h1 className="text-3xl font-nunito font-light text-secondary-light">
         Hello world!
       </h1>
@@ -85,9 +88,6 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
       <Badge text="yo" />
       <Badge text="yo" /> */}
 
-      <FicheExerciceSection
-        fiches={staticData.allContentfulFicheExercice.nodes}
-      />
       {/* <h1 className="text-3xl font-logo font-bold text-primary">
         Hello world!
       </h1> */}
@@ -114,7 +114,6 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
         allowFullScreen
         scrolling="no"
       /> */}
-      <GamesSection games={staticData.allContentfulGame.nodes} />
 
       {/* <script async src="//cdn.thinglink.me/jse/responsive.js" /> */}
     </Root>

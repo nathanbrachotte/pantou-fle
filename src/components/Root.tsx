@@ -12,6 +12,7 @@ import SEO from './SEO'
 import Aside from './Aside'
 import KoFiFrame from './KoFiFrame'
 import Footer from './Footer'
+import useKoFiButton from '../hooks/useKoFiButton'
 
 // eslint-disable-next-line import/no-unresolved
 // import Helmet from './Helmet'
@@ -28,6 +29,8 @@ const loadScript = (src: string) => {
 }
 
 const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
+  useKoFiButton()
+
   const darkMode = useDarkMode(false, {
     storageKey: 'darkMode',
   })
@@ -52,19 +55,19 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
       <ScrollingProvider>
         <main className="h-screen w-screen flex flex-col justify-between">
           <Header uri={uri} />
-          <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max m-8 sm:grid-cols-1 md:grid-cols-10">
+          {/* <ScrollingProvider> */}
+          <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max md:ml-4 grid-cols-1 md:grid-cols-10">
             <div className="col-span-2">
               <Aside />
             </div>
             {/* <ThemeProvider theme={theme}> */}
             {/* <GlobalStyle /> */}
-            {/* <ScrollingProvider> */}
             <div className="col-span-8">{children}</div>
-            {/* </ScrollingProvider> */}
             {/* </ThemeProvider> */}
           </div>
           {/* <KoFiFrame /> */}
           <Footer />
+          {/* </ScrollingProvider> */}
         </main>
       </ScrollingProvider>
     </>
