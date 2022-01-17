@@ -11,7 +11,7 @@ const PDF: React.FC<PDFProps> = ({ title, url }) => {
       title={title}
       src={`${url}#toolbar=0`}
       // To center a container: mx-auto
-      className="mx-auto pointer-events-none h-16 w-9 sm:w-2/3 "
+      className="mx-auto pointer-events-none w-full bg-red-600"
     />
   )
 }

@@ -89,6 +89,7 @@ interface DocType {
     raw: string
   }
 }
+
 export const richText = (text: DocType): ReactNode | null => {
   const description = text?.description?.raw
   const data = description && JSON.parse(description)

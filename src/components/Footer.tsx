@@ -10,7 +10,7 @@ import Logo from './Logo'
 const Footer: React.FC = () => {
   return (
     <div className="bg-whitish">
-      <div className="grid px-8 pt-6 md:pb-0 md:grid-cols-2 md:grid-rows-1">
+      <div className="grid pt-6 px-0 sm:px-8 md:pb-0 md:grid-cols-2 md:grid-rows-1">
         <div className="flex-1 flex flex-col justify-between row-start-2  md:h-full md:row-start-1">
           <div className="pt-4">
             <div className="flex flex-row justify-start items-end">
@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
         <div className="flex-1 flex justify-center md:justify-end">
           <div className="w-full lg:w-2/3 max-w-lg">
             <form
-              className="bg-background shadow-lg rounded-lg px-8 pt-6 pb-2"
+              className="bg-background shadow-lg rounded-lg px-4 pt-6 pb-2 sm:px-8"
               action="https://www.getrevue.co/profile/nathan-brachotte/add_subscriber"
               method="post"
               id="revue-form"
