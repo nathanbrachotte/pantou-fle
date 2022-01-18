@@ -1,4 +1,5 @@
 import React from 'react'
+import DownloadButton from '../shared/DownloadButton'
 
 interface PDFProps {
   title: string
@@ -7,12 +8,19 @@ interface PDFProps {
 
 const PDF: React.FC<PDFProps> = ({ title, url }) => {
   return (
-    <iframe
-      title={title}
-      src={`${url}#toolbar=0`}
-      // To center a container: mx-auto
-      className="mx-auto pointer-events-none w-full bg-red-600"
-    />
+    <div className="mx-auto w-full md:w-2/3 max-w-screen-md">
+      <div className="relative pb-[141%]">
+        <iframe
+          title={title}
+          src={`${url}#toolbar=0`}
+          // To center a container: mx-auto
+          className="pointer-events-none absolute top-0 left-0 w-full h-full"
+        />
+        <div className="absolute bottom-4 right-4">
+          <DownloadButton url={url} />
+        </div>
+      </div>
+    </div>
   )
 }
 

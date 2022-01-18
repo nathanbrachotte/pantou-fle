@@ -7,7 +7,7 @@ const ICON_SIZE = 20
 
 const Aside: React.FC = () => {
   return (
-    <aside className="pl-4">
+    <aside className="pl-4 pb-2">
       <RoundButton
         label="Fiche Exercices"
         id="FicheExerciceSection"

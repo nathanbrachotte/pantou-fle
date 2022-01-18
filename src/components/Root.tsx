@@ -62,7 +62,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
             </div>
             {/* <ThemeProvider theme={theme}> */}
             {/* <GlobalStyle /> */}
-            <div className="col-span-8 py-8">{children}</div>
+            <div className="col-span-8 pb-8">{children}</div>
             {/* </ThemeProvider> */}
           </div>
           {/* <KoFiFrame /> */}

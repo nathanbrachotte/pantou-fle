@@ -7,6 +7,8 @@ import { options, richText } from '../components/RichText'
 import Root from '../components/Root'
 import Game from '../components/Game'
 import Heading1 from '../shared/Heading1'
+import BackButton from '../shared/BackButton'
+import ItemHeader from '../shared/ItemHeader'
 
 const GameTemplate: React.FC<PageProps<GameType>> = ({
   pageContext,
@@ -16,19 +18,14 @@ const GameTemplate: React.FC<PageProps<GameType>> = ({
 
   return (
     <Root uri={rest.uri}>
-      <button
-        type="button"
-        className="flex flex-row justify-start items-center px-4 sm:py-2 md:py-0 "
-        onClick={() => navigate(-1)}>
-        <ArrowLeftIcon height={30} />
-      </button>
-      <div className="mx-auto text-center pt-4 py-2">
-        <Heading1>Jeu - {pageContext.title}</Heading1>
+      <ItemHeader title={`Jeu - ${pageContext.title}`} />
+      <div className="z-10 mb-4 md:px-12">
+        <div className="mb-2">
+          <Game link={pageContext.link} />
+        </div>
+
+        <span>{richText(pageContext)}</span>
       </div>
-      <div className="md:px-12 z-10 pb-4">
-        <Game link={pageContext.link} />
-      </div>
-      <span>{richText(pageContext)}</span>
     </Root>
   )
 }
