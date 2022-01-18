@@ -53,7 +53,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
     <>
       <SEO />
       <ScrollingProvider>
-        <main className="h-screen w-screen flex flex-col justify-between">
+        <main className="h-screen w-full flex flex-col justify-between">
           <Header uri={uri} />
           {/* <ScrollingProvider> */}
           <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max grid-cols-1 px-2 md:px-4 md:grid-cols-10">
@@ -66,7 +66,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
             {/* </ThemeProvider> */}
           </div>
           {/* <KoFiFrame /> */}
-          <div className="px-2 md:px-4">
+          <div className="">
             <Footer />
           </div>
           {/* </ScrollingProvider> */}

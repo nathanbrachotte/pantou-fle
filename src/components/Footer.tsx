@@ -9,7 +9,7 @@ import Logo from './Logo'
 
 const Footer: React.FC = () => {
   return (
-    <div className="bg-whitish">
+    <div className="bg-whitish w-full">
       <div className="grid pt-6 px-0 sm:px-8 md:pb-0 md:grid-cols-2 md:grid-rows-1">
         <div className="flex-1 flex flex-col justify-between row-start-2  md:h-full md:row-start-1">
           <div className="pt-4">

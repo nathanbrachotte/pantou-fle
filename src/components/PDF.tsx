@@ -14,7 +14,7 @@ const PDF: React.FC<PDFProps> = ({ title, url }) => {
           title={title}
           src={`${url}#toolbar=0`}
           // To center a container: mx-auto
-          className="pointer-events-none absolute top-0 left-0 w-full h-full"
+          className="absolute top-0 left-0 w-full h-full"
         />
         <div className="absolute bottom-4 right-4">
           <DownloadButton url={url} />

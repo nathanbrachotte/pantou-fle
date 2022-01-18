@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { DownloadIcon } from '@heroicons/react/outline'
-import SquareButton from '../components/SquareButton'
 
 interface DownloadButtonProps {
   url: string
