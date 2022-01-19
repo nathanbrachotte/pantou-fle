@@ -1,6 +1,13 @@
 import React, { ReactNode } from 'react'
 
-import { BLOCKS, INLINES, MARKS, Document } from '@contentful/rich-text-types'
+import {
+  BLOCKS,
+  INLINES,
+  MARKS,
+  Document,
+  Inline,
+  Node,
+} from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import styled from 'styled-components'
 
@@ -67,20 +74,108 @@ const AnimatedLink: React.FC = (node, children) => {
   )
 }
 
+function defaultInline(type: string, node: Node): ReactNode {
+  return (
+    <span key={node.data.target.sys.id}>
+      type: {node.nodeType} id: {node.data.target.sys.id}
+    </span>
+  )
+}
+
 export const options = {
   renderMark: {
     [MARKS.BOLD]: (text: string) => <span className="font-bold">{text}</span>,
+    [MARKS.ITALIC]: (text: string) => <i>{text}</i>,
+    [MARKS.UNDERLINE]: (text: string) => <u>{text}</u>,
+    [MARKS.CODE]: (text: string) => <code>{text}</code>,
   },
   renderNode: {
-    // [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
-    [BLOCKS.EMBEDDED_ASSET]: AnimatedLink,
-    [BLOCKS.EMBEDDED_ENTRY]: AnimatedLink,
-    [INLINES.HYPERLINK]: AnimatedLink,
-    // [BLOCKS.LIST_ITEM]: (node, children) => <li>{children}</li>,
-    // [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-    //   const { title, description } = node.data.target.fields
-    //   return <CustomComponent title={title} description={description} />
+    // [BLOCKS.EMBEDDED_ASSET]: (node: Node, next) => {
+    //   // find the asset in the assetMap by ID
+    //   const asset = assetMap.get(node.data.target.sys.id)
+
+    //   switch (asset.contentType) {
+    //     case 'video/mp4':
+    //       return (
+    //         <video width="100%" height="100%" controls>
+    //           <source src={asset.url} type="video/mp4" />
+    //         </video>
+    //       )
+    //     case 'image/png':
+    //       return (
+    //         <img
+    //           src={asset.url}
+    //           height={asset.height}
+    //           width={asset.width}
+    //           alt={asset.description}
+    //         />
+    //       )
+    //     default:
+    //       return 'Nothing to see here...'
+    //   }
     // },
+    [INLINES.HYPERLINK]: AnimatedLink,
+    [BLOCKS.DOCUMENT]: (_: Node, children: JSX.Element): ReactNode => children,
+    [BLOCKS.PARAGRAPH]: (_: Node, children: JSX.Element): ReactNode => (
+      <p>{children}</p>
+    ),
+    [BLOCKS.HEADING_1]: (_: Node, children: JSX.Element): ReactNode => (
+      <h1>{children}</h1>
+    ),
+    [BLOCKS.HEADING_2]: (_: Node, children: JSX.Element): ReactNode => (
+      <h2>{children}</h2>
+    ),
+    [BLOCKS.HEADING_3]: (_: Node, children: JSX.Element): ReactNode => (
+      <h3>{children}</h3>
+    ),
+    [BLOCKS.HEADING_4]: (_: Node, children: JSX.Element): ReactNode => (
+      <h4>{children}</h4>
+    ),
+    [BLOCKS.HEADING_5]: (_: Node, children: JSX.Element): ReactNode => (
+      <h5>{children}</h5>
+    ),
+    [BLOCKS.HEADING_6]: (_: Node, children: JSX.Element): ReactNode => (
+      <h6>{children}</h6>
+    ),
+    [BLOCKS.EMBEDDED_ENTRY]: (_: Node, children: JSX.Element): ReactNode => (
+      <div>{children}</div>
+    ),
+    [BLOCKS.UL_LIST]: (_: Node, children: JSX.Element): ReactNode => (
+      <ul>{children}</ul>
+    ),
+    [BLOCKS.OL_LIST]: (_: Node, children: JSX.Element): ReactNode => (
+      <ol>{children}</ol>
+    ),
+    [BLOCKS.LIST_ITEM]: (_: Node, children: JSX.Element): ReactNode => (
+      <li className="ml-8 list-outside list-disc">{children}</li>
+    ),
+    [BLOCKS.QUOTE]: (_: Node, children: JSX.Element): ReactNode => (
+      <blockquote className="p-2 bg-primary-light mb-4 border-l-4 border-primary-dark italic">
+        {children}
+      </blockquote>
+    ),
+    [BLOCKS.HR]: () => <hr />,
+    [BLOCKS.TABLE]: (_: Node, children: JSX.Element): ReactNode => (
+      <table>
+        <tbody>{children}</tbody>
+      </table>
+    ),
+    [BLOCKS.TABLE_ROW]: (node: Node, children: JSX.Element): ReactNode => (
+      <tr>{children}</tr>
+    ),
+    [BLOCKS.TABLE_HEADER_CELL]: (
+      node: Node,
+      children: JSX.Element,
+    ): ReactNode => <th>{children}</th>,
+    [BLOCKS.TABLE_CELL]: (node: Node, children: JSX.Element): ReactNode => (
+      <td>{children}</td>
+    ),
+    [INLINES.ASSET_HYPERLINK]: (node: Node): ReactNode =>
+      defaultInline(INLINES.ASSET_HYPERLINK, node as Inline),
+    [INLINES.ENTRY_HYPERLINK]: (node: Node): ReactNode =>
+      defaultInline(INLINES.ENTRY_HYPERLINK, node as Inline),
+    [INLINES.EMBEDDED_ENTRY]: (node: Node): ReactNode =>
+      defaultInline(INLINES.EMBEDDED_ENTRY, node as Inline),
   },
 }
 
