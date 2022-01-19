@@ -40,7 +40,6 @@ const RoundButton: React.FC<RoundButtonProps> = ({
     aProps = { onClick: section.onClick }
   }
 
-  console.log({ aProps })
   return (
     <a
       className="flex flex-row items-center justify-start my-4 cursor-pointer"

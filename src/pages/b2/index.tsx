@@ -1,51 +1,72 @@
 import React from 'react'
 import { StaticQuery, graphql, PageProps } from 'gatsby'
-import Root from '../../components/Root'
 
-const A1Page: React.FC<PageProps> = ({ uri }) => {
+import LevelRoot from '../../shared/LevelRoot'
+import { Level } from '../../types'
+
+const B2Page: React.FC<PageProps> = ({ uri }) => {
   return (
-    <Root uri={uri}>
-      <StaticQuery
-        query={graphql`
-          query AllB2Query {
-            allContentfulFicheExercice(
-              filter: { level: { title: { eq: "B2" } } }
-            ) {
-              edges {
-                node {
-                  pdf {
-                    id
-                    file {
-                      url
-                    }
-                  }
-                  level {
-                    title
-                  }
+    <StaticQuery
+      query={graphql`
+        query AllB2Query {
+          allContentfulFicheExercice(
+            filter: { level: { title: { eq: "B2" } } }
+            sort: { fields: createdAt, order: DESC }
+          ) {
+            nodes {
+              title
+              slug
+              pdf {
+                id
+                file {
+                  fileName
+                  url
+                  contentType
                 }
               }
-            }
-            allContentfulGame(filter: { level: { title: { eq: "B2" } } }) {
-              edges {
-                node {
-                  title
-                  link
-                  level {
-                    title
-                  }
+              level {
+                title
+              }
+              createdAt
+              description {
+                raw
+              }
+              preview {
+                file {
+                  url
                 }
               }
             }
           }
-        `}
-        render={(data) => {
-          console.log('yooo')
-          console.log({ data })
-          return <span>yooo B2</span>
-        }}
-      />
-    </Root>
+          allContentfulGame(
+            filter: { level: { title: { eq: "B2" } } }
+            sort: { fields: createdAt, order: DESC }
+          ) {
+            nodes {
+              title
+              slug
+              link
+              level {
+                title
+              }
+              createdAt
+              description {
+                raw
+              }
+              preview {
+                file {
+                  url
+                }
+              }
+            }
+          }
+        }
+      `}
+      render={(staticData) => {
+        return <LevelRoot uri={uri} level={Level.B2} staticData={staticData} />
+      }}
+    />
   )
 }
 
-export default A1Page
+export default B2Page

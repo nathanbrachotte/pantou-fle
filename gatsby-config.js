@@ -16,8 +16,8 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
-      name: `La Gamelle FLE - Français Langue Étrangère`,
-      short_name: `Gamelle`,
+      name: `Pantou-fle - Français Langue Étrangère`,
+      short_name: `Pantou-fle`,
       start_url: '/',
       background_color: background,
       theme_color: primary,

@@ -20,9 +20,15 @@ const FicheExerciceSection: React.FC<FicheExerciceSectionProps> = ({
           <ChevronRightIcon width={18} />
         </h1>
         <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-1 md:grid-cols-2">
-          {fiches.map((fiche) => {
-            return <FicheExercicePreview key={fiche.slug} fiche={fiche} />
-          })}
+          {fiches.length === 0 ? (
+            <div className="">
+              <p>Rien à voir ici pour l&apos;instant, on y travaille </p>
+            </div>
+          ) : (
+            fiches.map((fiche) => {
+              return <FicheExercicePreview key={fiche.slug} fiche={fiche} />
+            })
+          )}
         </ul>
       </Section>
     </div>

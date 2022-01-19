@@ -14,6 +14,9 @@ exports.onPostBuild = ({ reporter }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const ficheExerciceTemplate = path.resolve(`src/templates/fiche-exercice.tsx`)
+  const allficheExercicesTemplate = path.resolve(
+    `src/templates/all-fiches-exercices.tsx`,
+  )
   const gameTemplate = path.resolve(`src/templates/game.tsx`)
 
   const result = await graphql(`
@@ -93,5 +96,34 @@ exports.createPages = async ({ graphql, actions }) => {
       component: gameTemplate,
       context: edge.node,
     })
+  })
+
+  const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+  createPage({
+    path: `/fiches-exercices`,
+    component: allficheExercicesTemplate,
+    context: result.data.allContentfulFicheExercice.edges,
+  })
+
+  LEVELS.forEach((level) => {
+    const filteredResults = result.data.allContentfulFicheExercice.edges.filter(
+      (edge) => {
+        console.log(edge.node.level.title)
+        return edge.node.level.title === level
+      },
+    )
+
+    createPage({
+      path: `/${level.toLocaleLowerCase()}/fiches-exercices`,
+      component: allficheExercicesTemplate,
+      context: filteredResults,
+    })
+  })
+
+  createPage({
+    path: `/games`,
+    component: allficheExercicesTemplate,
+    context: result.data.allContentfulFicheExercice.edges,
   })
 }

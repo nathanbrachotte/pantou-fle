@@ -10,6 +10,9 @@ import {
 } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import styled from 'styled-components'
+import Heading1 from '../shared/Heading1'
+import Heading2 from '../shared/Heading2'
+import Heading3 from '../shared/Heading3'
 
 // https://www.npmjs.com/package/@contentful/rich-text-react-renderer
 
@@ -62,7 +65,6 @@ const StyledLink = styled.a`
 `
 
 const AnimatedLink: React.FC = (node, children) => {
-  console.log({ node })
   return (
     <StyledLink
       href={node.data.uri}
@@ -84,10 +86,12 @@ function defaultInline(type: string, node: Node): ReactNode {
 
 export const options = {
   renderMark: {
-    [MARKS.BOLD]: (text: string) => <span className="font-bold">{text}</span>,
-    [MARKS.ITALIC]: (text: string) => <i>{text}</i>,
-    [MARKS.UNDERLINE]: (text: string) => <u>{text}</u>,
-    [MARKS.CODE]: (text: string) => <code>{text}</code>,
+    [MARKS.BOLD]: (text: string): ReactNode => (
+      <span className="font-bold">{text}</span>
+    ),
+    [MARKS.ITALIC]: (text: string): ReactNode => <i>{text}</i>,
+    [MARKS.UNDERLINE]: (text: string): ReactNode => <u>{text}</u>,
+    [MARKS.CODE]: (text: string): ReactNode => <code>{text}</code>,
   },
   renderNode: {
     // [BLOCKS.EMBEDDED_ASSET]: (node: Node, next) => {
@@ -120,13 +124,13 @@ export const options = {
       <p>{children}</p>
     ),
     [BLOCKS.HEADING_1]: (_: Node, children: JSX.Element): ReactNode => (
-      <h1>{children}</h1>
+      <Heading1>{children}</Heading1>
     ),
     [BLOCKS.HEADING_2]: (_: Node, children: JSX.Element): ReactNode => (
-      <h2>{children}</h2>
+      <Heading2>{children}</Heading2>
     ),
     [BLOCKS.HEADING_3]: (_: Node, children: JSX.Element): ReactNode => (
-      <h3>{children}</h3>
+      <Heading3>{children}</Heading3>
     ),
     [BLOCKS.HEADING_4]: (_: Node, children: JSX.Element): ReactNode => (
       <h4>{children}</h4>

@@ -1,63 +1,71 @@
 import React from 'react'
 import { StaticQuery, graphql, PageProps } from 'gatsby'
-import { ArrowLeftIcon } from '@heroicons/react/outline'
-import Root from '../../components/Root'
-import Heading2 from '../../shared/Heading2'
+
+import LevelRoot from '../../shared/LevelRoot'
+import { Level } from '../../types'
 
 const A1Page: React.FC<PageProps> = ({ uri }) => {
   return (
-    <Root uri={uri}>
-      <StaticQuery
-        query={graphql`
-          query AllA1Query {
-            allContentfulFicheExercice(
-              filter: { level: { title: { eq: "A1" } } }
-              sort: { fields: createdAt, order: DESC }
-            ) {
-              edges {
-                node {
-                  pdf {
-                    id
-                    file {
-                      url
-                    }
-                    createdAt
-                  }
-                  level {
-                    title
-                  }
+    <StaticQuery
+      query={graphql`
+        query AllA1Query {
+          allContentfulFicheExercice(
+            filter: { level: { title: { eq: "A1" } } }
+            sort: { fields: createdAt, order: DESC }
+          ) {
+            nodes {
+              title
+              slug
+              pdf {
+                id
+                file {
+                  fileName
+                  url
+                  contentType
                 }
               }
-            }
-            allContentfulGame(
-              filter: { level: { title: { eq: "A1" } } }
-              sort: { fields: createdAt, order: DESC }
-            ) {
-              edges {
-                node {
-                  title
-                  link
-                  level {
-                    title
-                  }
-                  createdAt
+              level {
+                title
+              }
+              createdAt
+              description {
+                raw
+              }
+              preview {
+                file {
+                  url
                 }
               }
             }
           }
-        `}
-        render={(data) => {
-          console.log('yooo')
-          console.log({ data })
-          return (
-            <>
-              <ArrowLeftIcon height={20} />
-              <Heading2>Tous niveau</Heading2>
-            </>
-          )
-        }}
-      />
-    </Root>
+          allContentfulGame(
+            filter: { level: { title: { eq: "A1" } } }
+            sort: { fields: createdAt, order: DESC }
+          ) {
+            nodes {
+              title
+              slug
+              link
+              level {
+                title
+              }
+              createdAt
+              description {
+                raw
+              }
+              preview {
+                file {
+                  url
+                }
+              }
+            }
+          }
+        }
+      `}
+      render={(staticData) => {
+        return <LevelRoot uri={uri} level={Level.A1} staticData={staticData} />
+      }}
+    />
   )
 }
 

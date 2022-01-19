@@ -17,10 +17,16 @@ const GamesSection: React.FC<GamesSectionProps> = ({ games }) => {
           <Heading2>Jeux</Heading2>
           <ChevronRightIcon width={18} />
         </h1>
-        <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-2 place-items-center  md:grid-cols-2 lg:grid-cols-4 lg:place-items-stretch">
-          {games?.map((game) => {
-            return <GamesPreview key={game.slug} game={game} />
-          })}
+        <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-2 place-items-center md:grid-cols-2 lg:grid-cols-4 lg:place-items-stretch">
+          {games.length === 0 ? (
+            <div className="">
+              <p>Rien à voir ici pour l&apos;instant, on y travaille </p>
+            </div>
+          ) : (
+            games?.map((game) => {
+              return <GamesPreview key={game.slug} game={game} />
+            })
+          )}
         </ul>
       </Section>
     </div>

@@ -4,13 +4,13 @@ import { StaticQuery, graphql, PageProps } from 'gatsby'
 import LevelRoot from '../../shared/LevelRoot'
 import { Level } from '../../types'
 
-const B1Page: React.FC<PageProps> = ({ uri }) => {
+const C2Page: React.FC<PageProps> = ({ uri }) => {
   return (
     <StaticQuery
       query={graphql`
-        query AllB1Query {
+        query AllC2Query {
           allContentfulFicheExercice(
-            filter: { level: { title: { eq: "B1" } } }
+            filter: { level: { title: { eq: "C2" } } }
             sort: { fields: createdAt, order: DESC }
           ) {
             nodes {
@@ -39,7 +39,7 @@ const B1Page: React.FC<PageProps> = ({ uri }) => {
             }
           }
           allContentfulGame(
-            filter: { level: { title: { eq: "B1" } } }
+            filter: { level: { title: { eq: "C2" } } }
             sort: { fields: createdAt, order: DESC }
           ) {
             nodes {
@@ -63,10 +63,10 @@ const B1Page: React.FC<PageProps> = ({ uri }) => {
         }
       `}
       render={(staticData) => {
-        return <LevelRoot uri={uri} level={Level.B1} staticData={staticData} />
+        return <LevelRoot uri={uri} level={Level.C2} staticData={staticData} />
       }}
     />
   )
 }
 
-export default B1Page
+export default C2Page
