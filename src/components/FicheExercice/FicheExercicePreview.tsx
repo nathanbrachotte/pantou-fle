@@ -1,7 +1,7 @@
 import React from 'react'
 import EllipsisText from '../../shared/EllispsisText'
 import { FicheExercice } from '../../types'
-import { richText } from '../RichText'
+import { poorText, richText } from '../RichText'
 
 interface FicheExercicePreviewProps {
   fiche: FicheExercice
@@ -43,7 +43,7 @@ const FicheExercicePreview: React.FC<FicheExercicePreviewProps> = ({
               </p>
               {/* FIXME: inside is an <a> tag created within rich text which throws an error */}
               <EllipsisText className="text-primary text-sm">
-                {description && richText(fiche)}
+                {description && poorText(fiche)}
               </EllipsisText>
             </div>
             <p className="flex-none text-primary text-xs pt-1">

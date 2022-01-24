@@ -12,7 +12,9 @@ const FicheExercice: React.FC<PageProps<FicheExerciceType>> = ({
   ...rest
 }) => {
   const data = pageContext as FicheExerciceType
+
   console.log({ data, rest })
+
   return (
     <Root uri={rest.uri}>
       <ItemHeader title={`Fiche Exercice - ${data.title}`} />

@@ -40,6 +40,23 @@ exports.createPages = async ({ graphql, actions }) => {
             createdAt
             description {
               raw
+              references {
+                id
+                contentful_id
+                createdAt
+                file {
+                  contentType
+                  details {
+                    size
+                    image {
+                      height
+                      width
+                    }
+                  }
+                  fileName
+                  url
+                }
+              }
             }
             preview {
               file {
@@ -73,16 +90,11 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  // console.log({ result })
-  // console.log({
-  //   allContentfulFicheExercice: JSON.stringify(
-  //     result.data.allContentfulFicheExercice.edges,
-  //     null,
-  //     2,
-  //   ),
-  // })
+  console.log({
+    allContentfulFicheExercice: JSON.stringify(result, null, 2),
+  })
   result.data.allContentfulFicheExercice.edges.forEach((edge) => {
-    // console.log({ edge: JSON.stringify(edge, null, 2) })
+    console.log({ edge: JSON.stringify(edge, null, 2) })
     createPage({
       path: `/${edge.node.slug}`,
       component: ficheExerciceTemplate,

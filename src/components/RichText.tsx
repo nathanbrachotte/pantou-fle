@@ -8,32 +8,17 @@ import {
   Inline,
   Node,
 } from '@contentful/rich-text-types'
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import {
+  documentToReactComponents,
+  Options,
+} from '@contentful/rich-text-react-renderer'
 import styled from 'styled-components'
 import Heading1 from '../shared/Heading1'
 import Heading2 from '../shared/Heading2'
 import Heading3 from '../shared/Heading3'
-
-// https://www.npmjs.com/package/@contentful/rich-text-react-renderer
-
-// const CustomComponent: React.FC<{ title: any; description: any }> = ({
-//   title,
-//   description,
-// }) => (
-//   <div>
-//     <h2>{title}</h2>
-//     <p>{description}</p>
-//   </div>
-// )
-
-const Bold: React.FC = ({ children }) => {
-  console.log({ children })
-  return <span className="bold">{children}</span>
-}
-
-// const Text: React.FC = ({ children }) => (
-//   <span className="align-center">{children}</span>
-// )
+import PDF from './PDF'
+import { Reference } from '../types'
+import Game from './Game'
 
 const StyledLink = styled.a`
   display: inline-block;
@@ -64,7 +49,17 @@ const StyledLink = styled.a`
   }
 `
 
-const AnimatedLink: React.FC = (node, children) => {
+const AnimatedLink = (node: Node, children: JSX.Element): ReactNode => {
+  const isGenially = node.data.uri.includes('view.genial.ly')
+
+  if (isGenially) {
+    return (
+      <div className="w-2/3 my-4 mx-auto">
+        <Game link={node.data.uri} />
+      </div>
+    )
+  }
+
   return (
     <StyledLink
       href={node.data.uri}
@@ -79,12 +74,25 @@ const AnimatedLink: React.FC = (node, children) => {
 function defaultInline(type: string, node: Node): ReactNode {
   return (
     <span key={node.data.target.sys.id}>
-      type: {node.nodeType} id: {node.data.target.sys.id}
+      {`type: ${node.nodeType} id: ${node.data.target.sys.id}`}
     </span>
   )
 }
 
-export const options = {
+function getAssetFromId(
+  references: Reference[],
+  id: string,
+): Reference | undefined {
+  const matchingRef = references.find((ref) => {
+    return ref.contentful_id === id
+  })
+
+  return matchingRef
+}
+
+export const getOptions: (references: Reference[]) => Options = (
+  references: Reference[],
+) => ({
   renderMark: {
     [MARKS.BOLD]: (text: string): ReactNode => (
       <span className="font-bold">{text}</span>
@@ -94,30 +102,36 @@ export const options = {
     [MARKS.CODE]: (text: string): ReactNode => <code>{text}</code>,
   },
   renderNode: {
-    // [BLOCKS.EMBEDDED_ASSET]: (node: Node, next) => {
-    //   // find the asset in the assetMap by ID
-    //   const asset = assetMap.get(node.data.target.sys.id)
+    [BLOCKS.EMBEDDED_ENTRY]: (node: Node): ReactNode =>
+      defaultInline(INLINES.ASSET_HYPERLINK, node as Inline),
+    [BLOCKS.EMBEDDED_ASSET]: (node: Node): ReactNode => {
+      const { id } = node.data.target.sys
 
-    //   switch (asset.contentType) {
-    //     case 'video/mp4':
-    //       return (
-    //         <video width="100%" height="100%" controls>
-    //           <source src={asset.url} type="video/mp4" />
-    //         </video>
-    //       )
-    //     case 'image/png':
-    //       return (
-    //         <img
-    //           src={asset.url}
-    //           height={asset.height}
-    //           width={asset.width}
-    //           alt={asset.description}
-    //         />
-    //       )
-    //     default:
-    //       return 'Nothing to see here...'
-    //   }
-    // },
+      const asset = getAssetFromId(references, id)
+
+      if (!asset) {
+        return null
+      }
+
+      switch (asset.file.contentType) {
+        case 'application/pdf':
+          return (
+            <div className="w-2/3 my-4 mx-auto">
+              <PDF url={asset.file.url} title={asset.file.fileName} />
+            </div>
+          )
+        case 'image/png':
+          return (
+            <img
+              src={asset.file.url}
+              alt={asset.file.fileName}
+              className="rounded-lg aspect-video w-1/2 my-4 mx-auto"
+            />
+          )
+        default:
+          return 'Nothing to see here...'
+      }
+    },
     [INLINES.HYPERLINK]: AnimatedLink,
     [BLOCKS.DOCUMENT]: (_: Node, children: JSX.Element): ReactNode => children,
     [BLOCKS.PARAGRAPH]: (_: Node, children: JSX.Element): ReactNode => (
@@ -154,7 +168,7 @@ export const options = {
       <li className="ml-8 list-outside list-disc">{children}</li>
     ),
     [BLOCKS.QUOTE]: (_: Node, children: JSX.Element): ReactNode => (
-      <blockquote className="p-2 bg-primary-light mb-4 border-l-4 border-primary-dark italic">
+      <blockquote className="p-2 bg-primary-light mt-2 mb-2 border-l-4 border-primary-dark italic">
         {children}
       </blockquote>
     ),
@@ -181,17 +195,30 @@ export const options = {
     [INLINES.EMBEDDED_ENTRY]: (node: Node): ReactNode =>
       defaultInline(INLINES.EMBEDDED_ENTRY, node as Inline),
   },
-}
+})
 
 interface DocType {
   description: {
     raw: string
+    references: Reference[]
   }
+  [key: string | number]: any
 }
 
 export const richText = (text: DocType): ReactNode | null => {
   const description = text?.description?.raw
+  const references = text?.description?.references
   const data = description && JSON.parse(description)
 
-  return description ? documentToReactComponents(data, options) : null
+  return description
+    ? documentToReactComponents(data, getOptions(references))
+    : null
+}
+
+export const poorText = (text: DocType): ReactNode | null => {
+  const description = text?.description?.raw
+  const data = description && JSON.parse(description)
+
+  // https://www.npmjs.com/package/@contentful/rich-text-react-renderer
+  return description ? documentToReactComponents(data) : null
 }

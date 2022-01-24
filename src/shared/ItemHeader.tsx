@@ -8,7 +8,7 @@ interface ItemHeaderProps {
 
 const ItemHeader: React.FC<ItemHeaderProps> = ({ title }) => {
   return (
-    <div className="mx-auto text-center flex flex-row mb-2">
+    <div className="mx-auto text-center flex flex-row mb-4">
       <div className="">
         <BackButton />
       </div>

@@ -25,6 +25,19 @@ export type ContenfulResponse<
   }
 }
 
+export interface Reference {
+  // eslint-disable-next-line camelcase
+  contentful_id: string
+  createdAt: string
+  file: {
+    contentType: 'image/png' | 'application/pdf'
+    details: { image: { height: number; width: number } }
+    fileName: string
+    url: string
+  }
+  id: string
+}
+
 export interface FicheExercice {
   level: { id: string; title: Level }
   pdf: {
@@ -41,6 +54,7 @@ export interface FicheExercice {
   createdAt: string
   description: {
     raw: string
+    references: Reference[]
   }
   preview: {
     file: { url: string }
