@@ -1,12 +1,13 @@
+import React from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
-import React from 'react'
 import CategoryBadge from '../../shared/CategoryBadge'
 import EllipsisText from '../../shared/EllispsisText'
 import { Tooltip } from '../../shared/Tooltip'
 import { Activity } from '../../types'
 import { Badge } from '../Badge'
 import { poorText, richText } from '../RichText'
+import RoundButton from '../RoundButton'
 
 interface ActivityPreviewProps {
   fiche: Activity
@@ -18,10 +19,14 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
   const isFree = fiche.price.paymentType === 'free'
   const { type } = fiche.activityType
 
-  console.log({ fiche, type })
+  // console.log({ fiche, type })
 
   return (
-    <li className="overflow-hidden rounded-lg bg-background max-w-3xl">
+    <li
+      className={clsx(
+        'overflow-hidden rounded-lg bg-background max-w-3xl',
+        // 'shadow-lg shadow-primary-light-500/50',
+      )}>
       <a
         href={`/${fiche.slug}`}
         className="flex flex-row flex-wrap items-center justify-center">
@@ -44,8 +49,13 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
             )}
             {!isFree && (
               <Tooltip content="Accès Payant">
-                <div>
-                  <StarIcon className="absolute left-2 bottom-2 fill-yellow-300 h-4  lg:h-8" />
+                <div className="absolute left-1 bottom-1 sm:left-2 sm:bottom-2">
+                  <div
+                    className={clsx(
+                      'rounded-full items-center justify-center mr-2 flex-none bg-yellow-200 p-1',
+                    )}>
+                    <StarIcon className="fill-yellow-500 h-2 sm:h-4" />
+                  </div>
                 </div>
               </Tooltip>
             )}

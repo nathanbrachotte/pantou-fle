@@ -1,21 +1,16 @@
 import React from 'react'
 
-import { VideoCameraIcon } from '@heroicons/react/outline'
 import { useScrollSection } from 'react-scroll-section'
 import clsx from 'clsx'
-import Image from './Image'
-import { Facebook, Instagram, Youtube } from '../../assets/index'
-import { colors } from '../colors'
-import { Color } from '../types'
 
 type RoundButtonProps = {
-  label: string
+  label?: string
   Icon: React.FC
   // FIXME: Make paasing bgColor a bit more elegant
   bgColor: string
 } & (
   | {
-      link: string
+      link?: string
     }
   | {
       id: string
@@ -33,7 +28,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
   if ('link' in otherProps) {
     const { link } = otherProps
     aProps = { href: link }
-  } else {
+  } else if ('id' in otherProps) {
     const { id } = otherProps
     const section = useScrollSection(id)
     // console.log(label, { section, id })
@@ -42,7 +37,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
 
   return (
     <a
-      className="flex flex-row items-center justify-start my-4 cursor-pointer"
+      className="flex flex-row items-center justify-start mb-4 cursor-pointer"
       {...aProps}>
       <div
         className={clsx(

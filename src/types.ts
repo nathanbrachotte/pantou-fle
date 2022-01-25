@@ -13,6 +13,15 @@ export enum ActivityType {
   FICHE_EXERCICE = 'fiche-exercice',
 }
 
+export const ACTIVITY_TYPE = [
+  'production-ecrite',
+  'production-orale',
+  'orthographe',
+  'vocabulaire',
+  'comprehension-orale',
+  'comprehension-ecrite',
+  'fiche-exercice',
+]
 export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 
 export enum Level {

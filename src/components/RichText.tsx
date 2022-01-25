@@ -50,7 +50,9 @@ const StyledLink = styled.a`
 `
 
 const AnimatedLink = (node: Node, children: JSX.Element): ReactNode => {
-  const isGenially = node.data.uri.includes('view.genial.ly')
+  const isGenially =
+    node.data.uri.includes('view.genial.ly') ||
+    node.data.uri.includes('educaplay')
 
   if (isGenially) {
     return (

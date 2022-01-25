@@ -14,10 +14,19 @@ exports.onPostBuild = ({ reporter }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const activityTemplate = path.resolve(`src/templates/activity.tsx`)
-  const allficheExercicesTemplate = path.resolve(
-    `src/templates/all-activities.tsx`,
-  )
+  const allActivitiesTemplate = path.resolve(`src/templates/all-activities.tsx`)
   const gameTemplate = path.resolve(`src/templates/game.tsx`)
+
+  const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+  const ACTIVITY_TYPE = [
+    'production-ecrite',
+    'production-orale',
+    'orthographe',
+    'vocabulaire',
+    'comprehension-orale',
+    'comprehension-ecrite',
+    'fiche-exercice',
+  ]
 
   const result = await graphql(`
     query AllElementsQuery {
@@ -117,32 +126,42 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+  // createPage({
+  //   path: `/activities`,
+  //   component: allActivitiesTemplate,
+  //   context: result.data.allContentfulActivity.edges,
+  // })
 
-  createPage({
-    path: `/activities`,
-    component: allficheExercicesTemplate,
-    context: result.data.allContentfulActivity.edges,
-  })
+  // TODO: Is this useful?
+  // LEVELS.forEach((level) => {
+  //   const filteredResults = result.data.allContentfulActivity.edges.filter(
+  //     (edge) => {
+  //       console.log(edge.node.level.title)
+  //       return edge.node.level.title === level
+  //     },
+  //   )
 
-  LEVELS.forEach((level) => {
-    const filteredResults = result.data.allContentfulActivity.edges.filter(
-      (edge) => {
-        console.log(edge.node.level.title)
-        return edge.node.level.title === level
-      },
-    )
+  //   createPage({
+  //     path: `/${level.toLocaleLowerCase()}/fiches-exercices`,
+  //     component: allActivitiesTemplate,
+  //     context: filteredResults,
+  //   })
+  // })
 
+  // createPage({
+  //   path: `/games`,
+  //   component: allActivitiesTemplate,
+  //   context: result.data.allContentfulActivity.edges,
+  // })
+
+  ACTIVITY_TYPE.forEach((activity) => {
     createPage({
-      path: `/${level.toLocaleLowerCase()}/fiches-exercices`,
-      component: allficheExercicesTemplate,
-      context: filteredResults,
+      path: `/${activity}`,
+      component: allActivitiesTemplate,
+      context: {
+        data: result.data.allContentfulActivity.edges,
+        activity,
+      },
     })
-  })
-
-  createPage({
-    path: `/games`,
-    component: allficheExercicesTemplate,
-    context: result.data.allContentfulActivity.edges,
   })
 }

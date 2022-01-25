@@ -1,33 +1,35 @@
 import React from 'react'
-import { FicheExercice, Rocket, Youtube } from '../../assets'
-import { colors } from '../colors'
+import { getActivityTypeLabel, getColorsAndLogoFromLabel } from '../helpers'
+import { ActivityType } from '../types'
 import RoundButton from './RoundButton'
 
-const ICON_SIZE = 20
+const getButtonFromActivityTypes = (activity: ActivityType) => {
+  const { backgroundColor, logo } = getColorsAndLogoFromLabel(activity)
+  return (
+    <RoundButton
+      label={getActivityTypeLabel(activity)}
+      link={`/${activity}`}
+      bgColor={backgroundColor}
+      Icon={() => logo}
+    />
+  )
+}
 
 const Aside: React.FC = () => {
   return (
-    <aside className="pl-4 pb-2">
-      <RoundButton
-        label="Activités"
-        link="/activities"
-        bgColor="bg-tertiary-light"
-        Icon={() => <FicheExercice color={colors.tertiary} size={ICON_SIZE} />}
-      />
-      <RoundButton
-        label="Jeux"
-        id="GamesSection"
-        bgColor="bg-primary-light"
-        Icon={() => <Rocket color={colors.primary} size={ICON_SIZE} />}
-      />
-      <RoundButton
-        label="Vidéos"
-        link="https://www.youtube.com/channel/UCYFLgaAWqetra1x03v7XacQ/featured"
-        bgColor="bg-secondary-very-light"
-        Icon={() => (
-          <Youtube color={colors['secondary-dark']} size={ICON_SIZE} />
-        )}
-      />
+    <aside className="pl-2 pr-2 grid grid-cols-2 pt-4 md:grid-cols-1">
+      {/* FIXME: https://www.petermorlion.com/iterating-a-typescript-enum/ */}
+      <div>
+        {getButtonFromActivityTypes(ActivityType.COMPREHENSION_ECRITE)}
+        {getButtonFromActivityTypes(ActivityType.COMPREHENSION_ORALE)}
+        {getButtonFromActivityTypes(ActivityType.FICHE_EXERCICE)}
+        {getButtonFromActivityTypes(ActivityType.ORTHOGRAPHE)}
+      </div>
+      <div className="pb-2">
+        {getButtonFromActivityTypes(ActivityType.PRODUCTION_ECRITE)}
+        {getButtonFromActivityTypes(ActivityType.PRODUCTION_ORALE)}
+        {getButtonFromActivityTypes(ActivityType.VOCABULAIRE)}
+      </div>
     </aside>
   )
 }
