@@ -9,8 +9,8 @@ const Aside: React.FC = () => {
   return (
     <aside className="pl-4 pb-2">
       <RoundButton
-        label="Fiche Exercices"
-        id="FicheExerciceSection"
+        label="Activités"
+        link="/activities"
         bgColor="bg-tertiary-light"
         Icon={() => <FicheExercice color={colors.tertiary} size={ICON_SIZE} />}
       />

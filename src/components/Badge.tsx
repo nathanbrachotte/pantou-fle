@@ -16,7 +16,7 @@ export const Badge: React.FC<BadgeProps> = ({
   return (
     <div>
       <div
-        className={`text-xs inline-flex items-center leading-sm px-3 py-1 bg-${color} text-${backgroundToTextColor(
+        className={`text-center text-xs inline-flex items-center px-2 sm:px-3 py-1 bg-${color} text-${backgroundToTextColor(
           color,
         )} rounded-full`}>
         {logo != null && logo}

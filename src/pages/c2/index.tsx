@@ -9,7 +9,7 @@ const C2Page: React.FC<PageProps> = ({ uri }) => {
     <StaticQuery
       query={graphql`
         query AllC2Query {
-          allContentfulFicheExercice(
+          allContentfulActivity(
             filter: { level: { title: { eq: "C2" } } }
             sort: { fields: createdAt, order: DESC }
           ) {
@@ -35,6 +35,13 @@ const C2Page: React.FC<PageProps> = ({ uri }) => {
                 file {
                   url
                 }
+              }
+              price {
+                paymentType
+              }
+              priceAmount
+              activityType {
+                type
               }
             }
           }

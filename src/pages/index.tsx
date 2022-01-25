@@ -11,13 +11,13 @@ import { Article } from '../components/Article'
 import KoFiFrame from '../components/KoFiFrame'
 import useKoFiButton from '../hooks/useKoFiButton'
 import { IndexContenfulResponse } from '../types'
-import FicheExerciceSection from '../components/FicheExercice/FicheExerciceSection'
+import FicheExerciceSection from '../components/Activity/ActivitySection'
 import GamesSection from '../components/Games/GamesSection'
 
 // TODO: DESC and filter to last 4
 export const query = graphql`
   query ExerciseSheetQuery {
-    allContentfulFicheExercice {
+    allContentfulActivity {
       nodes {
         title
         slug
@@ -40,6 +40,13 @@ export const query = graphql`
           file {
             url
           }
+        }
+        price {
+          paymentType
+        }
+        priceAmount
+        activityType {
+          type
         }
       }
     }
@@ -73,7 +80,8 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
   return (
     <Root uri={uri}>
       <FicheExerciceSection
-        fiches={staticData.allContentfulFicheExercice.nodes}
+        fiches={staticData.allContentfulActivity.nodes}
+        maxItems={4}
       />
       <GamesSection games={staticData.allContentfulGame.nodes} />
       {/* <h1 className="text-3xl font-nunito font-light text-secondary-light">
@@ -93,8 +101,8 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
       </h1> */}
       {/* <Game link="https://view.genial.ly/61b0ac256b7b2f0d4c0e7ed1" /> */}
       {/* <PDF
-          title={data.allContentfulFicheExercice.nodes[0].title}
-          url={data.allContentfulFicheExercice.nodes[0].pdf.file.url}
+          title={data.allContentfulActivity.nodes[0].title}
+          url={data.allContentfulActivity.nodes[0].pdf.file.url}
         /> */}
       {/* <Landing />
     <About />

@@ -9,7 +9,7 @@ const C1Page: React.FC<PageProps> = ({ uri }) => {
     <StaticQuery
       query={graphql`
         query AllC1Query {
-          allContentfulFicheExercice(
+          allContentfulActivity(
             filter: { level: { title: { eq: "C1" } } }
             sort: { fields: createdAt, order: DESC }
           ) {
@@ -35,6 +35,13 @@ const C1Page: React.FC<PageProps> = ({ uri }) => {
                 file {
                   url
                 }
+              }
+              price {
+                paymentType
+              }
+              priceAmount
+              activityType {
+                type
               }
             }
           }

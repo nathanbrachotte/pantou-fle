@@ -36,7 +36,7 @@ import { graphql } from 'gatsby'
 
 // export const allExerciseSheetQuery = graphql`
 //   query ExerciseSheetQuery {
-//     allContentfulFicheExercice {
+//     allContentfulActivity {
 //       nodes {
 //         slug
 //         pdf {

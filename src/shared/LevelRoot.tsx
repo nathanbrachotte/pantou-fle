@@ -1,5 +1,5 @@
 import React from 'react'
-import FicheExerciceSection from '../components/FicheExercice/FicheExerciceSection'
+import FicheExerciceSection from '../components/Activity/ActivitySection'
 import GamesSection from '../components/Games/GamesSection'
 import Root from '../components/Root'
 import { Level } from '../types'
@@ -14,10 +14,8 @@ interface LevelRootProps {
 const LevelRoot: React.FC<LevelRootProps> = ({ level, uri, staticData }) => {
   return (
     <Root uri={uri}>
-      <LevelHeader title={level.toUpperCase()} />
-      <FicheExerciceSection
-        fiches={staticData.allContentfulFicheExercice.nodes}
-      />
+      <LevelHeader title={`Niveau ${level.toUpperCase()}`} />
+      <FicheExerciceSection fiches={staticData.allContentfulActivity.nodes} />
       <GamesSection games={staticData.allContentfulGame.nodes} />
     </Root>
   )

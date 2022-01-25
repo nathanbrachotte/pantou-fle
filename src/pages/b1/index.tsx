@@ -9,7 +9,7 @@ const B1Page: React.FC<PageProps> = ({ uri }) => {
     <StaticQuery
       query={graphql`
         query AllB1Query {
-          allContentfulFicheExercice(
+          allContentfulActivity(
             filter: { level: { title: { eq: "B1" } } }
             sort: { fields: createdAt, order: DESC }
           ) {
@@ -35,6 +35,13 @@ const B1Page: React.FC<PageProps> = ({ uri }) => {
                 file {
                   url
                 }
+              }
+              price {
+                paymentType
+              }
+              priceAmount
+              activityType {
+                type
               }
             }
           }

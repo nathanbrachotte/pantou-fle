@@ -3,6 +3,16 @@ import { colors } from './colors'
 export type Color = keyof typeof colors
 export type URL = string
 
+export enum ActivityType {
+  PRODUCTION_ECRITE = 'production-ecrite',
+  PRODUCTION_ORALE = 'production-orale',
+  ORTHOGRAPHE = 'orthographe',
+  VOCABULAIRE = 'vocabulaire',
+  COMPREHENSION_ORALE = 'comprehension-orale',
+  COMPREHENSION_ECRITE = 'comprehension-ecrite',
+  FICHE_EXERCICE = 'fiche-exercice',
+}
+
 export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 
 export enum Level {
@@ -14,7 +24,7 @@ export enum Level {
   C2 = 'C2',
 }
 
-type AllContentfulRequests = 'allContentfulFicheExercice' | 'allContentfulGame'
+type AllContentfulRequests = 'allContentfulActivity' | 'allContentfulGame'
 
 export type ContenfulResponse<
   Request extends AllContentfulRequests,
@@ -38,7 +48,7 @@ export interface Reference {
   id: string
 }
 
-export interface FicheExercice {
+export interface Activity {
   level: { id: string; title: Level }
   pdf: {
     id: string
@@ -59,6 +69,13 @@ export interface FicheExercice {
   preview: {
     file: { url: string }
   }
+  price: {
+    paymentType: 'subscription' | 'setPrice' | 'free'
+  }
+  priceAmount: number
+  activityType: {
+    type: ActivityType
+  }
 }
 
 export interface Game {
@@ -78,7 +95,7 @@ export interface Game {
 }
 
 export type IndexContenfulResponse = ContenfulResponse<
-  'allContentfulFicheExercice',
-  FicheExercice
+  'allContentfulActivity',
+  Activity
 > &
   ContenfulResponse<'allContentfulGame', Game>

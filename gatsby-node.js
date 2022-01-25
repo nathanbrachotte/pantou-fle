@@ -13,15 +13,15 @@ exports.onPostBuild = ({ reporter }) => {
 // Create blog pages dynamically
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const ficheExerciceTemplate = path.resolve(`src/templates/fiche-exercice.tsx`)
+  const activityTemplate = path.resolve(`src/templates/activity.tsx`)
   const allficheExercicesTemplate = path.resolve(
-    `src/templates/all-fiches-exercices.tsx`,
+    `src/templates/all-activities.tsx`,
   )
   const gameTemplate = path.resolve(`src/templates/game.tsx`)
 
   const result = await graphql(`
     query AllElementsQuery {
-      allContentfulFicheExercice {
+      allContentfulActivity {
         edges {
           node {
             title
@@ -63,6 +63,13 @@ exports.createPages = async ({ graphql, actions }) => {
                 url
               }
             }
+            price {
+              paymentType
+            }
+            priceAmount
+            activityType {
+              type
+            }
           }
         }
       }
@@ -90,14 +97,14 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  console.log({
-    allContentfulFicheExercice: JSON.stringify(result, null, 2),
-  })
-  result.data.allContentfulFicheExercice.edges.forEach((edge) => {
-    console.log({ edge: JSON.stringify(edge, null, 2) })
+  // console.log({
+  //   allContentfulActivity: JSON.stringify(result, null, 2),
+  // })
+  result.data.allContentfulActivity.edges.forEach((edge) => {
+    // console.log({ edge: JSON.stringify(edge, null, 2) })
     createPage({
       path: `/${edge.node.slug}`,
-      component: ficheExerciceTemplate,
+      component: activityTemplate,
       context: edge.node,
     })
   })
@@ -113,13 +120,13 @@ exports.createPages = async ({ graphql, actions }) => {
   const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 
   createPage({
-    path: `/fiches-exercices`,
+    path: `/activities`,
     component: allficheExercicesTemplate,
-    context: result.data.allContentfulFicheExercice.edges,
+    context: result.data.allContentfulActivity.edges,
   })
 
   LEVELS.forEach((level) => {
-    const filteredResults = result.data.allContentfulFicheExercice.edges.filter(
+    const filteredResults = result.data.allContentfulActivity.edges.filter(
       (edge) => {
         console.log(edge.node.level.title)
         return edge.node.level.title === level
@@ -136,6 +143,6 @@ exports.createPages = async ({ graphql, actions }) => {
   createPage({
     path: `/games`,
     component: allficheExercicesTemplate,
-    context: result.data.allContentfulFicheExercice.edges,
+    context: result.data.allContentfulActivity.edges,
   })
 }
