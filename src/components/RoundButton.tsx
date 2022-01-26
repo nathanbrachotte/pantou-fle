@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useScrollSection } from 'react-scroll-section'
 import clsx from 'clsx'
+import ScaleOnHoverWrapper from '../shared/ScaleOnHoverWrapper'
 
 type RoundButtonProps = {
   label?: string
@@ -37,7 +38,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
 
   return (
     <a
-      className="flex flex-row items-center justify-start mb-4 cursor-pointer"
+      className="flex flex-row items-center justify-start mb-4 cursor-pointer group"
       {...aProps}>
       <div
         className={clsx(

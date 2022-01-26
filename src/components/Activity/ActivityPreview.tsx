@@ -30,7 +30,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
       <a
         href={`/${fiche.slug}`}
         className="flex flex-row flex-wrap items-center justify-center">
-        <div className="flex-auto w-5/12 self-start">
+        <div className="flex-auto w-full lg:w-5/12 self-start">
           <div className="relative">
             <img
               src={preview || 'https://wallpapercave.com/wp/wp4676582.jpg'}
@@ -61,7 +61,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
             )}
           </div>
         </div>
-        <div className="flex-auto w-7/12 p-2 px-4 self-stretch">
+        <div className="flex-auto w-7/12 p-2 px-0 lg:px-4 self-stretch">
           <div className="flex flex-col justify-between items-stretch h-full">
             <p className="flex-none text-xs text-secondary-light font-light pb-1">
               Activités

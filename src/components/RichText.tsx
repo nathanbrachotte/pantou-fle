@@ -167,7 +167,9 @@ export const getOptions: (references: Reference[]) => Options = (
       <ol>{children}</ol>
     ),
     [BLOCKS.LIST_ITEM]: (_: Node, children: JSX.Element): ReactNode => (
-      <li className="ml-8 list-outside list-disc">{children}</li>
+      <li className="ml-8 list-outside list-disc marker:text-primary-dark">
+        {children}
+      </li>
     ),
     [BLOCKS.QUOTE]: (_: Node, children: JSX.Element): ReactNode => (
       <blockquote className="p-2 bg-primary-light mt-2 mb-2 border-l-4 border-primary-dark italic">
