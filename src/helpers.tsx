@@ -1,5 +1,16 @@
 import React from 'react'
-import { FicheExercice, Rocket, Youtube } from '../assets'
+import {
+  Book,
+  Chat,
+  Eye,
+  FicheExercice,
+  Headphone,
+  Notes,
+  OpenBook,
+  Rocket,
+  SearchFile,
+  Youtube,
+} from '../assets'
 import { colors } from './colors'
 import { ICON_SIZE } from './constants'
 import { ActivityType } from './types'
@@ -37,39 +48,37 @@ export function getColorsAndLogoFromLabel(
     case ActivityType.COMPREHENSION_ECRITE:
       return {
         backgroundColor: 'bg-tertiary-light',
-        logo: <FicheExercice color={colors.tertiary} size={ICON_SIZE} />,
+        logo: <Eye color={colors.tertiary} size={ICON_SIZE} />,
       }
     case ActivityType.COMPREHENSION_ORALE:
       return {
         backgroundColor: 'bg-primary-light',
-        logo: <Rocket color={colors.primary} size={ICON_SIZE} />,
+        logo: <Headphone color={colors.primary} size={ICON_SIZE} />,
       }
     case ActivityType.FICHE_EXERCICE:
       return {
         backgroundColor: 'bg-secondary-very-light',
-        logo: <Youtube color={colors['secondary-dark']} size={ICON_SIZE} />,
+        logo: <Notes color={colors['secondary-dark']} size={ICON_SIZE} />,
       }
     case ActivityType.ORTHOGRAPHE:
       return {
         backgroundColor: 'bg-primary-light',
-        logo: (
-          <FicheExercice color={colors['secondary-dark']} size={ICON_SIZE} />
-        ),
+        logo: <SearchFile color={colors['secondary-dark']} size={ICON_SIZE} />,
       }
     case ActivityType.PRODUCTION_ECRITE:
       return {
         backgroundColor: 'bg-tertiary-light',
-        logo: <FicheExercice color={colors.primary} size={ICON_SIZE} />,
+        logo: <OpenBook color={colors.primary} size={ICON_SIZE} />,
       }
     case ActivityType.PRODUCTION_ORALE:
       return {
         backgroundColor: 'bg-secondary-light',
-        logo: <FicheExercice color={colors.white} size={ICON_SIZE} />,
+        logo: <Chat color={colors.white} size={ICON_SIZE} />,
       }
     case ActivityType.VOCABULAIRE:
       return {
         backgroundColor: 'bg-secondary-very-light',
-        logo: <FicheExercice color={colors.primary} size={ICON_SIZE} />,
+        logo: <Book color={colors.primary} size={ICON_SIZE} />,
       }
 
     default:

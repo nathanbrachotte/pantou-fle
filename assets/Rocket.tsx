@@ -1,11 +1,11 @@
 import React from 'react'
 
-interface RocketProps {
+interface SVGProps {
   color: string
   size: number
 }
 
-const Rocket: React.FC<RocketProps> = ({ color, size }) => {
+const SVG: React.FC<SVGProps> = ({ color, size }) => {
   return (
     <svg
       width={size}
@@ -21,4 +21,4 @@ const Rocket: React.FC<RocketProps> = ({ color, size }) => {
   )
 }
 
-export default Rocket
+export default SVG

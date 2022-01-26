@@ -8,7 +8,7 @@ interface PDFProps {
 
 const PDF: React.FC<PDFProps> = ({ title, url }) => {
   return (
-    <div className="mx-auto w-full md:w-2/3 max-w-screen-md">
+    <div className="mx-auto w-full md:w-2/3 max-w-screen-sm">
       <div className="relative pb-[141%]">
         <iframe
           title={title}
