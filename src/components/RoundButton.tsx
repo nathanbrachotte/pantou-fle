@@ -47,7 +47,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
         )}>
         <Icon />
       </div>
-      <p className="text-sm">{label}</p>
+      <p className="text-sm group-hover:text-secondary-dark">{label}</p>
     </a>
   )
 }
