@@ -2,11 +2,11 @@ import React from 'react'
 import BackButton from './BackButton'
 import Heading1 from './Heading1'
 
-interface LevelHeaderProps {
+interface ActivityTypeHeaderProps {
   title: string
 }
 
-const LevelHeader: React.FC<LevelHeaderProps> = ({ title }) => {
+const ActivityTypeHeader: React.FC<ActivityTypeHeaderProps> = ({ title }) => {
   return (
     <div className="mx-auto text-center flex flex-row mb-2">
       <div className="">
@@ -19,4 +19,4 @@ const LevelHeader: React.FC<LevelHeaderProps> = ({ title }) => {
   )
 }
 
-export default LevelHeader
+export default ActivityTypeHeader

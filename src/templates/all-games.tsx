@@ -10,7 +10,7 @@ interface AllGames {
 }
 
 const AllGames: React.FC<PageProps<GameType>> = ({ uri, ...props }) => {
-  console.log({ uri, props })
+  // console.log({ uri, props })
   return (
     <Root uri={uri}>
       <div className="relative max-w-full pr-4 px-2 pt-2">

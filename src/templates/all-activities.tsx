@@ -1,11 +1,10 @@
-import { ChevronRightIcon } from '@heroicons/react/outline'
 import { PageProps } from 'gatsby'
 import React from 'react'
-import FicheExercicePreview from '../components/Activity/ActivityPreview'
+import LevelSection from '../components/Activity/LevelSection'
 import Root from '../components/Root'
-import { getActivityTypeLabel } from '../helpers'
-import Heading2 from '../shared/Heading2'
-import { Activity as ActivityType } from '../types'
+import { getActivityTypeLabel, removeNodeFieldFromData } from '../helpers'
+import ActivityTypeHeader from '../shared/ActivityTypeHeader'
+import { Activity, ActivityType, Level } from '../types'
 
 const AllActivities: React.FC<PageProps<ActivityType>> = ({
   uri,
@@ -13,29 +12,54 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
 }) => {
   // FIXME: types be what?
   const { data, activity } = pageContext as {
-    data: { node: ActivityType }[]
-    activity: string
+    data: { node: Activity }[]
+    activity: ActivityType
   }
 
-  const filteredData = data.filter((a) => {
-    console.log({ a })
-    return a.node.activityType.type === activity
+  // console.log({ pageContext, data, activity })
+
+  const arrayData = removeNodeFieldFromData(data)
+
+  // TODO: Filer per date
+  const perLevel: Record<Level, Activity[]> = {
+    A1: [],
+    A2: [],
+    B1: [],
+    B2: [],
+    C1: [],
+    C2: [],
+  }
+  arrayData.forEach((a: Activity) => {
+    // console.log({ a })
+
+    if (!a?.level?.title) {
+      return null
+    }
+
+    perLevel[a.level.title].push(a)
+    perLevel[a.level.title].push(a)
+    perLevel[a.level.title].push(a)
+    perLevel[a.level.title].push(a)
+    perLevel[a.level.title].push(a)
+    perLevel[a.level.title].push(a)
   })
 
-  const arrayData = Object.values(filteredData).map((node) => node.node)
-  console.log({ data, filteredData, arrayData })
+  // console.log({ data, arrayData, perLevel })
+
+  // FIXME: pls be smarter TS
+  const perLevelKeys = Object.keys(perLevel) as Level[]
+
   return (
     <Root uri={uri}>
       <div className="relative max-w-full pr-4 px-2 pt-2">
-        <h1 className="flex flex-row text-2xl font-bold tracking-tight text-left">
-          <Heading2>{getActivityTypeLabel(activity)}</Heading2>
-          <ChevronRightIcon width={18} />
-        </h1>
-        <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-1 md:grid-cols-2">
-          {arrayData.map((fiche) => {
-            return <FicheExercicePreview key={fiche.slug} fiche={fiche} />
-          })}
-        </ul>
+        <ActivityTypeHeader title={getActivityTypeLabel(activity, true)} />
+        {perLevelKeys.map<JSX.Element>((level) => (
+          <LevelSection
+            key={level}
+            level={level}
+            activities={perLevel[level]}
+          />
+        ))}
       </div>
     </Root>
   )

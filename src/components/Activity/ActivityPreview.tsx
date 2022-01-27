@@ -1,25 +1,22 @@
 import React from 'react'
 import { StarIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
-import CategoryBadge from '../../shared/CategoryBadge'
 import EllipsisText from '../../shared/EllispsisText'
 import { Tooltip } from '../../shared/Tooltip'
 import { Activity } from '../../types'
-import { Badge } from '../Badge'
-import { poorText, richText } from '../RichText'
-import RoundButton from '../RoundButton'
+import { getActivityTypeLabel } from '../../helpers'
 
 interface ActivityPreviewProps {
   fiche: Activity
+  badges: JSX.Element[]
 }
 
-const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
-  const description = fiche?.description?.raw
+const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
+  const category = getActivityTypeLabel(fiche.activityType.type)
+  const previewDescription = fiche?.previewDescription
   const preview = fiche?.preview?.file.url
-  const isFree = fiche.price.paymentType === 'free'
-  const { type } = fiche.activityType
-
-  // console.log({ fiche, type })
+  const isFree =
+    !fiche?.price?.paymentType || fiche.price.paymentType === 'free'
 
   return (
     <li
@@ -42,8 +39,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
             ) : (
               <div
                 className={clsx(
-                  '',
-                  // "absolute inset-0 h-full w-full bg-gradient-to-br from-black/5 rounded-lg"
+                  'absolute inset-0 h-full w-full bg-gradient-to-br from-primary-dark/5 rounded-lg',
                 )}
               />
             )}
@@ -64,7 +60,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
         <div className="flex-auto w-7/12 p-2 px-0 lg:px-4 self-stretch">
           <div className="flex flex-col justify-between items-stretch h-full">
             <p className="flex-none text-xs text-secondary-light font-light pb-1">
-              Activités
+              {category}
             </p>
             <div className="flex-1 h-full">
               <p className="text-primary-dark font-semi-bold text-xl">
@@ -72,11 +68,13 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche }) => {
               </p>
               {/* FIXME: inside is an <a> tag created within rich text which throws an error */}
               <EllipsisText className="text-primary text-sm">
-                {description && poorText(fiche)}
+                {previewDescription}
               </EllipsisText>
             </div>
             <div className="none flex flex-row flex-wrap justify-between items-center">
-              <CategoryBadge text={type} />
+              {badges?.map((badge) => {
+                return badge
+              })}
               <p className="text-primary text-xs pt-1 ">
                 {new Date(fiche.createdAt).toLocaleDateString()}
               </p>

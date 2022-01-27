@@ -3,35 +3,47 @@ import {
   Book,
   Chat,
   Eye,
-  FicheExercice,
   Headphone,
   Notes,
   OpenBook,
-  Rocket,
   SearchFile,
-  Youtube,
 } from '../assets'
 import { colors } from './colors'
 import { ICON_SIZE } from './constants'
 import ScaleOnHoverWrapper from './shared/ScaleOnHoverWrapper'
-import { ActivityType } from './types'
+import { ActivityType, ACTIVITY_TYPE, LEVELS, Level } from './types'
 
 export const NON_BREAKING_SPACE = `\u00A0`
 
-export function getActivityTypeLabel(text: ActivityType): string {
+export function removeNodeFieldFromData<T>(data: { node: T }[]): T[] {
+  return Object.values(data).map((node) => node.node)
+}
+
+export function getActivityTypeLabel(
+  text: ActivityType,
+  shouldDisplayFull?: boolean,
+): string {
   switch (text) {
     case ActivityType.COMPREHENSION_ECRITE:
-      return `Comp.${NON_BREAKING_SPACE}Écrite`
+      return shouldDisplayFull
+        ? `Compréhension Écrite`
+        : `Comp.${NON_BREAKING_SPACE}Écrite`
     case ActivityType.COMPREHENSION_ORALE:
-      return `Comp.${NON_BREAKING_SPACE}Orale`
+      return shouldDisplayFull
+        ? `Compréhension Orale`
+        : `Comp.${NON_BREAKING_SPACE}Orale`
     case ActivityType.FICHE_EXERCICE:
       return `Fiche${NON_BREAKING_SPACE}Exercice`
     case ActivityType.ORTHOGRAPHE:
       return 'Orthographe'
     case ActivityType.PRODUCTION_ECRITE:
-      return `Prod.${NON_BREAKING_SPACE}Écrite`
+      return shouldDisplayFull
+        ? `Production Écrite`
+        : `Prod.${NON_BREAKING_SPACE}Écrite`
     case ActivityType.PRODUCTION_ORALE:
-      return `Prod.${NON_BREAKING_SPACE}Orale`
+      return shouldDisplayFull
+        ? `Production Orale`
+        : `Prod.${NON_BREAKING_SPACE}Orale`
     case ActivityType.VOCABULAIRE:
       return `Vocabulaire`
 
@@ -113,4 +125,20 @@ export function getColorsAndLogoFromLabel(
     default:
       throw new Error('activity type not found')
   }
+}
+
+export function includesALevel(uri: string): boolean {
+  return (
+    LEVELS.find((lvl) => {
+      return uri.includes(lvl.toLocaleLowerCase())
+    })?.length !== undefined
+  )
+}
+
+export function includesAnActivityType(uri: string): boolean {
+  return (
+    ACTIVITY_TYPE.find((act) => {
+      return uri.includes(act.toLocaleLowerCase())
+    })?.length !== undefined
+  )
 }

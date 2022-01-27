@@ -58,7 +58,7 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
           {/* <ScrollingProvider> */}
           <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max grid-cols-1 px-2 md:px-4 md:grid-cols-10">
             <div className="col-span-2">
-              <Aside />
+              <Aside uri={uri} />
             </div>
             {/* <ThemeProvider theme={theme}> */}
             {/* <GlobalStyle /> */}

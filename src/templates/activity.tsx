@@ -6,6 +6,7 @@ import { richText } from '../components/RichText'
 import PDF from '../components/PDF'
 import Root from '../components/Root'
 import ItemHeader from '../shared/ItemHeader'
+import ActivityTypeHeader from '../shared/ActivityTypeHeader'
 
 const FicheExercice: React.FC<PageProps<ActivityType>> = ({
   pageContext,
@@ -13,7 +14,7 @@ const FicheExercice: React.FC<PageProps<ActivityType>> = ({
 }) => {
   const data = pageContext as ActivityType
 
-  console.log({ data, rest })
+  // console.log({ data, rest })
 
   return (
     <Root uri={rest.uri}>

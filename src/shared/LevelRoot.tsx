@@ -1,8 +1,9 @@
 import React from 'react'
-import FicheExerciceSection from '../components/Activity/ActivitySection'
+import ActivitySection from '../components/Activity/ActivitySection'
 import GamesSection from '../components/Games/GamesSection'
 import Root from '../components/Root'
-import { Level } from '../types'
+import { removeNodeFieldFromData } from '../helpers'
+import { Activity, Game, Level } from '../types'
 import LevelHeader from './LevelHeader'
 
 interface LevelRootProps {
@@ -12,11 +13,18 @@ interface LevelRootProps {
 }
 
 const LevelRoot: React.FC<LevelRootProps> = ({ level, uri, staticData }) => {
+  const cleanActivities = removeNodeFieldFromData<Activity>(
+    staticData.filteredByLevelActivities,
+  )
+  const cleanGames = removeNodeFieldFromData<Game>(
+    staticData.filteredByLevelGames,
+  )
+
   return (
     <Root uri={uri}>
       <LevelHeader title={`Niveau ${level.toUpperCase()}`} />
-      <FicheExerciceSection fiches={staticData.allContentfulActivity.nodes} />
-      <GamesSection games={staticData.allContentfulGame.nodes} />
+      <ActivitySection fiches={cleanActivities} />
+      <GamesSection games={cleanGames} />
     </Root>
   )
 }

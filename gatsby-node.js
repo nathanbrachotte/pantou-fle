@@ -16,8 +16,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const activityTemplate = path.resolve(`src/templates/activity.tsx`)
   const allActivitiesTemplate = path.resolve(`src/templates/all-activities.tsx`)
   const gameTemplate = path.resolve(`src/templates/game.tsx`)
+  const levelTemplate = path.resolve(`src/templates/level.tsx`)
 
   const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
   const ACTIVITY_TYPE = [
     'production-ecrite',
     'production-orale',
@@ -30,7 +32,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const result = await graphql(`
     query AllElementsQuery {
-      allContentfulActivity {
+      allContentfulActivity(sort: { fields: createdAt, order: DESC }) {
         edges {
           node {
             title
@@ -79,6 +81,7 @@ exports.createPages = async ({ graphql, actions }) => {
             activityType {
               type
             }
+            previewDescription
           }
         }
       }
@@ -117,12 +120,29 @@ exports.createPages = async ({ graphql, actions }) => {
       context: edge.node,
     })
   })
+
   result.data.allContentfulGame.edges.forEach((edge) => {
     // console.log({ edge: JSON.stringify(edge, null, 2) })
     createPage({
       path: `/${edge.node.slug}`,
       component: gameTemplate,
       context: edge.node,
+    })
+  })
+
+  ACTIVITY_TYPE.forEach((activity) => {
+    const filteredForActivityTypeActivities = result.data.allContentfulActivity.edges.filter(
+      (edge) => {
+        return edge.node.activityType.type === activity
+      },
+    )
+    createPage({
+      path: `/${activity}`,
+      component: allActivitiesTemplate,
+      context: {
+        data: filteredForActivityTypeActivities,
+        activity,
+      },
     })
   })
 
@@ -154,14 +174,44 @@ exports.createPages = async ({ graphql, actions }) => {
   //   context: result.data.allContentfulActivity.edges,
   // })
 
-  ACTIVITY_TYPE.forEach((activity) => {
-    createPage({
-      path: `/${activity}`,
-      component: allActivitiesTemplate,
-      context: {
-        data: result.data.allContentfulActivity.edges,
-        activity,
+  // 2: Filtering per level
+  LEVELS.forEach((level) => {
+    const filteredByLevelActivities = result.data.allContentfulActivity.edges.filter(
+      (edge) => {
+        return edge.node.level.title === level
       },
+    )
+
+    const filteredByLevelGames = result.data.allContentfulGame.edges.filter(
+      (edge) => {
+        return edge.node.level.title === level
+      },
+    )
+
+    createPage({
+      path: `/${level.toLocaleLowerCase()}`,
+      component: levelTemplate,
+      context: {
+        filteredByLevelActivities,
+        filteredByLevelGames,
+      },
+    })
+
+    // 1: Filtering per activity
+    ACTIVITY_TYPE.forEach((activity) => {
+      const filteredForActivityTypeActivities = filteredByLevelActivities.filter(
+        (edge) => {
+          return edge.node.activityType.type === activity
+        },
+      )
+      createPage({
+        path: `/${level.toLocaleLowerCase()}/${activity}`,
+        component: allActivitiesTemplate,
+        context: {
+          data: filteredForActivityTypeActivities,
+          activity,
+        },
+      })
     })
   })
 }

@@ -4,6 +4,8 @@ import { Section } from 'react-scroll-section'
 import { Activity } from '../../types'
 import ActivityPreview from './ActivityPreview'
 import Heading2 from '../../shared/Heading2'
+import { Badge } from '../Badge'
+import CategoryBadge from '../../shared/CategoryBadge'
 
 interface ActivitySectionProps {
   fiches: Activity[]
@@ -14,7 +16,7 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({
   fiches,
   maxItems,
 }) => {
-  const filteredFiches = maxItems ? fiches.slice(0, maxItems) : fiches
+  const filteredActivities = maxItems ? fiches.slice(0, maxItems) : fiches
 
   return (
     <div className="relative max-w-full pr-4 px-2 pt-2">
@@ -23,14 +25,25 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({
           <Heading2>Activités</Heading2>
           <ChevronRightIcon width={18} />
         </h1>
-        <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-1 md:grid-cols-2">
-          {filteredFiches.length === 0 ? (
+        <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2">
+          {filteredActivities.length === 0 ? (
             <div className="">
               <p>Rien à voir ici pour l&apos;instant, on y travaille </p>
             </div>
           ) : (
-            filteredFiches.map((fiche) => {
-              return <ActivityPreview key={fiche.slug} fiche={fiche} />
+            filteredActivities.map((fiche) => {
+              return (
+                <ActivityPreview
+                  key={fiche.slug}
+                  fiche={fiche}
+                  badges={[
+                    <CategoryBadge
+                      key="category"
+                      text={fiche.activityType.type}
+                    />,
+                  ]}
+                />
+              )
             })
           )}
         </ul>

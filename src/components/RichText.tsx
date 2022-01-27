@@ -219,10 +219,15 @@ export const richText = (text: DocType): ReactNode | null => {
     : null
 }
 
-export const poorText = (text: DocType): ReactNode | null => {
+export const poorText = (
+  text: DocType,
+  charLimit: number,
+): ReactNode | null => {
   const description = text?.description?.raw
   const data = description && JSON.parse(description)
+  const reactComps = documentToReactComponents(data)
+  console.log({ data, reactComps })
 
   // https://www.npmjs.com/package/@contentful/rich-text-react-renderer
-  return description ? documentToReactComponents(data) : null
+  return data ? reactComps : null
 }

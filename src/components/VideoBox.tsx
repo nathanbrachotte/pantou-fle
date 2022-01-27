@@ -7,7 +7,8 @@ interface VideoBoxProps {
 }
 
 const VideoBox: React.FC<VideoBoxProps> = ({ video, title }) => {
-  console.log({ video, title })
+  // console.log({ video, title })
+
   return (
     <Box
       sx={{
