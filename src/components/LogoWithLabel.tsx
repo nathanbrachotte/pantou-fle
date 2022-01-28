@@ -1,19 +1,19 @@
 import React from 'react'
-import { Logo } from '../../assets'
-
-// import logo from '../../assets/logo.svg'
+import { Logo, LogoAndLabel } from '../../assets'
 
 const LogoWithLabel: React.FC<{
   withCircleBackground?: boolean
   withLabel?: boolean
-}> = ({ withCircleBackground = false, withLabel = false }) => {
+}> = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <Logo />
-      {/* {withLabel && (
-        <Image className="hidden md:block h-16 w-24 -m-3" src={logoTitle} />
-      )} */}
-    </div>
+    <>
+      <div className="flex-col items-center justify-center w-20 hidden md:flex">
+        <LogoAndLabel />
+      </div>
+      <div className="flex-col items-center justify-center w-14 flex md:hidden">
+        <Logo />
+      </div>
+    </>
   )
 }
 

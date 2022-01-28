@@ -1,9 +1,14 @@
 import React from 'react'
-import { Email, Facebook, Instagram, Youtube } from '../../assets'
+import {
+  Email,
+  Facebook,
+  Instagram,
+  Logo,
+  LogoLabel,
+  Youtube,
+} from '../../assets'
 import SquareButton from './SquareButton'
 import { colors } from '../colors'
-import Label from './Label'
-import LogoWithLabel from './LogoWithLabel'
 
 const Footer: React.FC = () => {
   return (
@@ -13,11 +18,12 @@ const Footer: React.FC = () => {
           <div className="pt-4">
             <div className="flex flex-row justify-start items-end">
               <div className="w-14">
-                <LogoWithLabel />
+                <Logo />
               </div>
-              <div className="pl-2">
-                <Label />
+              <div className="pl-2 w-28">
+                <LogoLabel />
               </div>
+              <div className="pl-2">{/* <Label /> */}</div>
             </div>
             <p className="font-nunito text-gray-600 py-2 w-4/5 lg:w-2/3 xl:w-1/2">
               Le site de ressource pour apprendre Français langue étrangère de

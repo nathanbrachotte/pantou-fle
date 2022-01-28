@@ -1,18 +1,10 @@
 import React from 'react'
 
-interface SVGProps {
-  color: string
-  size: number
-}
-
-const SVG: React.FC<SVGProps> = ({
-  color = 'text-primary-dark',
-  size = 24,
-}) => {
+const SVG: React.FC = () => {
   return (
     <svg
-      width="393"
-      height="447"
+      width="100%"
+      height="100%"
       viewBox="0 0 393 447"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">

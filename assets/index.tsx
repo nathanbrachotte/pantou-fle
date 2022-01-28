@@ -1,5 +1,6 @@
 export { default as logoCircle } from './logo_circle.svg'
-export { default as logoTitle } from './title_and_subtitle.svg'
+export { default as LogoLabel } from './LogoLabel'
+export { default as LogoAndLabel } from './LogoAndLabel'
 export { default as Logo } from './Logo'
 
 export { default as SplashV1Multi } from './Splash_V1_Multi.svg'
