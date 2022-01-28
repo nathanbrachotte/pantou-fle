@@ -1,11 +1,9 @@
-import { ExclamationCircleIcon } from '@heroicons/react/outline'
 import React from 'react'
 import { Email, Facebook, Instagram, Youtube } from '../../assets'
 import SquareButton from './SquareButton'
-import { Tooltip } from '../shared/Tooltip'
 import { colors } from '../colors'
 import Label from './Label'
-import Logo from './Logo'
+import LogoWithLabel from './LogoWithLabel'
 
 const Footer: React.FC = () => {
   return (
@@ -15,7 +13,7 @@ const Footer: React.FC = () => {
           <div className="pt-4">
             <div className="flex flex-row justify-start items-end">
               <div className="w-14">
-                <Logo />
+                <LogoWithLabel />
               </div>
               <div className="pl-2">
                 <Label />

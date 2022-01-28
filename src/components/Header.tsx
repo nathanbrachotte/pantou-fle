@@ -1,27 +1,11 @@
-import React, { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import {
-  BookmarkAltIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  CursorClickIcon,
-  PhoneIcon,
-  PlayIcon,
-  RefreshIcon,
-  ShieldCheckIcon,
-  SupportIcon,
-  ViewGridIcon,
-  XIcon,
-} from '@heroicons/react/outline'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import React from 'react'
 import '@fontsource/m-plus-rounded-1c'
 
 import clsx from 'clsx'
-import Logo from './Logo'
+import LogoWithLabel from './LogoWithLabel'
 import Splash from './Splash'
 import { DEV } from '../constants'
 import { includesALevel, includesAnActivityType } from '../helpers'
-import ScaleOnHoverWrapper from '../shared/ScaleOnHoverWrapper'
 
 interface Props {
   uri: string
@@ -82,7 +66,7 @@ const Header: React.FC<Props> = ({ uri }) => {
           <div className="flex-none justify-start mr-4">
             <a href="/">
               <span className="sr-only">Home</span>
-              <Logo withLabel />
+              <LogoWithLabel withLabel />
             </a>
           </div>
           <AllItem uri={uri} />

@@ -21,8 +21,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
   return (
     <li
       className={clsx(
-        'overflow-hidden rounded-lg bg-background max-w-3xl',
-        // 'shadow-lg shadow-primary-light-500/50',
+        'overflow-hidden rounded-lg bg-background max-w-3xl group',
       )}>
       <a
         href={`/${fiche.slug}`}
@@ -31,7 +30,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
           <div className="relative">
             <img
               src={preview || 'https://wallpapercave.com/wp/wp4676582.jpg'}
-              alt=""
+              alt="activity preview"
               className="rounded-lg aspect-video object-cover"
             />
             {!preview ? (

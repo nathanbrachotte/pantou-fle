@@ -8,7 +8,7 @@ interface LevelHeaderProps {
 
 const LevelHeader: React.FC<LevelHeaderProps> = ({ title }) => {
   return (
-    <div className="mx-auto text-center flex flex-row mb-2">
+    <div className="mx-auto text-center flex flex-row mb-2 md:pl-2 lg:pl-0">
       <div className="">
         <BackButton />
       </div>

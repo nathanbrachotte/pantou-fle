@@ -40,7 +40,7 @@ interface AsideProps {
 
 const Aside: React.FC<AsideProps> = ({ uri }) => {
   return (
-    <aside className="pl-2 pr-2 grid grid-cols-2 pt-4 md:grid-cols-1">
+    <aside className="grid grid-cols-2 pt-4 md:grid-cols-1 sm:px-2">
       {/* FIXME: https://www.petermorlion.com/iterating-a-typescript-enum/ */}
       <div>
         {getButtonFromActivityTypes(uri, ActivityType.COMPREHENSION_ECRITE)}

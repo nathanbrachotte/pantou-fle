@@ -51,13 +51,13 @@ const RoundButton: React.FC<RoundButtonProps> = ({
         <div
           className={clsx(
             bgColor,
-            'flex-none rounded-xl items-center justify-center mr-2 p-2',
+            'flex-none rounded-xl items-center justify-center mr-0 sm:mr-2 p-2',
           )}>
           <Icon />
         </div>
         <p
           className={clsx(
-            'text-sm p-2 px-4 rounded-xl',
+            'text-sm rounded-xl px-4 p-2 sm:px-2',
             isActivityTypeSelected
               ? 'bg-primary-dark text-whitish'
               : 'group-hover:text-secondary-dark',
