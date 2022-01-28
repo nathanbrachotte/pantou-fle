@@ -25,7 +25,7 @@ const Item: React.FC<
   Props & { level: typeof LEVELS[number]; index: number }
 > = ({ uri, level, index }) => {
   const isActive = uri.includes(level)
-
+  console.log({ isActive, uri, level, index })
   return (
     <a href={`/${level}`} className={getItemStyles(isActive)}>
       <span role="img" aria-label={`${level} logo`}>
