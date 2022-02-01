@@ -29,6 +29,7 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
     C1: [],
     C2: [],
   }
+
   arrayData.forEach((a: Activity) => {
     // console.log({ a })
 
@@ -36,12 +37,7 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
       return null
     }
 
-    perLevel[a.level.title].push(a)
-    perLevel[a.level.title].push(a)
-    perLevel[a.level.title].push(a)
-    perLevel[a.level.title].push(a)
-    perLevel[a.level.title].push(a)
-    perLevel[a.level.title].push(a)
+    return perLevel[a.level.title].push(a)
   })
 
   // console.log({ data, arrayData, perLevel })

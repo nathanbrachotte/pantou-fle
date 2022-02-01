@@ -22,6 +22,7 @@ export const ACTIVITY_TYPE = [
   'comprehension-ecrite',
   'fiche-exercice',
 ] as const
+
 export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
 
 export enum Level {
