@@ -19,7 +19,7 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({
   const filteredActivities = maxItems ? fiches.slice(0, maxItems) : fiches
 
   return (
-    <div className="relative max-w-full pr-4 px-2 pt-2">
+    <div className="relative max-w-full px-2 pt-2">
       <Section id="ActivitySection">
         <h1 className="flex flex-row text-2xl font-bold tracking-tight text-left">
           <Heading2>Activités</Heading2>

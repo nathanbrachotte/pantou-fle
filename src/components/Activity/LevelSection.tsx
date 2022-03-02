@@ -14,7 +14,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ level, activities }) => {
   if (!activities || activities.length === 0) return null
 
   return (
-    <div className="relative max-w-full pr-4 px-2 pt-2">
+    <div className="relative max-w-full  px-2 pt-2">
       <h1 className="flex flex-row text-2xl font-bold tracking-tight text-left">
         <Heading2>{level}</Heading2>
         <ChevronRightIcon width={18} />

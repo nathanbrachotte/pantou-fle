@@ -47,7 +47,7 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
 
   return (
     <Root uri={uri}>
-      <div className="relative max-w-full pr-4 px-2 pt-2">
+      <div className="relative max-w-full px-2 pt-2">
         <ActivityTypeHeader title={getActivityTypeLabel(activity, true)} />
         {perLevelKeys.map<JSX.Element>((level) => (
           <LevelSection
