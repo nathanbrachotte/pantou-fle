@@ -77,11 +77,10 @@ const Footer: React.FC = () => {
           <div className="w-full lg:w-2/3 max-w-lg">
             <form
               className="bg-background shadow-lg rounded-lg px-4 pt-6 pb-2 sm:px-8"
-              action="https://www.getrevue.co/profile/nathan-brachotte/add_subscriber"
+              action="https://www.getrevue.co/profile/pantou-fle/add_subscriber"
               method="post"
               id="revue-form"
-              name="revue-form"
-              target="_blank">
+              name="revue-form">
               <span role="img" aria-label="Newsletter" className="text-6xl">
                 📫
               </span>
