@@ -5,7 +5,7 @@ import Root from '../components/Root'
 import { IndexContenfulResponse } from '../types'
 import ActivitySection from '../components/Activity/ActivitySection'
 import GamesSection from '../components/Games/GamesSection'
-import SocialSection from '../components/SocialSection'
+import SocialNetworkSection from '../components/SocialNetworkSection'
 
 export const query = graphql`
   query ExerciseSheetQuery {
@@ -76,6 +76,7 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
         fiches={staticData.allContentfulActivity.nodes}
         maxItems={4}
       />
+      {/* <SocialNetworkSection /> */}
       {/* <SocialSection /> */}
       <GamesSection games={staticData.allContentfulGame.nodes} />
       {/* <script async src="//cdn.thinglink.me/jse/responsive.js" /> */}
