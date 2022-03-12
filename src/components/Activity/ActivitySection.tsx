@@ -39,7 +39,7 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({
                   badges={[
                     <CategoryBadge
                       key="category"
-                      text={fiche.activityType.type}
+                      text={fiche.activityType?.type}
                     />,
                   ]}
                 />

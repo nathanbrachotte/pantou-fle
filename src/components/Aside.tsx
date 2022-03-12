@@ -46,12 +46,14 @@ const Aside: React.FC<AsideProps> = ({ uri }) => {
         {getButtonFromActivityTypes(uri, ActivityType.COMPREHENSION_ECRITE)}
         {getButtonFromActivityTypes(uri, ActivityType.COMPREHENSION_ORALE)}
         {getButtonFromActivityTypes(uri, ActivityType.FICHE_EXERCICE)}
-        {getButtonFromActivityTypes(uri, ActivityType.ORTHOGRAPHE)}
+        {getButtonFromActivityTypes(uri, ActivityType.PRODUCTION_ECRITE)}
       </div>
       <div className="pb-2">
-        {getButtonFromActivityTypes(uri, ActivityType.PRODUCTION_ECRITE)}
         {getButtonFromActivityTypes(uri, ActivityType.PRODUCTION_ORALE)}
         {getButtonFromActivityTypes(uri, ActivityType.VOCABULAIRE)}
+        {getButtonFromActivityTypes(uri, ActivityType.GRAMMAIRE)}
+        {getButtonFromActivityTypes(uri, ActivityType.ORTHOGRAPHE)}
+        {getButtonFromActivityTypes(uri, ActivityType.CHANSON)}
       </div>
     </aside>
   )

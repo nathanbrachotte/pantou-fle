@@ -28,6 +28,8 @@ exports.createPages = async ({ graphql, actions }) => {
     'comprehension-orale',
     'comprehension-ecrite',
     'fiche-exercice',
+    'grammaire',
+    'chanson',
   ]
 
   const result = await graphql(`
@@ -131,9 +133,15 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   ACTIVITY_TYPE.forEach((activity) => {
+    console.log({ activity })
+
     const filteredForActivityTypeActivities = result.data.allContentfulActivity.edges.filter(
       (edge) => {
-        return edge.node.activityType.type === activity
+        console.log({ edge })
+        console.log({ activityType: edge.node.activityType })
+        return (
+          edge.node.activityType && edge.node.activityType.type === activity
+        )
       },
     )
     createPage({
@@ -199,9 +207,14 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // 1: Filtering per activity
     ACTIVITY_TYPE.forEach((activity) => {
+      console.log({ activity })
       const filteredForActivityTypeActivities = filteredByLevelActivities.filter(
         (edge) => {
-          return edge.node.activityType.type === activity
+          console.log({ edge })
+          console.log({ activityType: edge.node.activityType })
+          return (
+            edge.node.activityType && edge.node.activityType.type === activity
+          )
         },
       )
       createPage({

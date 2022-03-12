@@ -12,7 +12,7 @@ interface ActivityPreviewProps {
 }
 
 const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
-  const category = getActivityTypeLabel(fiche.activityType.type)
+  const category = getActivityTypeLabel(fiche.activityType?.type)
   const previewDescription = fiche?.previewDescription
   const preview = fiche?.preview?.file.url
   const isFree =

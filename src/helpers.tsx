@@ -6,7 +6,9 @@ import {
   Headphone,
   Notes,
   OpenBook,
+  Reload,
   SearchFile,
+  Voicemail,
 } from '../assets'
 import { colors } from './colors'
 import { ICON_SIZE } from './constants'
@@ -48,7 +50,7 @@ export function getActivityTypeLabel(
       return `Vocabulaire`
 
     default:
-      throw new Error('activity type not found')
+      return text && text.charAt(0).toUpperCase() + text.slice(1)
   }
 }
 export function getColorsAndLogoFromLabel(
@@ -81,7 +83,7 @@ export function getColorsAndLogoFromLabel(
         backgroundColor: 'bg-secondary-very-light',
         logo: (
           <ScaleOnHoverWrapper>
-            <Notes color={colors['secondary-dark']} size={ICON_SIZE} />
+            <Notes color={colors['primary-dark']} size={ICON_SIZE} />
           </ScaleOnHoverWrapper>
         ),
       }
@@ -90,7 +92,7 @@ export function getColorsAndLogoFromLabel(
         backgroundColor: 'bg-primary-light',
         logo: (
           <ScaleOnHoverWrapper>
-            <SearchFile color={colors['secondary-dark']} size={ICON_SIZE} />
+            <SearchFile color={colors['secondary-light']} size={ICON_SIZE} />
           </ScaleOnHoverWrapper>
         ),
       }
@@ -121,12 +123,30 @@ export function getColorsAndLogoFromLabel(
           </ScaleOnHoverWrapper>
         ),
       }
-    default:
+    case ActivityType.GRAMMAIRE:
       return {
-        backgroundColor: 'bg-secondary-very-light',
+        backgroundColor: 'bg-primary-dark',
         logo: (
           <ScaleOnHoverWrapper>
-            <Notes color={colors['secondary-dark']} size={ICON_SIZE} />
+            <Reload color={colors.white} size={ICON_SIZE} />
+          </ScaleOnHoverWrapper>
+        ),
+      }
+    case ActivityType.CHANSON:
+      return {
+        backgroundColor: 'bg-secondary-dark',
+        logo: (
+          <ScaleOnHoverWrapper>
+            <Voicemail color={colors.white} size={ICON_SIZE} />
+          </ScaleOnHoverWrapper>
+        ),
+      }
+    default:
+      return {
+        backgroundColor: 'bg-secondary-dark',
+        logo: (
+          <ScaleOnHoverWrapper>
+            <Reload color={colors.tertiary} size={ICON_SIZE} />
           </ScaleOnHoverWrapper>
         ),
       }
