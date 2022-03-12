@@ -11,6 +11,8 @@ export enum ActivityType {
   COMPREHENSION_ORALE = 'comprehension-orale',
   COMPREHENSION_ECRITE = 'comprehension-ecrite',
   FICHE_EXERCICE = 'fiche-exercice',
+  GRAMMAIRE = 'grammaire',
+  CHANSON = 'chanson',
 }
 
 export const ACTIVITY_TYPE = [
@@ -21,6 +23,8 @@ export const ACTIVITY_TYPE = [
   'comprehension-orale',
   'comprehension-ecrite',
   'fiche-exercice',
+  'grammaire',
+  'chanson',
 ] as const
 
 export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const

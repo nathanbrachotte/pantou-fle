@@ -121,9 +121,15 @@ export function getColorsAndLogoFromLabel(
           </ScaleOnHoverWrapper>
         ),
       }
-
     default:
-      throw new Error('activity type not found')
+      return {
+        backgroundColor: 'bg-secondary-very-light',
+        logo: (
+          <ScaleOnHoverWrapper>
+            <Notes color={colors['secondary-dark']} size={ICON_SIZE} />
+          </ScaleOnHoverWrapper>
+        ),
+      }
   }
 }
 
