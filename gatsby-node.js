@@ -133,12 +133,12 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   ACTIVITY_TYPE.forEach((activity) => {
-    console.log({ activity })
+    // console.log({ activity })
 
     const filteredForActivityTypeActivities = result.data.allContentfulActivity.edges.filter(
       (edge) => {
-        console.log({ edge })
-        console.log({ activityType: edge.node.activityType })
+        // console.log({ edge })
+        // console.log({ activityType: edge.node.activityType })
         return (
           edge.node.activityType && edge.node.activityType.type === activity
         )
@@ -207,11 +207,11 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // 1: Filtering per activity
     ACTIVITY_TYPE.forEach((activity) => {
-      console.log({ activity })
+      // console.log({ activity })
       const filteredForActivityTypeActivities = filteredByLevelActivities.filter(
         (edge) => {
-          console.log({ edge })
-          console.log({ activityType: edge.node.activityType })
+          // console.log({ edge })
+          // console.log({ activityType: edge.node.activityType })
           return (
             edge.node.activityType && edge.node.activityType.type === activity
           )
