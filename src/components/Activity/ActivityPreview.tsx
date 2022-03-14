@@ -29,7 +29,10 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
         <div className="flex-auto w-full lg:w-5/12 self-start">
           <div className="relative">
             <img
-              src={preview || 'https://wallpapercave.com/wp/wp4676582.jpg'}
+              src={
+                `${preview}?w=400` ||
+                'https://wallpapercave.com/wp/wp4676582.jpg'
+              }
               alt="activity preview"
               className="rounded-lg aspect-video object-cover"
             />

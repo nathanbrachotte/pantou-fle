@@ -17,7 +17,9 @@ const GamesPreview: React.FC<GamesPreviewProps> = ({ game }) => {
       <a href={`/${game.slug}`} className="flex flex-col">
         <div className="relative">
           <img
-            src={preview || 'https://wallpapercave.com/wp/wp4676582.jpg'}
+            src={
+              `${preview}?w=400` || 'https://wallpapercave.com/wp/wp4676582.jpg'
+            }
             alt=""
             className="rounded-lg self-center aspect-video"
           />
