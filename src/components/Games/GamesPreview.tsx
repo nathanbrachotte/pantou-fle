@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import EllipsisText from '../../shared/EllispsisText'
 import { Game } from '../../types'
 import { richText } from '../RichText'
+import Image from '../../shared/Image'
 
 interface GamesPreviewProps {
   game: Game
@@ -16,16 +17,7 @@ const GamesPreview: React.FC<GamesPreviewProps> = ({ game }) => {
     <li className="overflow-hidden rounded-lg bg-background max-w-m sm:w-4/4 max-w-lg">
       <a href={`/${game.slug}`} className="flex flex-col">
         <div className="relative">
-          <img
-            src={
-              `${preview}?w=400` || 'https://wallpapercave.com/wp/wp4676582.jpg'
-            }
-            alt=""
-            className="rounded-lg self-center aspect-video"
-          />
-          {!preview && (
-            <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-black/75" />
-          )}
+          <Image url={preview} />
         </div>
         <div className="flex-1 p-2 self-stretch">
           <div className="flex flex-col justify-between items-stretch h-full">

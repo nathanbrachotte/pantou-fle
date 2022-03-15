@@ -3,6 +3,7 @@ import { StarIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
 import EllipsisText from '../../shared/EllispsisText'
 import { Tooltip } from '../../shared/Tooltip'
+import Image from '../../shared/Image'
 import { Activity } from '../../types'
 import { getActivityTypeLabel } from '../../helpers'
 
@@ -28,23 +29,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
         className="flex flex-row flex-wrap items-center justify-center">
         <div className="flex-auto w-full lg:w-5/12 self-start">
           <div className="relative">
-            <img
-              src={
-                `${preview}?w=400` ||
-                'https://wallpapercave.com/wp/wp4676582.jpg'
-              }
-              alt="activity preview"
-              className="rounded-lg aspect-video object-cover"
-            />
-            {!preview ? (
-              <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-black/75 rounded-lg" />
-            ) : (
-              <div
-                className={clsx(
-                  'absolute inset-0 h-full w-full bg-gradient-to-br from-primary-dark/5 rounded-lg',
-                )}
-              />
-            )}
+            <Image url={preview} />
             {!isFree && (
               <Tooltip content="Accès Payant">
                 <div className="absolute left-1 bottom-1 sm:left-2 sm:bottom-2">
@@ -65,7 +50,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
               {category}
             </p>
             <div className="flex-1 h-full">
-              <p className="text-primary-dark font-semi-bold text-xl">
+              <p className="text-primary-dark font-bold text-md lg:text-lg xl:text-xl">
                 {fiche.title}
               </p>
               {/* FIXME: inside is an <a> tag created within rich text which throws an error */}
@@ -74,9 +59,15 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
               </EllipsisText>
             </div>
             <div className="none flex flex-row flex-wrap justify-between items-center">
-              {badges?.map((badge) => {
-                return badge
-              })}
+              <div className="flex-row flex">
+                {badges?.map((badge) => {
+                  return (
+                    <div className="mr-1" key={badge.key}>
+                      {badge}
+                    </div>
+                  )
+                })}
+              </div>
               <p className="text-primary text-xs pt-1 ">
                 {new Date(fiche.createdAt).toLocaleDateString()}
               </p>

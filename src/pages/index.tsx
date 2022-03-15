@@ -74,11 +74,12 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
     <Root uri={uri}>
       <ActivitySection
         fiches={staticData.allContentfulActivity.nodes}
-        maxItems={4}
+        extraBadgeType="level"
+        maxItems={12}
       />
       {/* <SocialNetworkSection /> */}
       {/* <SocialSection /> */}
-      <GamesSection games={staticData.allContentfulGame.nodes} />
+      {/* <GamesSection games={staticData.allContentfulGame.nodes} /> */}
       {/* <script async src="//cdn.thinglink.me/jse/responsive.js" /> */}
     </Root>
   )

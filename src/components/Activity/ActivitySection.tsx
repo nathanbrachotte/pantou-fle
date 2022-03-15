@@ -6,15 +6,18 @@ import ActivityPreview from './ActivityPreview'
 import Heading2 from '../../shared/Heading2'
 import { Badge } from '../Badge'
 import CategoryBadge from '../../shared/CategoryBadge'
+import LevelBadge from '../../shared/LevelBadge'
 
 interface ActivitySectionProps {
   fiches: Activity[]
   maxItems?: number
+  extraBadgeType?: 'activity' | 'level' | 'all'
 }
 
 const ActivitySection: React.FC<ActivitySectionProps> = ({
   fiches,
   maxItems,
+  extraBadgeType,
 }) => {
   const filteredActivities = maxItems ? fiches.slice(0, maxItems) : fiches
 
@@ -32,16 +35,26 @@ const ActivitySection: React.FC<ActivitySectionProps> = ({
             </div>
           ) : (
             filteredActivities.map((fiche) => {
+              const extraBadge =
+                extraBadgeType === 'level' ? (
+                  <LevelBadge text={fiche.level.title} />
+                ) : (
+                  <></>
+                )
+
+              const badges = [
+                extraBadge,
+                <CategoryBadge
+                  key="category"
+                  text={fiche.activityType?.type}
+                />,
+              ]
+
               return (
                 <ActivityPreview
                   key={fiche.slug}
                   fiche={fiche}
-                  badges={[
-                    <CategoryBadge
-                      key="category"
-                      text={fiche.activityType?.type}
-                    />,
-                  ]}
+                  badges={badges}
                 />
               )
             })
