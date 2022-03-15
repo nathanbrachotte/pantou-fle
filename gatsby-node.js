@@ -120,6 +120,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/${edge.node.slug}`,
       component: activityTemplate,
       context: edge.node,
+      defer: true,
     })
   })
 
