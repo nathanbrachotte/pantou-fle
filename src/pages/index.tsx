@@ -4,8 +4,6 @@ import { graphql, PageProps, useStaticQuery } from 'gatsby'
 import Root from '../components/Root'
 import { IndexContenfulResponse } from '../types'
 import ActivitySection from '../components/Activity/ActivitySection'
-import GamesSection from '../components/Games/GamesSection'
-import SocialNetworkSection from '../components/SocialNetworkSection'
 
 export const query = graphql`
   query ExerciseSheetQuery {
@@ -69,7 +67,6 @@ const IndexPage: React.FC<PageProps> = ({ uri }) => {
   // TODO: https://dev.to/kojikanao/generate-types-from-contentful-49p8
   const staticData = useStaticQuery(query) as IndexContenfulResponse
 
-  console.log({ staticData })
   return (
     <Root uri={uri}>
       <ActivitySection
