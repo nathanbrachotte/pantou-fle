@@ -120,7 +120,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/${edge.node.slug}`,
       component: activityTemplate,
       context: edge.node,
-      defer: true,
+      // defer: true,
     })
   })
 
@@ -145,6 +145,21 @@ exports.createPages = async ({ graphql, actions }) => {
         )
       },
     )
+    // console.log(
+    //   JSON.stringify(
+    //     {
+    //       path: `/${activity}`,
+    //       component: allActivitiesTemplate,
+    //       context: {
+    //         data: filteredForActivityTypeActivities,
+    //         activity,
+    //       },
+    //     },
+    //     null,
+    //     2,
+    //   ),
+    // )
+
     createPage({
       path: `/${activity}`,
       component: allActivitiesTemplate,
