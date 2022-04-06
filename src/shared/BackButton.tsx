@@ -7,7 +7,10 @@ interface BackButtonProps {}
 
 const BackButton: React.FC<BackButtonProps> = ({}) => {
   return (
-    <button type="button" className="" onClick={() => navigate(-1)}>
+    <button
+      type="button"
+      className="w-full h-full"
+      onClick={() => navigate(-1)}>
       <ArrowLeftIcon className="h-6 md:h-8" />
     </button>
   )

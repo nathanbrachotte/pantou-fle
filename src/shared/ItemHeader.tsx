@@ -8,12 +8,14 @@ interface ItemHeaderProps {
 
 const ItemHeader: React.FC<ItemHeaderProps> = ({ title }) => {
   return (
-    <div className="mx-auto text-center flex flex-row mb-4">
+    <div className="text-center flex flex-row mb-4">
       <div className="">
         <BackButton />
       </div>
-      <div className="flex-1">
-        <Heading1>{title}</Heading1>
+      <div className="flex-1 flex justify-center items-start ml-2 md:ml-0 self-center">
+        <div className="md:bg-white md:w-fit md:px-4 md:rounded-xl">
+          <Heading1>{title}</Heading1>
+        </div>
       </div>
     </div>
   )

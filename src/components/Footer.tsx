@@ -26,8 +26,8 @@ const Footer: React.FC = () => {
               <div className="pl-2">{/* <Label /> */}</div>
             </div>
             <p className="font-nunito text-gray-600 py-2 w-4/5 lg:w-2/3 xl:w-1/2">
-              Le site de ressource pour apprendre Français langue étrangère de
-              manière ludique
+              Le site de ressource pour apprendre le Français langue étrangère
+              de manière ludique
             </p>
           </div>
           <div className="flex flex-col">

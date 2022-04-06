@@ -4,7 +4,7 @@ import '@fontsource/m-plus-rounded-1c'
 import clsx from 'clsx'
 import LogoWithLabel from './LogoWithLabel'
 import Splash from './Splash'
-import { DEV } from '../constants'
+import { __DEV__ } from '../constants'
 import { includesALevel, includesAnActivityType } from '../helpers'
 
 interface Props {
@@ -56,7 +56,7 @@ const AllItem: React.FC<{ uri: string }> = ({ uri }) => {
 const Header: React.FC<Props> = ({ uri }) => {
   return (
     <div className="w-full">
-      {DEV && (
+      {__DEV__ && (
         <div className="bg-pink-500 sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
       )}
       {/* <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}

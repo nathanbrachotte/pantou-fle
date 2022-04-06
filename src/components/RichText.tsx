@@ -4,7 +4,6 @@ import {
   BLOCKS,
   INLINES,
   MARKS,
-  Document,
   Inline,
   Node,
 } from '@contentful/rich-text-types'
@@ -118,7 +117,7 @@ export const getOptions: (references: Reference[]) => Options = (
       switch (asset.file.contentType) {
         case 'application/pdf':
           return (
-            <div className="w-2/3 my-4 mx-auto">
+            <div className="w-full my-4 mx-auto">
               <PDF url={asset.file.url} title={asset.file.fileName} />
             </div>
           )

@@ -15,7 +15,7 @@ const activity: React.FC<PageProps<ActivityType>> = ({
 
   return (
     <Root uri={rest.uri}>
-      <ItemHeader title={`Activités - ${data.title}`} />
+      <ItemHeader title={`${data.title}`} />
       <div className="z-10 mb-4 md:px-12">
         {data?.pdf?.file?.url && (
           <div className="mb-2">
