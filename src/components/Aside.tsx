@@ -3,6 +3,7 @@ import {
   getActivityTypeLabel,
   getColorsAndLogoFromLabel,
   getCurrentActivity,
+  getCurrentLevel,
 } from '../helpers'
 import { ActivityType } from '../types'
 import RoundButton from './RoundButton'
@@ -13,12 +14,13 @@ const getButtonFromActivityTypes = (
 ) => {
   const { backgroundColor, logo } = getColorsAndLogoFromLabel(activityType)
   const isActive = getCurrentActivity(uri) === activityType
+  const urlLevel = getCurrentLevel(uri)
 
   return (
     <RoundButton
       label={getActivityTypeLabel(activityType)}
       isActive={isActive}
-      to={`../${activityType}`}
+      to={`/${urlLevel}/${activityType}`}
       bgColor={backgroundColor}
       Icon={() => logo}
     />
@@ -30,7 +32,6 @@ interface AsideProps {
 }
 
 const Aside: React.FC<AsideProps> = ({ uri }) => {
-  console.log({ uri })
   return (
     <aside className="grid grid-cols-2 pt-4 md:grid-cols-1 sm:px-2">
       {/* FIXME: https://www.petermorlion.com/iterating-a-typescript-enum/ */}

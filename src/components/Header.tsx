@@ -42,9 +42,7 @@ const Header: React.FC<PageProps> = ({ uri }) => {
       {__DEV__ && (
         <div className="bg-pink-500 sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
       )}
-      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}
       <div className="relative mx-auto px-4">
-        {/* <div className="flex justify-between items-center border-b-2 border-red py-6 md:justify-start md:space-x-4"> */}
         <div className="flex items-center justify-start space-x-4 flex-wrap py-2 md:py-4 lg:py-6">
           <div className="flex-none justify-start mr-4">
             <a href="/">
@@ -52,7 +50,6 @@ const Header: React.FC<PageProps> = ({ uri }) => {
               <LogoWithLabel withLabel />
             </a>
           </div>
-
           {LEVELS.map((level, index) => (
             <Item uri={uri} level={level} index={index} key={level} />
           ))}

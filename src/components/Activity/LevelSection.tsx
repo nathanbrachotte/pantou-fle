@@ -21,7 +21,6 @@ const LevelSection: React.FC<LevelSectionProps> = ({ level, activities }) => {
       </h1>
       <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2">
         {activities.map((fiche) => {
-          // console.log({ type: fiche.activityType.type })
           return (
             <ActivityPreview
               key={fiche.slug}

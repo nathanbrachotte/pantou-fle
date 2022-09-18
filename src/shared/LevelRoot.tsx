@@ -13,7 +13,6 @@ interface LevelRootProps {
 }
 
 const LevelRoot: React.FC<LevelRootProps> = ({ level, uri, staticData }) => {
-  console.log({ level, uri, staticData })
   const cleanActivities = removeNodeFieldFromData<Activity>(
     staticData.activities,
   )

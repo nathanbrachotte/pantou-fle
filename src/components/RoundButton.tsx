@@ -20,11 +20,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
 }) => {
   return (
     <div className={clsx(isActive && 'w-fit bg-primary-dark rounded-xl')}>
-      <Link
-        to={to}
-        partiallyActive
-        className="cursor-pointer group"
-        activeClassName="font-black text-white">
+      <Link to={to} partiallyActive className="cursor-pointer group">
         <div className="flex flex-row items-center justify-start">
           <div
             className={clsx(
@@ -33,7 +29,13 @@ const RoundButton: React.FC<RoundButtonProps> = ({
             )}>
             <Icon />
           </div>
-          <p className="text-sm rounded-xl px-4 p-2 sm:px-2">{label}</p>
+          <p
+            className={clsx(
+              'text-sm rounded-xl px-4 p-2 sm:px-2',
+              isActive && 'text-white font-black',
+            )}>
+            {label}
+          </p>
         </div>
       </Link>
     </div>

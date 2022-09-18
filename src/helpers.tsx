@@ -179,6 +179,14 @@ export function getCurrentActivity(uri: string): string {
   return (
     ACTIVITY_TYPE.filter((activity) => {
       return uri.includes(activity.toLocaleLowerCase())
-    })[0] || ''
+    })[0] || ACTIVITY_TYPE[0]
+  )
+}
+
+export function getCurrentLevel(uri: string): string {
+  return (
+    LEVELS.filter((level) => {
+      return uri.includes(level.toLocaleLowerCase())
+    })[0] || LEVELS[0]
   )
 }

@@ -11,12 +11,10 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
   pageContext,
 }) => {
   // FIXME: types be what?
-  const { data, activity, ...rest } = pageContext as {
+  const { data, activity } = pageContext as {
     data: { node: Activity }[]
     activity: ActivityType
   }
-
-  console.log({ uri, pageContext, data, activity, rest })
 
   const arrayData = removeNodeFieldFromData(data)
 
@@ -39,8 +37,6 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
 
     return perLevel[a.level.title].push(a)
   })
-
-  // console.log({ data, arrayData, perLevel })
 
   // FIXME: pls be smarter TS
   const perLevelKeys = Object.keys(perLevel) as Level[]
