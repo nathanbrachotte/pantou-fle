@@ -31,12 +31,12 @@ exports.createPages = async ({ graphql, actions }) => {
   const allActivitiesTemplate = path.resolve(`src/templates/all-activities.tsx`)
   const levelTemplate = path.resolve(`src/templates/level.tsx`)
 
-  // createRedirect({
-  //   fromPath: `/`,
-  //   toPath: `/${LEVELS[0]}/${ACTIVITY_TYPE[0]}`,
-  //   isPermanent: true,
-  //   redirectInBrowser: true,
-  // })
+  createRedirect({
+    fromPath: `/`,
+    toPath: `/${LEVELS[0]}/${ACTIVITY_TYPE[0]}`,
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
 
   const result = await graphql(`
     query AllElementsQuery {
