@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useWindowSize } from '../hooks/useWindowSize'
 import DownloadButton from '../shared/DownloadButton'
 
 interface PDFProps {
@@ -7,12 +8,18 @@ interface PDFProps {
 }
 
 const PDF: React.FC<PDFProps> = ({ title, url }) => {
+  const iframeRef = useRef(null)
+  const { width } = useWindowSize()
+
   return (
     <div className="mx-auto w-full md:w-2/3 max-w-screen-md">
-      <div className="relative pb-[141%]">
+      <div className="relative pb-[148%]">
         <iframe
+          key={width}
+          ref={iframeRef}
           title={title}
-          src={`${url}#toolbar=0`}
+          src={`${url}#toolbar=1&navpanels=0`}
+          width={width}
           // To center a container: mx-auto
           className="absolute top-0 left-0 w-full h-full"
         />

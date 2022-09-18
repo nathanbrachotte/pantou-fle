@@ -4,6 +4,7 @@ export type Color = keyof typeof colors
 export type URL = string
 
 export enum ActivityType {
+  TOUTE_ACTIVITE = 'toute-activite',
   PRODUCTION_ECRITE = 'production-ecrite',
   PRODUCTION_ORALE = 'production-orale',
   ORTHOGRAPHE = 'orthographe',
@@ -16,6 +17,7 @@ export enum ActivityType {
 }
 
 export const ACTIVITY_TYPE = [
+  'toute-activite',
   'production-ecrite',
   'production-orale',
   'orthographe',
@@ -27,7 +29,15 @@ export const ACTIVITY_TYPE = [
   'chanson',
 ] as const
 
-export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+export const LEVELS = [
+  'tous-niveaux',
+  'a1',
+  'a2',
+  'b1',
+  'b2',
+  'c1',
+  'c2',
+] as const
 
 export enum Level {
   A1 = 'A1',

@@ -32,7 +32,7 @@ const Background = () => (
 
 const NotFoundPage: React.FC<PageProps> = ({ uri }) => (
   <Root uri={uri}>
-    40404040404040404040404040404040404040404040404040
+    Cette page est introuvable :/
     {/* <Section.Container id="404" Background={Background}>
       <Box width={[320, 400, 600]} m="auto">
         <Heading color="textDark" fontSize={['8rem', '12rem', '14rem']} as="h1">

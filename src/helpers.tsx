@@ -3,6 +3,7 @@ import {
   Book,
   Chat,
   Eye,
+  Globe,
   Headphone,
   Notes,
   OpenBook,
@@ -13,7 +14,7 @@ import {
 import { colors } from './colors'
 import { ICON_SIZE } from './constants'
 import ScaleOnHoverWrapper from './shared/ScaleOnHoverWrapper'
-import { ActivityType, ACTIVITY_TYPE, LEVELS, Level } from './types'
+import { ActivityType, ACTIVITY_TYPE, LEVELS } from './types'
 
 export const NON_BREAKING_SPACE = `\u00A0`
 
@@ -26,6 +27,10 @@ export function getActivityTypeLabel(
   shouldDisplayFull?: boolean,
 ): string {
   switch (text) {
+    case ActivityType.TOUTE_ACTIVITE:
+      return shouldDisplayFull
+        ? `Toutes les activités`
+        : `Toutes${NON_BREAKING_SPACE}Activités`
     case ActivityType.COMPREHENSION_ECRITE:
       return shouldDisplayFull
         ? `Compréhension Écrite`
@@ -143,10 +148,10 @@ export function getColorsAndLogoFromLabel(
       }
     default:
       return {
-        backgroundColor: 'bg-secondary-dark',
+        backgroundColor: 'bg-primary-dark',
         logo: (
           <ScaleOnHoverWrapper>
-            <Reload color={colors.tertiary} size={ICON_SIZE} />
+            <Globe color={colors.white} size={ICON_SIZE} />
           </ScaleOnHoverWrapper>
         ),
       }
@@ -166,5 +171,13 @@ export function includesAnActivityType(uri: string): boolean {
     ACTIVITY_TYPE.find((act) => {
       return uri.includes(act.toLocaleLowerCase())
     })?.length !== undefined
+  )
+}
+
+export function getCurrentActivity(uri: string): string {
+  return (
+    ACTIVITY_TYPE.filter((activity) => {
+      return uri.includes(activity.toLocaleLowerCase())
+    })[0] || ''
   )
 }

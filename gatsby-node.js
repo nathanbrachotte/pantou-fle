@@ -10,27 +10,33 @@ exports.onPostBuild = ({ reporter }) => {
   reporter.info(`Your Gatsby site has been built!`)
 }
 
+const LEVELS = ['tous-niveaux', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+const ACTIVITY_TYPE = [
+  'toute-activite',
+  'production-ecrite',
+  'production-orale',
+  'orthographe',
+  'vocabulaire',
+  'comprehension-orale',
+  'comprehension-ecrite',
+  'fiche-exercice',
+  'grammaire',
+  'chanson',
+]
+
 // Create blog pages dynamically
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
   const activityTemplate = path.resolve(`src/templates/activity.tsx`)
   const allActivitiesTemplate = path.resolve(`src/templates/all-activities.tsx`)
-  const gameTemplate = path.resolve(`src/templates/game.tsx`)
   const levelTemplate = path.resolve(`src/templates/level.tsx`)
 
-  const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
-
-  const ACTIVITY_TYPE = [
-    'production-ecrite',
-    'production-orale',
-    'orthographe',
-    'vocabulaire',
-    'comprehension-orale',
-    'comprehension-ecrite',
-    'fiche-exercice',
-    'grammaire',
-    'chanson',
-  ]
+  // createRedirect({
+  //   fromPath: `/`,
+  //   toPath: `/${LEVELS[0]}/${ACTIVITY_TYPE[0]}`,
+  //   isPermanent: true,
+  //   redirectInBrowser: true,
+  // })
 
   const result = await graphql(`
     query AllElementsQuery {
@@ -54,20 +60,24 @@ exports.createPages = async ({ graphql, actions }) => {
             description {
               raw
               references {
-                id
-                contentful_id
-                createdAt
-                file {
-                  contentType
-                  details {
-                    size
-                    image {
-                      height
-                      width
+                ... on ContentfulReference {
+                  contentful_id
+                }
+                ... on ContentfulAsset {
+                  id
+                  createdAt
+                  file {
+                    url
+                    fileName
+                    contentType
+                    details {
+                      size
+                      image {
+                        width
+                        height
+                      }
                     }
                   }
-                  fileName
-                  url
                 }
               }
             }
@@ -111,128 +121,58 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  // console.log({
-  //   allContentfulActivity: JSON.stringify(result, null, 2),
-  // })
   result.data.allContentfulActivity.edges.forEach((edge) => {
-    // console.log({ edge: JSON.stringify(edge, null, 2) })
     createPage({
       path: `/${edge.node.slug}`,
       component: activityTemplate,
       context: edge.node,
-      // defer: true,
     })
   })
 
-  result.data.allContentfulGame.edges.forEach((edge) => {
-    // console.log({ edge: JSON.stringify(edge, null, 2) })
-    createPage({
-      path: `/${edge.node.slug}`,
-      component: gameTemplate,
-      context: edge.node,
-    })
-  })
-
-  ACTIVITY_TYPE.forEach((activity) => {
-    // console.log({ activity })
-
-    const filteredForActivityTypeActivities = result.data.allContentfulActivity.edges.filter(
-      (edge) => {
-        // console.log({ edge })
-        // console.log({ activityType: edge.node.activityType })
-        return (
-          edge.node.activityType && edge.node.activityType.type === activity
-        )
-      },
-    )
-    // console.log(
-    //   JSON.stringify(
-    //     {
-    //       path: `/${activity}`,
-    //       component: allActivitiesTemplate,
-    //       context: {
-    //         data: filteredForActivityTypeActivities,
-    //         activity,
-    //       },
-    //     },
-    //     null,
-    //     2,
-    //   ),
-    // )
-
-    createPage({
-      path: `/${activity}`,
-      component: allActivitiesTemplate,
-      context: {
-        data: filteredForActivityTypeActivities,
-        activity,
-      },
-    })
-  })
-
-  // createPage({
-  //   path: `/activities`,
-  //   component: allActivitiesTemplate,
-  //   context: result.data.allContentfulActivity.edges,
-  // })
-
-  // TODO: Is this useful?
-  // LEVELS.forEach((level) => {
-  //   const filteredResults = result.data.allContentfulActivity.edges.filter(
-  //     (edge) => {
-  //       console.log(edge.node.level.title)
-  //       return edge.node.level.title === level
-  //     },
-  //   )
-
-  //   createPage({
-  //     path: `/${level.toLocaleLowerCase()}/fiches-exercices`,
-  //     component: allActivitiesTemplate,
-  //     context: filteredResults,
-  //   })
-  // })
-
-  // createPage({
-  //   path: `/games`,
-  //   component: allActivitiesTemplate,
-  //   context: result.data.allContentfulActivity.edges,
-  // })
-
-  // 2: Filtering per level
   LEVELS.forEach((level) => {
     const filteredByLevelActivities = result.data.allContentfulActivity.edges.filter(
       (edge) => {
+        if (level === LEVELS[0]) {
+          return true
+        }
+
         return edge.node.level.title === level
       },
     )
 
     const filteredByLevelGames = result.data.allContentfulGame.edges.filter(
       (edge) => {
+        if (level === LEVELS[0]) {
+          return true
+        }
+
         return edge.node.level.title === level
       },
     )
 
     createPage({
-      path: `/${level.toLocaleLowerCase()}`,
+      path: `/${level.toLocaleLowerCase()}/${ACTIVITY_TYPE[0]}`,
       component: levelTemplate,
       context: {
-        filteredByLevelActivities,
-        filteredByLevelGames,
+        activities: filteredByLevelActivities,
+        games: filteredByLevelGames,
       },
     })
 
     // 1: Filtering per activity
     ACTIVITY_TYPE.forEach((activity) => {
-      // console.log({ activity })
       const filteredForActivityTypeActivities = filteredByLevelActivities.filter(
         (edge) => {
-          // console.log({ edge })
-          // console.log({ activityType: edge.node.activityType })
+          if (activity === ACTIVITY_TYPE[0]) {
+            return true
+          }
+
           return (
             edge.node.activityType && edge.node.activityType.type === activity
           )
         },
       )
+
       createPage({
         path: `/${level.toLocaleLowerCase()}/${activity}`,
         component: allActivitiesTemplate,

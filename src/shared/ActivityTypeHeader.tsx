@@ -1,5 +1,4 @@
 import React from 'react'
-import BackButton from './BackButton'
 import Heading1 from './Heading1'
 
 interface ActivityTypeHeaderProps {
@@ -9,9 +8,6 @@ interface ActivityTypeHeaderProps {
 const ActivityTypeHeader: React.FC<ActivityTypeHeaderProps> = ({ title }) => {
   return (
     <div className="mx-auto text-center flex flex-row mb-2 md:pl-2 lg:pl-0">
-      <div className="">
-        <BackButton />
-      </div>
       <div className="flex-1">
         <Heading1>{title}</Heading1>
       </div>

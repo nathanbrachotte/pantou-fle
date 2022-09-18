@@ -1,59 +1,42 @@
-import React from 'react'
-import '@fontsource/m-plus-rounded-1c'
-
 import clsx from 'clsx'
+import { Link, PageProps } from 'gatsby'
+import React from 'react'
+import { __DEV__ } from '../constants'
+import { getCurrentActivity } from '../helpers'
+import { LEVELS } from '../types'
 import LogoWithLabel from './LogoWithLabel'
 import Splash from './Splash'
-import { __DEV__ } from '../constants'
-import { includesALevel, includesAnActivityType } from '../helpers'
 
-interface Props {
+const LEVELS_LOGOS = ['', '🐣', '🐥', '👶', '🎓', '👨', '🧓'] as const
+
+const Item = ({
+  uri,
+  level,
+  index,
+}: {
   uri: string
-}
-
-const LEVELS = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'] as const
-const LEVELS_LOGOS = ['🐣', '🐥', '👶', '🎓', '👨', '🧓'] as const
-const getItemStyles = (isActive: boolean) =>
-  clsx(
-    isActive
-      ? 'bg-primary-dark text-white sm:border-2 sm:border-background'
-      : 'bg-background text-primary-dark hover:text-secondary-dark hover:scale-105',
-    'my-2 border-2 border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
-  )
-
-const Item: React.FC<
-  Props & { level: typeof LEVELS[number]; index: number }
-> = ({ uri, level, index }) => {
-  const isActive = uri.includes(level)
-
+  level: typeof LEVELS[number]
+  index: number
+}) => {
   return (
-    <a href={`/${level}`} className={getItemStyles(isActive)}>
-      <span role="img" aria-label={`${level} logo`}>
-        {`${level.toUpperCase()} ${LEVELS_LOGOS[index]}`}
-      </span>
-    </a>
-  )
-}
-
-const AllItem: React.FC<{ uri: string }> = ({ uri }) => {
-  const isActive =
-    uri === '/' || (!includesALevel(uri) && includesAnActivityType(uri))
-
-  return (
-    <a
-      href="/"
+    <Link
+      to={`/${level.toLowerCase()}/${getCurrentActivity(uri)}`}
       className={clsx(
-        isActive
-          ? 'bg-primary-dark text-white sm:border-2 sm:border-background'
-          : 'bg-background text-primary-dark hover:text-secondary-dark hover:scale-105',
+        ' text-primary-dark hover:text-secondary-dark hover:scale-105',
         'my-2 border-2 border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
-      )}>
-      <p className="font-extrabold">Tous Niveaux</p>
-    </a>
+      )}
+      activeClassName="bg-primary-dark text-white sm:border-2 sm:border-background hover:text-white"
+      partiallyActive>
+      <span role="img" aria-label={`${level} logo`}>
+        {`${index !== 0 ? level.toUpperCase() : 'Tous niveaux'} ${
+          LEVELS_LOGOS[index]
+        }`}
+      </span>
+    </Link>
   )
 }
 
-const Header: React.FC<Props> = ({ uri }) => {
+const Header: React.FC<PageProps> = ({ uri }) => {
   return (
     <div className="w-full">
       {__DEV__ && (
@@ -69,7 +52,7 @@ const Header: React.FC<Props> = ({ uri }) => {
               <LogoWithLabel withLabel />
             </a>
           </div>
-          <AllItem uri={uri} />
+
           {LEVELS.map((level, index) => (
             <Item uri={uri} level={level} index={index} key={level} />
           ))}

@@ -11,12 +11,12 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
   pageContext,
 }) => {
   // FIXME: types be what?
-  const { data, activity } = pageContext as {
+  const { data, activity, ...rest } = pageContext as {
     data: { node: Activity }[]
     activity: ActivityType
   }
 
-  // console.log({ pageContext, data, activity })
+  console.log({ uri, pageContext, data, activity, rest })
 
   const arrayData = removeNodeFieldFromData(data)
 
