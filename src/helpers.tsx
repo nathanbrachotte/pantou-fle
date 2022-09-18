@@ -1,12 +1,13 @@
 import React from 'react'
 import {
+  Academic,
   Book,
   Chat,
-  Eye,
   Globe,
   Headphone,
   Notes,
   OpenBook,
+  Pen,
   Reload,
   SearchFile,
   Voicemail,
@@ -70,7 +71,7 @@ export function getColorsAndLogoFromLabel(
         backgroundColor: 'bg-tertiary-light',
         logo: (
           <ScaleOnHoverWrapper>
-            <Eye color={colors.tertiary} size={ICON_SIZE} />
+            <Pen color={colors.tertiary} size={ICON_SIZE} />
           </ScaleOnHoverWrapper>
         ),
       }
@@ -133,7 +134,7 @@ export function getColorsAndLogoFromLabel(
         backgroundColor: 'bg-primary-dark',
         logo: (
           <ScaleOnHoverWrapper>
-            <Reload color={colors.white} size={ICON_SIZE} />
+            <Academic color={colors.white} size={ICON_SIZE} />
           </ScaleOnHoverWrapper>
         ),
       }
