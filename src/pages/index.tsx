@@ -65,7 +65,7 @@ export const query = graphql`
 
 const IndexPage: React.FC<PageProps> = ({ uri }) => {
   // TODO: https://dev.to/kojikanao/generate-types-from-contentful-49p8
-  const staticData = useStaticQuery(query) as IndexContenfulResponse
+  const staticData = useStaticQuery<IndexContenfulResponse>(query)
 
   return (
     <Root uri={uri}>
