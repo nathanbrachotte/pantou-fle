@@ -40,6 +40,7 @@ const plugins = [
     resolve: 'gatsby-plugin-simple-analytics',
     options: {
       trackPageViews: true,
+      events: true,
     },
   },
   'gatsby-plugin-postcss',
