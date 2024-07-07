@@ -29,7 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
   const activityTemplate = path.resolve(`src/templates/activity.tsx`)
   const allActivitiesTemplate = path.resolve(`src/templates/all-activities.tsx`)
-  const levelTemplate = path.resolve(`src/templates/level.tsx`)
+  // const levelTemplate = path.resolve(`src/templates/level.tsx`)
 
   createRedirect({
     fromPath: `/`,
@@ -132,32 +132,36 @@ exports.createPages = async ({ graphql, actions }) => {
   LEVELS.forEach((level) => {
     const filteredByLevelActivities = result.data.allContentfulActivity.edges.filter(
       (edge) => {
+        // Keep all activities if level is "tous-niveaux"
         if (level === LEVELS[0]) {
           return true
         }
 
-        return edge.node.level.title === level
+        // Otherwise, filter by level
+        const currentLevel = edge.node.level.title
+        return currentLevel === level
       },
     )
 
-    const filteredByLevelGames = result.data.allContentfulGame.edges.filter(
-      (edge) => {
-        if (level === LEVELS[0]) {
-          return true
-        }
+    // const filteredByLevelGames = result.data.allContentfulGame.edges.filter(
+    //   (edge) => {
+    //     if (level === LEVELS[0]) {
+    //       return true
+    //     }
 
-        return edge.node.level.title === level
-      },
-    )
+    //     return edge.node.level.title === level
+    //   },
+    // )
 
-    createPage({
-      path: `/${level.toLocaleLowerCase()}/${ACTIVITY_TYPE[0]}`,
-      component: levelTemplate,
-      context: {
-        activities: filteredByLevelActivities,
-        games: filteredByLevelGames,
-      },
-    })
+    // Create a level page with uri `/:level/toute-activite`
+    // createPage({
+    //   path: `/${level.toLocaleLowerCase()}/${ACTIVITY_TYPE[0]}`,
+    //   component: levelTemplate,
+    //   context: {
+    //     activities: filteredByLevelActivities,
+    //     games: filteredByLevelGames,
+    //   },
+    // })
 
     // 1: Filtering per activity
     ACTIVITY_TYPE.forEach((activity) => {

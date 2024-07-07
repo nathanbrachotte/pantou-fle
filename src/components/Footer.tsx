@@ -9,6 +9,7 @@ import {
 } from '../../assets'
 import SquareButton from './SquareButton'
 import { colors } from '../colors'
+import { AboutButton } from './AboutButton'
 
 const Footer: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const Footer: React.FC = () => {
               Le site de ressource pour apprendre le Français langue étrangère
               de manière ludique
             </p>
+            <AboutButton className="flex" />
           </div>
           <div className="flex flex-col">
             <div className="flex flex-row justify-start items-end row-start-1 pt-4">

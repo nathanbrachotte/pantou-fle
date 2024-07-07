@@ -2,7 +2,23 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
-const SEO: React.FC = () => {
+interface SEOProps {
+  title?: string
+  description?: string
+  lang?: string
+  meta?: Array<
+    { name: string; content: string } | { property: string; content: string }
+  >
+  image?: string
+}
+
+const SEO: React.FC<SEOProps> = ({
+  title,
+  description,
+  lang = 'fr',
+  meta = [],
+  image,
+}) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -15,14 +31,14 @@ const SEO: React.FC = () => {
       }
     `,
   )
-  const description = ''
-  const lang = 'fr'
-  const meta: string[] = []
-  const title = ''
-  const image = ''
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
+  const siteUrl = site.siteMetadata?.siteUrl
+  const defaultImage = `` // Ensure you have a default OG image
+
+  const fullTitle = title ? `${title}` : defaultTitle
+  const ogImage = image || defaultImage
 
   return (
     <Helmet
@@ -31,19 +47,14 @@ const SEO: React.FC = () => {
       }}
       title={title}
       defaultTitle={defaultTitle}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
       meta={[
         {
           name: `description`,
           content: metaDescription,
         },
         {
-          name: `image`,
-          content: image,
-        },
-        {
           property: `og:title`,
-          content: title,
+          content: fullTitle,
         },
         {
           property: `og:description`,
@@ -52,10 +63,6 @@ const SEO: React.FC = () => {
         {
           property: `og:type`,
           content: `website`,
-        },
-        {
-          property: `og:image`,
-          content: image,
         },
         {
           name: `twitter:card`,
@@ -67,14 +74,35 @@ const SEO: React.FC = () => {
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: fullTitle,
         },
         {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(meta)}
-    />
+        ...(image
+          ? [
+              {
+                name: `image`,
+                content: image,
+              },
+              {
+                property: `og:image`,
+                content: ogImage,
+              },
+              {
+                name: `twitter:image`,
+                content: ogImage,
+              },
+            ]
+          : []),
+      ].concat(meta)}>
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADSENSE_CLIENT_ID}`}
+        crossOrigin="anonymous"
+      />
+    </Helmet>
   )
 }
 

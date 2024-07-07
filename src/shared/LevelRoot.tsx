@@ -1,7 +1,7 @@
 import React from 'react'
+import Root from '../components/Root'
 import ActivitySection from '../components/Activity/ActivitySection'
 import GamesSection from '../components/Games/GamesSection'
-import Root from '../components/Root'
 import { removeNodeFieldFromData } from '../helpers'
 import { Activity, Game, Level } from '../types'
 import LevelHeader from './LevelHeader'

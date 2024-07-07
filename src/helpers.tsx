@@ -29,9 +29,7 @@ export function getActivityTypeLabel(
 ): string {
   switch (text) {
     case ActivityType.TOUTE_ACTIVITE:
-      return shouldDisplayFull
-        ? `Toutes les activités`
-        : `Toutes${NON_BREAKING_SPACE}Activités`
+      return shouldDisplayFull ? `Toutes les activités` : `Tout`
     case ActivityType.COMPREHENSION_ECRITE:
       return shouldDisplayFull
         ? `Compréhension Écrite`
@@ -175,12 +173,23 @@ export function includesAnActivityType(uri: string): boolean {
   )
 }
 
-export function getCurrentActivity(uri: string): string {
-  return (
-    ACTIVITY_TYPE.filter((activity) => {
-      return uri.includes(activity.toLocaleLowerCase())
-    })[0] || ACTIVITY_TYPE[0]
-  )
+export function getCurrentActivity(
+  uri: string,
+  activityFallback?: string,
+): string {
+  const fromUri = ACTIVITY_TYPE.find((activity) => {
+    return uri.includes(activity.toLocaleLowerCase())
+  })
+
+  if (fromUri) {
+    return fromUri
+  }
+
+  if (activityFallback) {
+    return activityFallback
+  }
+
+  return 'toute-activite'
 }
 
 export function getCurrentLevel(uri: string): string {

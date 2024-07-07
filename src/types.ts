@@ -124,3 +124,8 @@ export type IndexContenfulResponse = ContenfulResponse<
   Activity
 > &
   ContenfulResponse<'allContentfulGame', Game>
+
+export type ActivityPageData = {
+  activity: string
+  level: string
+}

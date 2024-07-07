@@ -9,7 +9,7 @@ const {
   },
 } = tailwind
 
-const { ACCESS_TOKEN, SPACE_ID, ANALYTICS_ID, DETERMINISTIC } = process.env
+const { ACCESS_TOKEN, SPACE_ID, DETERMINISTIC } = process.env
 
 const plugins = [
   'gatsby-plugin-react-helmet',
@@ -45,6 +45,12 @@ const plugins = [
   },
   'gatsby-plugin-postcss',
   'gatsby-plugin-image',
+  {
+    resolve: `gatsby-plugin-google-adsense`,
+    options: {
+      publisherId: `ca-pub-2142870138777008`,
+    },
+  },
 ]
 
 module.exports = {

@@ -1,9 +1,9 @@
 import clsx from 'clsx'
-import { Link, PageProps } from 'gatsby'
+import { Link } from 'gatsby'
 import React from 'react'
 import { __DEV__ } from '../constants'
 import { getCurrentActivity } from '../helpers'
-import { LEVELS } from '../types'
+import { ActivityPageData, LEVELS } from '../types'
 import LogoWithLabel from './LogoWithLabel'
 import Splash from './Splash'
 
@@ -11,21 +11,28 @@ const LEVELS_LOGOS = ['', '🐣', '🐥', '👶', '🎓', '👨', '🧓'] as con
 
 const Item = ({
   uri,
+  // Override data, used if the page can't be guessed from the uri, like in the activity page
+  pageData,
   level,
   index,
 }: {
   uri: string
+  pageData?: ActivityPageData
   level: typeof LEVELS[number]
   index: number
 }) => {
+  const levelToUse = level.toLowerCase()
+  const activityToUse = getCurrentActivity(uri, pageData?.activity)
+
   return (
     <Link
-      to={`/${level.toLowerCase()}/${getCurrentActivity(uri)}`}
+      to={`/${levelToUse}/${activityToUse}`}
       className={clsx(
         ' text-primary-dark hover:text-secondary-dark hover:scale-105',
-        'my-2 border-2 border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
+        'my-2 border-2 bg-background border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
+        'transition-all duration-150',
       )}
-      activeClassName="bg-primary-dark text-white sm:border-2 sm:border-background hover:text-white"
+      activeClassName="bg-primary-dark text-secondary-dark sm:border-2 sm:border-background bg-"
       partiallyActive>
       <span role="img" aria-label={`${level} logo`}>
         {`${index !== 0 ? level.toUpperCase() : 'Tous niveaux'} ${
@@ -36,7 +43,13 @@ const Item = ({
   )
 }
 
-const Header: React.FC<PageProps> = ({ uri }) => {
+const Header = ({
+  uri,
+  pageData,
+}: {
+  uri: string
+  pageData?: ActivityPageData
+}): React.ReactElement => {
   return (
     <div className="w-full">
       {__DEV__ && (
@@ -51,7 +64,13 @@ const Header: React.FC<PageProps> = ({ uri }) => {
             </a>
           </div>
           {LEVELS.map((level, index) => (
-            <Item uri={uri} level={level} index={index} key={level} />
+            <Item
+              uri={uri}
+              pageData={pageData}
+              level={level}
+              index={index}
+              key={level}
+            />
           ))}
           <div className="-z-10">
             <Splash />
