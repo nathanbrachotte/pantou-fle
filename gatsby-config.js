@@ -9,7 +9,7 @@ const {
   },
 } = tailwind
 
-const { ACCESS_TOKEN, SPACE_ID, ANALYTICS_ID, DETERMINISTIC } = process.env
+const { ACCESS_TOKEN, SPACE_ID, DETERMINISTIC } = process.env
 
 const plugins = [
   'gatsby-plugin-react-helmet',

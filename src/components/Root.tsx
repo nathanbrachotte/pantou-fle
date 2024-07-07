@@ -35,9 +35,9 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
     storageKey: 'darkMode',
   })
 
-  useEffect(() => {
-    // loadScript('https://use.fontawesome.com/fd58d214b9.js')
-  }, [])
+  // useEffect(() => {
+  // loadScript('https://use.fontawesome.com/fd58d214b9.js')
+  // }, [])
 
   const theme = {
     // ...preset,
@@ -52,8 +52,8 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
   return (
     <>
       <SEO />
-      <ScrollingProvider>
-        <main className="h-screen w-full flex flex-col justify-between">
+      <main className="min-h-screen w-full flex flex-col justify-between">
+        <ScrollingProvider>
           <Header uri={uri} />
           {/* <ScrollingProvider> */}
           <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max grid-cols-1 px-2 md:px-4 md:grid-cols-10">
@@ -66,12 +66,10 @@ const Root: React.FC<{ uri: string }> = ({ children, uri }) => {
             {/* </ThemeProvider> */}
           </div>
           {/* <KoFiFrame /> */}
-          <div className="">
-            <Footer />
-          </div>
+          <Footer />
           {/* </ScrollingProvider> */}
-        </main>
-      </ScrollingProvider>
+        </ScrollingProvider>
+      </main>
     </>
   )
 }

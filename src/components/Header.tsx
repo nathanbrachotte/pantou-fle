@@ -36,7 +36,7 @@ const Item = ({
   )
 }
 
-const Header: React.FC<PageProps> = ({ uri }) => {
+const Header = ({ uri }: { uri: string }): React.ReactElement => {
   return (
     <div className="w-full">
       {__DEV__ && (

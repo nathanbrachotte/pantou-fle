@@ -4,7 +4,6 @@ import LevelRoot from '../shared/LevelRoot'
 import { Level } from '../types'
 
 const LevelTemplate: React.FC<PageProps> = ({ uri, pageContext }) => {
-  console.log({ uri, pageContext })
   return (
     <LevelRoot
       uri={uri}
