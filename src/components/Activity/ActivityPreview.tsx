@@ -16,8 +16,8 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
   const category = getActivityTypeLabel(fiche.activityType?.type)
   const previewDescription = fiche?.previewDescription
   const preview = fiche?.preview?.file.url
-  const isFree =
-    !fiche?.price?.paymentType || fiche.price.paymentType === 'free'
+  // const isFree =
+  //   !fiche?.price?.paymentType || fiche.price.paymentType === 'free'
 
   return (
     <li
@@ -30,7 +30,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
         <div className="flex-auto w-full lg:w-5/12 self-start">
           <div className="relative">
             <Image url={preview} />
-            {!isFree && (
+            {/* {!isFree && (
               <Tooltip content="Accès Payant">
                 <div className="absolute left-1 bottom-1 sm:left-2 sm:bottom-2">
                   <div
@@ -41,7 +41,7 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({ fiche, badges }) => {
                   </div>
                 </div>
               </Tooltip>
-            )}
+            )} */}
           </div>
         </div>
         <div className="flex-auto w-7/12 p-2 px-0 lg:px-4 self-stretch">
