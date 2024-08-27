@@ -29,9 +29,7 @@ export function getActivityTypeLabel(
 ): string {
   switch (text) {
     case ActivityType.TOUTE_ACTIVITE:
-      return shouldDisplayFull
-        ? `Toutes les activités`
-        : `Toutes${NON_BREAKING_SPACE}Activités`
+      return shouldDisplayFull ? `Toutes les activités` : `Tout`
     case ActivityType.COMPREHENSION_ECRITE:
       return shouldDisplayFull
         ? `Compréhension Écrite`

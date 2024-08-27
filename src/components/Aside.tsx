@@ -34,7 +34,7 @@ interface AsideProps {
 
 const Aside: React.FC<AsideProps> = ({ uri }) => {
   return (
-    <aside className="grid grid-cols-2 pt-4 lg:grid-cols-1 sm:px-2 mb-4 lg:mb-0">
+    <aside className="grid grid-cols-2 pt-4 lg:grid-cols-1 px-2 mb-4 lg:mb-0 gap-1">
       {/* FIXME: https://www.petermorlion.com/iterating-a-typescript-enum/ */}
       <div className="space-y-2 pb-2">
         {getButtonFromActivityTypes(uri, ActivityType.TOUTE_ACTIVITE)}
@@ -50,7 +50,7 @@ const Aside: React.FC<AsideProps> = ({ uri }) => {
         {getButtonFromActivityTypes(uri, ActivityType.ORTHOGRAPHE)}
         {getButtonFromActivityTypes(uri, ActivityType.CHANSON)}
       </div>
-      <AboutButton />
+      <AboutButton className="col-span-2 hidden lg:flex" />
     </aside>
   )
 }

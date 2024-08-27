@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
               Le site de ressource pour apprendre le Français langue étrangère
               de manière ludique
             </p>
-            <AboutButton />
+            <AboutButton className="flex" />
           </div>
           <div className="flex flex-col">
             <div className="flex flex-row justify-start items-end row-start-1 pt-4">
