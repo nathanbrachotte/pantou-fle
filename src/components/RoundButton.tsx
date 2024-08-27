@@ -19,7 +19,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
   to,
 }) => {
   return (
-    <div className={clsx(isActive && 'w-fit bg-primary-dark rounded-xl')}>
+    <div className={clsx({ 'w-fit bg-primary-dark rounded-xl': isActive })}>
       <Link to={to} partiallyActive className="cursor-pointer group">
         <div className="flex flex-row items-center justify-start">
           <div

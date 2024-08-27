@@ -23,7 +23,8 @@ const Item = ({
       to={`/${level.toLowerCase()}/${getCurrentActivity(uri)}`}
       className={clsx(
         ' text-primary-dark hover:text-secondary-dark hover:scale-105',
-        'my-2 border-2 border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
+        'my-2 border-2 bg-background border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
+        'transition-all duration-150',
       )}
       activeClassName="bg-primary-dark text-white sm:border-2 sm:border-background hover:text-white"
       partiallyActive>

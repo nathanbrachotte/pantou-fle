@@ -176,11 +176,9 @@ export function includesAnActivityType(uri: string): boolean {
 }
 
 export function getCurrentActivity(uri: string): string {
-  return (
-    ACTIVITY_TYPE.filter((activity) => {
-      return uri.includes(activity.toLocaleLowerCase())
-    })[0] || ACTIVITY_TYPE[0]
-  )
+  return ACTIVITY_TYPE.filter((activity) => {
+    return uri.includes(activity.toLocaleLowerCase())
+  })[0]
 }
 
 export function getCurrentLevel(uri: string): string {

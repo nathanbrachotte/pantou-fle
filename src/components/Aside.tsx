@@ -7,6 +7,7 @@ import {
 } from '../helpers'
 import { ActivityType } from '../types'
 import RoundButton from './RoundButton'
+import { AboutButton } from './AboutButton'
 
 const getButtonFromActivityTypes = (
   uri: string,
@@ -33,7 +34,7 @@ interface AsideProps {
 
 const Aside: React.FC<AsideProps> = ({ uri }) => {
   return (
-    <aside className="grid grid-cols-2 pt-4 md:grid-cols-1 sm:px-2">
+    <aside className="grid grid-cols-2 pt-4 lg:grid-cols-1 sm:px-2 mb-4 lg:mb-0">
       {/* FIXME: https://www.petermorlion.com/iterating-a-typescript-enum/ */}
       <div className="space-y-2 pb-2">
         {getButtonFromActivityTypes(uri, ActivityType.TOUTE_ACTIVITE)}
@@ -49,6 +50,7 @@ const Aside: React.FC<AsideProps> = ({ uri }) => {
         {getButtonFromActivityTypes(uri, ActivityType.ORTHOGRAPHE)}
         {getButtonFromActivityTypes(uri, ActivityType.CHANSON)}
       </div>
+      <AboutButton />
     </aside>
   )
 }
