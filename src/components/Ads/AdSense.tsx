@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
 export const OverHeaderAdSense: React.FC<{ path: string }> = ({ path }) => {
-  useEffect(() => {
-    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-  }, [path])
+  // useEffect(() => {
+  //   ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  // }, [path])
   console.log('🚀 ~ displaying ad for path:', path)
   return (
     <ins
@@ -20,9 +20,9 @@ export const OverHeaderAdSense: React.FC<{ path: string }> = ({ path }) => {
 export const InBetweenActivitiesAd: React.FC<{ activityId: string }> = ({
   activityId,
 }) => {
-  useEffect(() => {
-    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-  }, [activityId])
+  // useEffect(() => {
+  //   ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  // }, [activityId])
   return (
     <ins
       className="adsbygoogle"
@@ -36,9 +36,9 @@ export const InBetweenActivitiesAd: React.FC<{ activityId: string }> = ({
 }
 
 export const BottomOfPageAdSense: React.FC<{ path: string }> = ({ path }) => {
-  useEffect(() => {
-    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-  }, [path])
+  // useEffect(() => {
+  //   ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  // }, [path])
 
   return (
     <ins
