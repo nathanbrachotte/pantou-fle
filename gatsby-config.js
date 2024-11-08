@@ -45,12 +45,6 @@ const plugins = [
   },
   'gatsby-plugin-postcss',
   'gatsby-plugin-image',
-  {
-    resolve: `gatsby-plugin-google-adsense`,
-    options: {
-      publisherId: `ca-pub-2142870138777008`,
-    },
-  },
 ]
 
 module.exports = {
