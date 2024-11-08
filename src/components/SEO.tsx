@@ -99,7 +99,7 @@ const SEO: React.FC<SEOProps> = ({
       ].concat(meta)}>
       <script
         async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADSENSE_CLIENT_ID}`}
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
         crossOrigin="anonymous"
       />
     </Helmet>
