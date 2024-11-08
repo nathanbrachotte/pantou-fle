@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export const OverHeaderAdSense: React.FC<{ path: string }> = ({ path }) => {
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.adsbygoogle) {
-      ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-    }
-  }, [path])
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && window.adsbygoogle) {
+  //     ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  //   }
+  // }, [path])
   console.log('🚀 ~ displaying ad for path:', path)
   return (
     <ins
@@ -22,10 +22,17 @@ export const OverHeaderAdSense: React.FC<{ path: string }> = ({ path }) => {
 export const InBetweenActivitiesAd: React.FC<{ activityId: string }> = ({
   activityId,
 }) => {
+  const isInitialized = useRef(false)
+
   useEffect(() => {
     try {
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
+      if (
+        typeof window !== 'undefined' &&
+        window.adsbygoogle &&
+        !isInitialized.current
+      ) {
         ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+        isInitialized.current = true
       }
     } catch (error) {
       console.error('AdSense error:', error)
@@ -45,10 +52,17 @@ export const InBetweenActivitiesAd: React.FC<{ activityId: string }> = ({
 }
 
 export const BottomOfPageAdSense: React.FC<{ path: string }> = ({ path }) => {
+  const isInitialized = useRef(false)
+
   useEffect(() => {
     try {
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
+      if (
+        typeof window !== 'undefined' &&
+        window.adsbygoogle &&
+        !isInitialized.current
+      ) {
         ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+        isInitialized.current = true
       }
     } catch (error) {
       console.error('AdSense error:', error)
