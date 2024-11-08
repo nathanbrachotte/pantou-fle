@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 export const OverHeaderAdSense: React.FC<{ path: string }> = ({ path }) => {
+  return null
   // useEffect(() => {
   //   if (typeof window !== 'undefined' && window.adsbygoogle) {
   //     ;(window.adsbygoogle = window.adsbygoogle || []).push({})
@@ -22,6 +23,7 @@ export const OverHeaderAdSense: React.FC<{ path: string }> = ({ path }) => {
 export const InBetweenActivitiesAd: React.FC<{ activityId: string }> = ({
   activityId,
 }) => {
+  return null
   const isInitialized = useRef(false)
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export const InBetweenActivitiesAd: React.FC<{ activityId: string }> = ({
 }
 
 export const BottomOfPageAdSense: React.FC<{ path: string }> = ({ path }) => {
+  return null
   const isInitialized = useRef(false)
 
   useEffect(() => {
