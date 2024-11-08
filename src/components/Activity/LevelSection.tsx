@@ -28,9 +28,9 @@ const LevelSection: React.FC<LevelSectionProps> = ({ level, activities }) => {
           return (
             <>
               {shouldHaveAd && (
-                <div className="mb-6">
+                <li className="mb-6">
                   <InBetweenActivitiesAd activityId={fiche.slug} />
-                </div>
+                </li>
               )}
               <ActivityPreview
                 key={fiche.slug}

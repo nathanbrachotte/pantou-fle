@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export const OverHeaderAdSense: React.FC<{ path: string }> = ({ path }) => {
   console.log('🚀 ~ displaying ad for path:', path)
@@ -25,6 +25,22 @@ export const InBetweenActivitiesAd: React.FC<{ activityId: string }> = ({
       data-ad-layout-key="-6z+dr+1e-1m+57"
       data-ad-client="ca-pub-2142870138777008"
       data-ad-slot="7581801144"
+    />
+  )
+}
+
+export const BottomOfPageAdSense: React.FC<{ path: string }> = ({ path }) => {
+  useEffect(() => {
+    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  }, [path])
+
+  return (
+    <ins
+      className="adsbygoogle"
+      style={{ display: 'block' }}
+      data-ad-format="autorelaxed"
+      data-ad-client="ca-pub-2142870138777008"
+      data-ad-slot="8497527064"
     />
   )
 }

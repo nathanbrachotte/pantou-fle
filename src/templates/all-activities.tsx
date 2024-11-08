@@ -2,7 +2,10 @@ import { PageProps } from 'gatsby'
 import React from 'react'
 import LevelSection from '../components/Activity/LevelSection'
 import Root from '../components/Root'
-import { OverHeaderAdSense } from '../components/Ads/AdSense'
+import {
+  BottomOfPageAdSense,
+  OverHeaderAdSense,
+} from '../components/Ads/AdSense'
 import { getActivityTypeLabel, removeNodeFieldFromData } from '../helpers'
 import ActivityTypeHeader from '../shared/ActivityTypeHeader'
 import { Activity, ActivityType, Level } from '../types'
@@ -42,6 +45,7 @@ const ActivitesContent: React.FC<{
       {perLevelKeys.map<JSX.Element>((level) => (
         <LevelSection key={level} level={level} activities={perLevel[level]} />
       ))}
+      <BottomOfPageAdSense path={`${uri}-${activity}`} />
     </>
   )
 }
