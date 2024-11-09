@@ -13,11 +13,11 @@ import Aside from './Aside'
 import Footer from './Footer'
 import useKoFiButton from '../hooks/useKoFiButton'
 
-declare global {
-  interface Window {
-    adsbygoogle: any[]
-  }
-}
+// declare global {
+//   interface Window {
+//     adsbygoogle: any[]
+//   }
+// }
 
 config({ ssrFadeout: true })
 
@@ -29,10 +29,10 @@ const Root: React.FC<{
   // const darkMode = useDarkMode(false, {
   //   storageKey: 'darkMode',
   // })
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-extra-semi
-    ;(window.adsbygoogle = window.adsbygoogle || [])?.push({})
-  }, [])
+  // useEffect(() => {
+  //   // eslint-disable-next-line @typescript-eslint/no-extra-semi
+  //   ;(window.adsbygoogle = window.adsbygoogle || [])?.push({})
+  // }, [])
 
   return (
     <>
