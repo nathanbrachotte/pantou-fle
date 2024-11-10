@@ -1,10 +1,10 @@
 import { PageProps, Link } from 'gatsby'
 import React from 'react'
 import clsx from 'clsx'
-import Root from '../components/Root'
+import Layout from '../components/Layout'
 
 const NotFoundPage: React.FC<PageProps> = ({ uri }) => (
-  <Root uri={uri}>
+  <Layout uri={uri}>
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
       <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
       <h2 className="text-2xl font-medium text-gray-600 mb-6">
@@ -23,7 +23,7 @@ const NotFoundPage: React.FC<PageProps> = ({ uri }) => (
         Retour à l&apos;accueil
       </Link>
     </div>
-  </Root>
+  </Layout>
 )
 
 export default NotFoundPage

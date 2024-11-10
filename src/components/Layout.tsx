@@ -21,7 +21,7 @@ import useKoFiButton from '../hooks/useKoFiButton'
 
 config({ ssrFadeout: true })
 
-const Root: React.FC<{
+const Layout: React.FC<{
   uri: string
   pageData?: ActivityPageData
 }> = ({ children, uri, pageData }) => {
@@ -53,4 +53,4 @@ const Root: React.FC<{
   )
 }
 
-export default Root
+export default Layout

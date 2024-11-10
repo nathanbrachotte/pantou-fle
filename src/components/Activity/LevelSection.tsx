@@ -4,7 +4,6 @@ import LevelBadge from '../../shared/LevelBadge'
 import Heading2 from '../../shared/Heading2'
 import { Activity, Level } from '../../types'
 import ActivityPreview from './ActivityPreview'
-import { InBetweenActivitiesAd } from '../Ads/AdSense'
 
 interface LevelSectionProps {
   level: Level
@@ -21,23 +20,20 @@ const LevelSection: React.FC<LevelSectionProps> = ({ level, activities }) => {
         <ChevronRightIcon width={18} />
       </h1>
       <ul className="grid py-2 gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2">
-        {activities.map((fiche) => {
+        {activities.map((fiche, index) => {
           const shouldHaveAd =
             activities.indexOf(fiche) % 3 === 0 &&
             activities.indexOf(fiche) !== 0
+
+          const keys = [`ad-${fiche.slug}`, `${fiche.slug}-${index}`]
+
           return (
-            <>
-              {shouldHaveAd && (
-                <li className="mb-6">
-                  <InBetweenActivitiesAd activityId={fiche.slug} />
-                </li>
-              )}
-              <ActivityPreview
-                key={fiche.slug}
-                fiche={fiche}
-                badges={[<LevelBadge text={fiche.level.title} />]}
-              />
-            </>
+            <ActivityPreview
+              displayAd={shouldHaveAd}
+              key={keys[1]}
+              fiche={fiche}
+              badges={[<LevelBadge text={fiche.level.title} />]}
+            />
           )
         })}
       </ul>

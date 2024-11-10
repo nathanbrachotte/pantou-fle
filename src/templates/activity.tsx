@@ -5,7 +5,7 @@ import { OverHeaderAdSense } from '../components/Ads/AdSense'
 import type { Activity as ActivityType } from '../types'
 import { richText } from '../components/RichText'
 import PDF from '../components/PDF'
-import Root from '../components/Root'
+import Layout from '../components/Layout'
 import ItemHeader from '../shared/ItemHeader'
 
 // Activity page (showing PDF and rich text)
@@ -16,7 +16,7 @@ const activity: React.FC<PageProps<ActivityType>> = ({
   const data = pageContext as ActivityType
 
   return (
-    <Root
+    <Layout
       uri={rest.uri}
       pageData={{
         activity: data.activityType.type,
@@ -32,7 +32,7 @@ const activity: React.FC<PageProps<ActivityType>> = ({
         )}
         <span>{richText(data)}</span>
       </div>
-    </Root>
+    </Layout>
   )
 }
 

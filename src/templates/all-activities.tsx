@@ -1,7 +1,7 @@
 import { PageProps } from 'gatsby'
 import React from 'react'
 import LevelSection from '../components/Activity/LevelSection'
-import Root from '../components/Root'
+import Layout from '../components/Layout'
 import {
   BottomOfPageAdSense,
   OverHeaderAdSense,
@@ -72,11 +72,11 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
   })
 
   return (
-    <Root uri={uri}>
+    <Layout uri={uri}>
       <div className="relative max-w-full px-2 pt-2">
         <ActivitesContent arrayData={arrayData} activity={activity} uri={uri} />
       </div>
-    </Root>
+    </Layout>
   )
 }
 

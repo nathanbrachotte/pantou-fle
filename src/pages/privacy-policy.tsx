@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { PageProps } from 'gatsby'
-import Root from '../components/Root'
+import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
 const PrivacyPolicy: React.FC<PageProps> = ({ uri }) => {
   return (
-    <Root uri={uri}>
+    <Layout uri={uri}>
       <SEO />
       <div className="flex w-full justify-center items-center">
         <div className="container flex justify-center flex-col items-center max-w-3xl">
@@ -177,7 +177,7 @@ const PrivacyPolicy: React.FC<PageProps> = ({ uri }) => {
           </div>
         </div>
       </div>
-    </Root>
+    </Layout>
   )
 }
 

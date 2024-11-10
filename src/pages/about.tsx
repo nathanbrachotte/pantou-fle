@@ -4,12 +4,12 @@ import { LinkedInIcon, TwitterIcon } from '../components/icons'
 import { N8Logo } from '../../assets/N8Logo'
 import Heading2 from '../shared/Heading2'
 import Heading1 from '../shared/Heading1'
-import Root from '../components/Root'
+import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
 const AboutPage: React.FC<PageProps> = ({ uri }) => {
   return (
-    <Root uri={uri}>
+    <Layout uri={uri}>
       <SEO
         title="À propos de nous"
         description="Rencontrez Cathy et Nate, les co-fondateurs passionnés derrière Pantou-fle."
@@ -94,7 +94,7 @@ Passionnée par la conception pédagogique, j'ai crée le site pédagogique Pant
           </section>
         </div>
       </div>
-    </Root>
+    </Layout>
   )
 }
 
