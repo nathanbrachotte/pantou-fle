@@ -8,7 +8,7 @@
     "pre-build": "node scripts/get-about",
     "build": "yarn pre-build && gatsby build",
     "develop": "yarn pre-build && gatsby develop",
-    "dev": "yarn develop",
+    "dev": "nvm use 16 && yarn develop",
     "clean": "gatsby clean",
     "serve": "yarn build && gatsby serve -p 9000",
     "lint": "eslint ./src",

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'gatsby'
 import {
   Email,
   Facebook,
@@ -63,15 +64,20 @@ const Footer: React.FC = () => {
                 <Email color={colors['primary-dark']} size={26} />
               </a>
             </div>
-            <p className="text-primary text-xs pt-2">
-              @
-              {new Intl.DateTimeFormat('fr-FR', {
-                // dateStyle: 'short',
-                year: 'numeric',
-                // eslint-disable-next-line react/jsx-one-expression-per-line
-              }).format(Date.now())}{' '}
-              Pantou-fle - Tous droits réservés
-            </p>
+            <div className="flex flex-col text-xs pt-2">
+              <p className="text-primary">
+                @
+                {new Intl.DateTimeFormat('fr-FR', {
+                  year: 'numeric',
+                }).format(Date.now())}{' '}
+                Pantou-fle - Tous droits réservés
+              </p>
+              <Link
+                to="/privacy-policy"
+                className="text-primary hover:text-primary-dark transition-colors mt-1">
+                Politique de confidentialité
+              </Link>
+            </div>
           </div>
         </div>
 

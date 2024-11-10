@@ -7,7 +7,6 @@ import {
 } from '../helpers'
 import { ActivityPageData, ActivityType } from '../types'
 import RoundButton from './RoundButton'
-import { AboutButton } from './AboutButton'
 
 const getButtonFromActivityTypes = (
   uri: string,
@@ -73,7 +72,6 @@ const Aside: React.FC<AsideProps> = ({ uri, pageData }) => {
         {getButtonFromActivityTypes(uri, ActivityType.ORTHOGRAPHE, pageData)}
         {getButtonFromActivityTypes(uri, ActivityType.CHANSON, pageData)}
       </div>
-      <AboutButton className="col-span-2 hidden lg:flex" />
     </aside>
   )
 }
