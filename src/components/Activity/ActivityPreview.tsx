@@ -25,11 +25,11 @@ const ActivityPreview: React.FC<ActivityPreviewProps> = ({
 
   return (
     <>
-      {displayAd && (
+      {/* {displayAd && (
         <li>
           <InBetweenActivitiesAd activityId={fiche.slug} />
         </li>
-      )}
+      )} */}
       <li
         className={clsx(
           'overflow-hidden rounded-lg bg-background max-w-3xl group',
