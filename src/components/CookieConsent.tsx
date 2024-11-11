@@ -5,27 +5,35 @@ import CookieConsent, {
 } from 'react-cookie-consent'
 import { AD_CLIENT, COOKIE_CONSENT_NAME } from '../constants'
 
+let isAdsenseInitialized = false
+
 function initializeAdsense(personalized: boolean) {
-  // Remove existing adsense script if any
-  const existingScript = document.querySelector('script[src*="adsbygoogle"]')
-  if (existingScript) {
-    existingScript.remove()
+  if (typeof window === 'undefined') return
+
+  // If already initialized, just update the personalization setting
+  if (isAdsenseInitialized) {
+    if (!personalized) {
+      window.adsbygoogle = window.adsbygoogle || []
+      window.adsbygoogle.requestNonPersonalizedAds = 1
+    }
+    return
+  }
+
+  // First time initialization
+  window.adsbygoogle = window.adsbygoogle || []
+
+  // Set non-personalized ads before loading the script
+  if (!personalized) {
+    window.adsbygoogle.requestNonPersonalizedAds = 1
   }
 
   const script = document.createElement('script')
-  script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`
+  script.src = `https://pagead2.googlesyndleware.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`
   script.async = true
   script.crossOrigin = 'anonymous'
 
-  if (!personalized) {
-    ;(window.adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: AD_CLIENT,
-      enable_page_level_ads: true,
-      non_personalized_ads: true,
-    })
-  }
-
   document.head.appendChild(script)
+  isAdsenseInitialized = true
 }
 
 export function checkCookieConsent() {
@@ -83,8 +91,10 @@ export function CookieConsentBanner() {
         initializeAdsense(false)
         localStorage.setItem(COOKIE_CONSENT_NAME, 'deny')
       }}>
-      Pantou-fle utilise des cookies. <br />
-      Pour soutenir notre travail, merci d&apos;accepter les cookies.{' '}
+      Pantou-fle utilise des cookies.
+      <br />
+      Pour soutenir notre travail, merci d&apos;accepter les cookies.
+      {'\u00A0'}
       <span role="img" aria-label="pray">
         🙏🏻
       </span>

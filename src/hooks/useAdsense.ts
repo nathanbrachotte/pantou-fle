@@ -1,5 +1,5 @@
 import { useEffect, useRef, CSSProperties } from 'react'
-import { AD_CLIENT } from '../constants'
+import { AD_CLIENT, __DEV__ } from '../constants'
 
 interface UseAdsenseProps {
   adSlot: string
@@ -42,6 +42,8 @@ export function useAdsense({
     style: {
       display: 'block',
       textAlign: 'center' as const,
+      minHeight: '100px',
+      ...(__DEV__ && { backgroundColor: 'rgba(255, 0, 0, 0.1)' }),
     },
     'data-ad-client': AD_CLIENT,
     'data-ad-slot': adSlot,
