@@ -1,20 +1,26 @@
 import React from 'react'
 import { Book } from '../../assets'
 import { colors } from '../colors'
+import { OverHeaderAdSense } from '../components/Ads/AdSense'
 
 interface EmptyStateProps {
   title?: string
   description?: string
   icon?: React.ReactNode
+  uri?: string
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({
   title = 'Aucun contenu disponible pour le moment',
   description = "Il n'y a pas encore de contenu disponible pour cette section. Revenez plus tard ! 😊",
   icon,
+  uri,
 }) => {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center min-h-[300px] rounded-lg">
+      <div className="m-4 sm:m-6 md:m-8">
+        <OverHeaderAdSense path={uri} />
+      </div>
       <div className="mb-4">
         {icon || <Book color={colors['primary-dark']} size={64} />}
       </div>
