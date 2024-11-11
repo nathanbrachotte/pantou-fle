@@ -40,16 +40,13 @@ const ActivitesContent: React.FC<{
 
   return (
     <>
-      <div className="m-4 sm:m-6 md:m-8">
-        <OverHeaderAdSense path={`${uri}-${activity}`} />
-      </div>
+      <OverHeaderAdSense path={`${uri}-${activity}`} />
       <ActivityTypeHeader title={getActivityTypeLabel(activity, true)} />
       {perLevelKeys.map<JSX.Element>((level) => (
         <LevelSection key={level} level={level} activities={perLevel[level]} />
       ))}
-      <div className="m-4 mt-8 sm:m-6 md:m-8">
-        <BottomOfPageAdSense path={`${uri}-${activity}`} />
-      </div>
+
+      <BottomOfPageAdSense path={`${uri}-${activity}`} />
     </>
   )
 }

@@ -11,7 +11,11 @@ export const OverHeaderAdSense: React.FC<AdProps> = () => {
     adSlot: '5603770416',
   })
 
-  return <ins {...adProps} />
+  return (
+    <div className="px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 w-full">
+      <ins {...adProps} />
+    </div>
+  )
 }
 
 export const InBetweenActivitiesAd: React.FC<AdProps> = () => {
@@ -30,5 +34,9 @@ export const BottomOfPageAdSense: React.FC<AdProps> = () => {
     isAutoRelaxed: true,
   })
 
-  return <ins {...adProps} />
+  return (
+    <div className="px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 w-full">
+      <ins {...adProps} />
+    </div>
+  )
 }

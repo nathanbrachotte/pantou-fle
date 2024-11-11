@@ -18,9 +18,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center min-h-[300px] rounded-lg">
-      <div className="m-4 sm:m-6 md:m-8">
-        <OverHeaderAdSense path={uri} />
-      </div>
+      <OverHeaderAdSense path={uri} />
       <div className="mb-4">
         {icon || <Book color={colors['primary-dark']} size={64} />}
       </div>

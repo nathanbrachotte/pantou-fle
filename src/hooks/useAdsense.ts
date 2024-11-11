@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { useEffect, useRef, CSSProperties } from 'react'
 import { AD_CLIENT, __DEV__ } from '../constants'
 
@@ -38,12 +39,11 @@ export function useAdsense({
   }, [])
 
   return {
-    className: 'adsbygoogle',
+    className: clsx('adsbygoogle', __DEV__ && 'bg-red-500'),
     style: {
       display: 'block',
       textAlign: 'center' as const,
       minHeight: '100px',
-      ...(__DEV__ && { backgroundColor: 'rgba(255, 0, 0, 0.1)' }),
     },
     'data-ad-client': AD_CLIENT,
     'data-ad-slot': adSlot,
