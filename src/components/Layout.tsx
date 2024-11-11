@@ -12,6 +12,7 @@ import SEO from './SEO'
 import Aside from './Aside'
 import Footer from './Footer'
 import useKoFiButton from '../hooks/useKoFiButton'
+import { checkCookieConsent, CookieConsentBanner } from './CookieConsent'
 
 // declare global {
 //   interface Window {
@@ -26,6 +27,10 @@ const Layout: React.FC<{
   pageData?: ActivityPageData
 }> = ({ children, uri, pageData }) => {
   useKoFiButton()
+
+  useEffect(() => {
+    checkCookieConsent()
+  }, [])
   // const darkMode = useDarkMode(false, {
   //   storageKey: 'darkMode',
   // })
@@ -37,6 +42,7 @@ const Layout: React.FC<{
   return (
     <>
       <SEO />
+      <CookieConsentBanner />
       <main className="min-h-screen w-full flex flex-col justify-between">
         <ScrollingProvider>
           <Header uri={uri} pageData={pageData} />
