@@ -45,7 +45,9 @@ const ActivitesContent: React.FC<{
       {perLevelKeys.map<JSX.Element>((level) => (
         <LevelSection key={level} level={level} activities={perLevel[level]} />
       ))}
-      <BottomOfPageAdSense path={`${uri}-${activity}`} />
+      <div className="mt-12">
+        <BottomOfPageAdSense path={`${uri}-${activity}`} />
+      </div>
     </>
   )
 }
