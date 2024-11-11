@@ -22,7 +22,9 @@ const activity: React.FC<PageProps<ActivityType>> = ({
         activity: data.activityType.type,
         level: data.level.title,
       }}>
-      <OverHeaderAdSense path={`${rest.uri}-${data.activityType.type}`} />
+      <div className="m-4 sm:m-6 md:m-8">
+        <OverHeaderAdSense path={`${rest.uri}-${data.activityType.type}`} />
+      </div>
       <ItemHeader title={`${data.title}`} />
       <div className="z-10 mb-4 md:px-12">
         {data?.pdf?.file?.url && (
