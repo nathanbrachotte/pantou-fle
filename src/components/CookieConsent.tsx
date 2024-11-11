@@ -1,51 +1,58 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CookieConsent, {
   getCookieConsentValue,
   resetCookieConsentValue,
 } from 'react-cookie-consent'
 import { AD_CLIENT, COOKIE_CONSENT_NAME } from '../constants'
 
-function enableAdsense(personalized: boolean) {
-  console.log('🚀 ~ enableAdsense ~ personalized:', personalized)
+function initializeAdsense(personalized: boolean) {
+  // Remove existing adsense script if any
+  const existingScript = document.querySelector('script[src*="adsbygoogle"]')
+  if (existingScript) {
+    existingScript.remove()
+  }
+
   const script = document.createElement('script')
-  script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+  script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`
   script.async = true
   script.crossOrigin = 'anonymous'
-  script.dataset.adClient = AD_CLIENT
 
   if (!personalized) {
-    script.dataset.nonPersonalizedAds = 'true'
+    ;(window.adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: AD_CLIENT,
+      enable_page_level_ads: true,
+      non_personalized_ads: true,
+    })
   }
-  console.log('🚀 ~ enableAdsense ~ script:', script)
 
   document.head.appendChild(script)
 }
 
 export function checkCookieConsent() {
-  console.log('Checking cookie consent...')
   const consentGiven = getCookieConsentValue(COOKIE_CONSENT_NAME)
-  console.log('consentGiven:', consentGiven)
+
+  if (typeof window === 'undefined')
+    return { isAccepted: false, hasUserChosen: false }
+
   if (consentGiven === 'true') {
-    enableAdsense(true)
+    initializeAdsense(true)
     return { isAccepted: true, hasUserChosen: true }
   }
 
-  if (consentGiven === 'false') {
-    enableAdsense(false)
-    return { isAccepted: false, hasUserChosen: true }
+  // Default to non-personalized ads if no consent or explicitly declined
+  initializeAdsense(false)
+  return {
+    isAccepted: false,
+    hasUserChosen: consentGiven === 'false',
   }
-
-  return { isAccepted: false, hasUserChosen: false }
 }
 
-function resetConsent() {
-  resetCookieConsentValue()
-  console.log('Cookie consent has been reset')
-  // The cookie consent bar will become visible again
-}
-
-// https://www.npmjs.com/package/react-cookie-consent
 export function CookieConsentBanner() {
+  useEffect(() => {
+    // Initialize with non-personalized ads by default
+    checkCookieConsent()
+  }, [])
+
   return (
     <CookieConsent
       visible="byCookieValue"
@@ -68,13 +75,12 @@ export function CookieConsentBanner() {
       overlay
       acceptOnScroll
       enableDeclineButton
-      onAccept={(acceptedByScrolling: boolean) => {
-        enableAdsense(true)
-
+      onAccept={() => {
+        initializeAdsense(true)
         localStorage.setItem(COOKIE_CONSENT_NAME, 'allow')
       }}
       onDecline={() => {
-        enableAdsense(false)
+        initializeAdsense(false)
         localStorage.setItem(COOKIE_CONSENT_NAME, 'deny')
       }}>
       Pantou-fle utilise des cookies. <br />
