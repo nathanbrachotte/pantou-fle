@@ -7,6 +7,7 @@ interface UseAdsenseProps {
   adFormat?: string
   adLayoutKey?: string
   isAutoRelaxed?: boolean
+  customStyle?: CSSProperties
 }
 
 interface AdsenseAttributes {
@@ -24,6 +25,7 @@ export function useAdsense({
   adFormat,
   adLayoutKey,
   isAutoRelaxed,
+  customStyle,
 }: UseAdsenseProps): AdsenseAttributes {
   const isInitialized = useRef(false)
 
@@ -44,6 +46,7 @@ export function useAdsense({
       display: 'block',
       textAlign: 'center' as const,
       minHeight: '100px',
+      ...customStyle,
     },
     'data-ad-client': AD_CLIENT,
     'data-ad-slot': adSlot,

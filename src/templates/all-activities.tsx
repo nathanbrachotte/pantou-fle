@@ -40,7 +40,7 @@ const ActivitesContent: React.FC<{
 
   return (
     <>
-      <OverHeaderAdSense path={`${uri}-${activity}`} />
+      {/* <OverHeaderAdSense path={`${uri}-${activity}`} /> */}
       <ActivityTypeHeader title={getActivityTypeLabel(activity, true)} />
       {perLevelKeys.map<JSX.Element>((level) => (
         <LevelSection key={level} level={level} activities={perLevel[level]} />
@@ -59,8 +59,6 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
   pageContext,
 }) => {
   const { data, activity } = pageContext as PageContext
-  // console.log('🚀 ~ activity:', activity)
-  // console.log('🚀 ~ data:', data)
 
   const arrayData = removeNodeFieldFromData(data)
 

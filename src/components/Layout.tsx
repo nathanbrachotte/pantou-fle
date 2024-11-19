@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import config from 'react-reveal/globals'
 
 // import { ThemeProvider } from 'styled-components'
-import { ScrollingProvider } from 'react-scroll-section'
+// import { ScrollingProvider } from 'react-scroll-section'
 // import { Helmet } from 'react-helmet'
 
 import { ActivityPageData } from '../types'
@@ -13,6 +13,7 @@ import Aside from './Aside'
 import Footer from './Footer'
 import useKoFiButton from '../hooks/useKoFiButton'
 import { checkCookieConsent, CookieConsentBanner } from './CookieConsent'
+import { OverWebsiteAdSense } from './Ads/AdSense'
 
 // declare global {
 //   interface Window {
@@ -43,17 +44,16 @@ const Layout: React.FC<{
     <>
       <SEO />
       <CookieConsentBanner />
+      <OverWebsiteAdSense />
       <main className="min-h-screen w-full flex flex-col justify-between">
-        <ScrollingProvider>
-          <Header uri={uri} pageData={pageData} />
-          <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max grid-cols-1 px-2 lg:px-4 lg:grid-cols-10">
-            <div className="col-span-2">
-              <Aside uri={uri} pageData={pageData} />
-            </div>
-            <div className="col-span-8 pb-8">{children}</div>
+        <Header uri={uri} pageData={pageData} />
+        <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max grid-cols-1 px-2 lg:px-4 lg:grid-cols-10">
+          <div className="col-span-2">
+            <Aside uri={uri} pageData={pageData} />
           </div>
-          <Footer />
-        </ScrollingProvider>
+          <div className="col-span-8 pb-8">{children}</div>
+        </div>
+        <Footer />
       </main>
     </>
   )

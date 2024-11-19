@@ -67,9 +67,10 @@ const PrivacyPolicy: React.FC<PageProps> = ({ uri }) => {
                   <li>
                     Google AdSense : Google AdSense place des cookies sur notre
                     site pour diffuser des publicités adaptées à vos centres
-                    d'intérêt. Pour plus d'informations sur la manière dont
-                    Google utilise les données collectées via AdSense, veuillez
-                    visiter le site des Règles de Confidentialité de Google.
+                    d&apos;intérêt. Pour plus d&apos;informations sur la manière
+                    dont Google utilise les données collectées via AdSense,
+                    veuillez visiter le site des Règles de Confidentialité de
+                    Google.
                   </li>
                 </ul>
               </section>
@@ -86,10 +87,12 @@ const PrivacyPolicy: React.FC<PageProps> = ({ uri }) => {
                     Afficher des publicités personnalisées via Google AdSense
                   </li>
                   <li>
-                    Améliorer la fonctionnalité du site et l'expérience
+                    Améliorer la fonctionnalité du site et l&apos;expérience
                     utilisateur
                   </li>
-                  <li>Surveiller les performances et l'utilisation du site</li>
+                  <li>
+                    Surveiller les performances et l&apos;utilisation du site
+                  </li>
                 </ul>
               </section>
 
@@ -99,9 +102,9 @@ const PrivacyPolicy: React.FC<PageProps> = ({ uri }) => {
                 </h2>
                 <p>
                   Lors de votre première visite sur notre site, une bannière de
-                  cookies vous permet d'accepter ou de refuser les cookies. Vous
-                  pouvez modifier vos préférences de cookies à tout moment en
-                  visitant notre page de préférences de cookies (ou en
+                  cookies vous permet d&apos;accepter ou de refuser les cookies.
+                  Vous pouvez modifier vos préférences de cookies à tout moment
+                  en visitant notre page de préférences de cookies (ou en
                   supprimant vos cookies et en revenant sur notre site).
                 </p>
               </section>

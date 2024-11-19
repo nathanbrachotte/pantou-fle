@@ -6,6 +6,22 @@ interface AdProps {
   activityId?: string
 }
 
+export const OverWebsiteAdSense: React.FC<AdProps> = () => {
+  const adProps = useAdsense({
+    adSlot: '2882619175',
+    customStyle: {
+      height: '280px',
+      backgroundColor: '#f0f0f0',
+    },
+  })
+
+  return (
+    <div className="w-full bg-primary-light">
+      <ins {...adProps} />
+    </div>
+  )
+}
+
 export const OverHeaderAdSense: React.FC<AdProps> = () => {
   const adProps = useAdsense({
     adSlot: '5603770416',
