@@ -45,11 +45,13 @@ const plugins = [
   },
   'gatsby-plugin-postcss',
   'gatsby-plugin-image',
+  'gatsby-plugin-sitemap',
 ]
 
 module.exports = {
   plugins,
   siteMetadata: {
+    siteUrl: 'https://pantoufle.fr',
     // isMediumUserDefined: !!about.mediumUser,
     deterministicBehaviour: !!DETERMINISTIC,
   },
