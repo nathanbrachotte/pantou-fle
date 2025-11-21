@@ -12,7 +12,7 @@ import SEO from './SEO'
 import Aside from './Aside'
 import Footer from './Footer'
 import useKoFiButton from '../hooks/useKoFiButton'
-import { checkCookieConsent, CookieConsentBanner } from './CookieConsent'
+// import { checkCookieConsent } from './CookieConsent'
 import { OverWebsiteAdSense } from './Ads/AdSense'
 
 // declare global {
@@ -29,9 +29,9 @@ const Layout: React.FC<{
 }> = ({ children, uri, pageData }) => {
   useKoFiButton()
 
-  useEffect(() => {
-    checkCookieConsent()
-  }, [])
+  // useEffect(() => {
+  //   checkCookieConsent()
+  // }, [])
   // const darkMode = useDarkMode(false, {
   //   storageKey: 'darkMode',
   // })
@@ -43,7 +43,6 @@ const Layout: React.FC<{
   return (
     <>
       <SEO />
-      <CookieConsentBanner />
       <OverWebsiteAdSense />
       <main className="min-h-screen w-full flex flex-col justify-between">
         <Header uri={uri} pageData={pageData} />
