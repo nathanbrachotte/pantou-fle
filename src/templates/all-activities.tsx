@@ -16,24 +16,21 @@ type PageContext = {
   activity: ActivityType
 }
 
-// TODO: Filer per date
-const perLevel: Record<Level, Activity[]> = {
-  A1: [],
-  A2: [],
-  B1: [],
-  B2: [],
-  C1: [],
-  C2: [],
-}
-
-// FIXME: pls be smarter TS
-const perLevelKeys = Object.keys(perLevel) as Level[]
+const LEVEL_KEYS: Level[] = [
+  Level.A1,
+  Level.A2,
+  Level.B1,
+  Level.B2,
+  Level.C1,
+  Level.C2,
+]
 
 const ActivitesContent: React.FC<{
   arrayData: Activity[]
   activity: ActivityType
   uri: string
-}> = ({ arrayData, activity, uri }) => {
+  perLevel: Record<Level, Activity[]>
+}> = ({ arrayData, activity, uri, perLevel }) => {
   if (arrayData.length === 0) {
     return <EmptyState uri={uri} />
   }
@@ -42,7 +39,7 @@ const ActivitesContent: React.FC<{
     <>
       {/* <OverHeaderAdSense path={`${uri}-${activity}`} /> */}
       <ActivityTypeHeader title={getActivityTypeLabel(activity, true)} />
-      {perLevelKeys.map<JSX.Element>((level) => (
+      {LEVEL_KEYS.map<JSX.Element>((level) => (
         <LevelSection key={level} level={level} activities={perLevel[level]} />
       ))}
 
@@ -62,18 +59,36 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
 
   const arrayData = removeNodeFieldFromData(data)
 
+  // Initialize perLevel fresh on each render
+  const perLevel: Record<Level, Activity[]> = {
+    [Level.A1]: [],
+    [Level.A2]: [],
+    [Level.B1]: [],
+    [Level.B2]: [],
+    [Level.C1]: [],
+    [Level.C2]: [],
+  }
+
   arrayData.forEach((a: Activity) => {
     if (!a?.level?.title) {
       return null
     }
 
-    return perLevel[a.level.title].push(a)
+    // Ensure the level exists in our record before pushing
+    if (perLevel[a.level.title]) {
+      perLevel[a.level.title].push(a)
+    }
   })
 
   return (
     <Layout uri={uri}>
       <div className="relative max-w-full px-2 pt-2">
-        <ActivitesContent arrayData={arrayData} activity={activity} uri={uri} />
+        <ActivitesContent
+          arrayData={arrayData}
+          activity={activity}
+          uri={uri}
+          perLevel={perLevel}
+        />
       </div>
     </Layout>
   )
