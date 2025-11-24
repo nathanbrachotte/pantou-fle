@@ -15,7 +15,7 @@ import {
 import { colors } from './colors'
 import { ICON_SIZE } from './constants'
 import ScaleOnHoverWrapper from './shared/ScaleOnHoverWrapper'
-import { ActivityType, ACTIVITY_TYPE, LEVELS } from './types'
+import { ActivityType, ACTIVITY_TYPE, LEVELS, Activity, Level } from './types'
 
 export const NON_BREAKING_SPACE = `\u00A0`
 
@@ -198,4 +198,30 @@ export function getCurrentLevel(uri: string): string {
       return uri.includes(level.toLocaleLowerCase())
     })[0] || LEVELS[0]
   )
+}
+
+export function groupActivitiesByLevel(
+  activities: Activity[],
+): Record<Level, Activity[]> {
+  const perLevel: Record<Level, Activity[]> = {
+    [Level.A1]: [],
+    [Level.A2]: [],
+    [Level.B1]: [],
+    [Level.B2]: [],
+    [Level.C1]: [],
+    [Level.C2]: [],
+  }
+
+  activities.forEach((a: Activity) => {
+    if (!a?.level?.title) {
+      return
+    }
+
+    // Ensure the level exists in our record before pushing
+    if (perLevel[a.level.title]) {
+      perLevel[a.level.title].push(a)
+    }
+  })
+
+  return perLevel
 }

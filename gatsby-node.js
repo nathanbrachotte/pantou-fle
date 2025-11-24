@@ -26,17 +26,10 @@ const ACTIVITY_TYPE = [
 
 // Create blog pages dynamically
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage, createRedirect } = actions
+  const { createPage } = actions
   const activityTemplate = path.resolve(`src/templates/activity.tsx`)
   const allActivitiesTemplate = path.resolve(`src/templates/all-activities.tsx`)
   // const levelTemplate = path.resolve(`src/templates/level.tsx`)
-
-  createRedirect({
-    fromPath: `/`,
-    toPath: `/${LEVELS[0]}/${ACTIVITY_TYPE[0]}`,
-    isPermanent: true,
-    redirectInBrowser: true,
-  })
 
   const result = await graphql(`
     query AllElementsQuery {

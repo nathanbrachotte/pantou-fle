@@ -32,7 +32,7 @@ const Item = ({
         'my-2 border-2 bg-background border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10',
         'transition-all duration-150',
       )}
-      activeClassName="bg-primary-dark text-secondary-dark sm:border-2 sm:border-background bg-"
+      activeClassName="bg-orange-600 text-white sm:border-2 sm:border-background hover:text-white "
       partiallyActive>
       <span role="img" aria-label={`${level} logo`}>
         {`${index !== 0 ? level.toUpperCase() : 'Tous niveaux'} ${

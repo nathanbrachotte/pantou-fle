@@ -51,7 +51,7 @@ const plugins = [
 module.exports = {
   plugins,
   siteMetadata: {
-    siteUrl: 'https://pantoufle.fr',
+    siteUrl: 'https://pantou-fle.fr',
     // isMediumUserDefined: !!about.mediumUser,
     deterministicBehaviour: !!DETERMINISTIC,
   },
