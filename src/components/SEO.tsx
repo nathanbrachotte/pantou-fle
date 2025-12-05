@@ -98,6 +98,13 @@ const SEO: React.FC<SEOProps> = ({
           : []),
       ].concat(meta)}>
       <script
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        data-cbid="e0130614-eb6a-4564-9859-b17b844f4b28"
+        data-blockingmode="auto"
+        type="text/javascript"
+      />
+      <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
         crossOrigin="anonymous"
