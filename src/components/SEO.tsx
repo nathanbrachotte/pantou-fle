@@ -10,7 +10,6 @@ interface SEOProps {
     { name: string; content: string } | { property: string; content: string }
   >
   image?: string
-  enableAds?: boolean
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -19,7 +18,6 @@ const SEO: React.FC<SEOProps> = ({
   lang = 'fr',
   meta = [],
   image,
-  enableAds = true,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -99,6 +97,7 @@ const SEO: React.FC<SEOProps> = ({
             ]
           : []),
       ].concat(meta)}>
+      {/* CookieBot must load first to intercept other scripts */}
       <script
         id="Cookiebot"
         src="https://consent.cookiebot.com/uc.js"
@@ -106,13 +105,18 @@ const SEO: React.FC<SEOProps> = ({
         data-blockingmode="auto"
         type="text/javascript"
       />
-      {enableAds && (
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
-          crossOrigin="anonymous"
-        />
-      )}
+      {/* 
+        AdSense with CookieBot blocking attributes:
+        - type="text/plain" prevents browser from executing until CookieBot changes it
+        - data-cookieconsent="marketing" tells CookieBot to only enable after marketing consent
+      */}
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
+        crossOrigin="anonymous"
+        type="text/plain"
+        data-cookieconsent="marketing"
+      />
     </Helmet>
   )
 }

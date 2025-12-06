@@ -27,6 +27,8 @@ module.exports = {
     // note you must disable the base rule as it can report incorrect errors
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
