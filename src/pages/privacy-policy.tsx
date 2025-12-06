@@ -1,12 +1,10 @@
 import * as React from 'react'
 import { PageProps } from 'gatsby'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
 
 const PrivacyPolicy: React.FC<PageProps> = ({ uri }) => {
   return (
-    <Layout uri={uri}>
-      <SEO />
+    <Layout uri={uri} enableAds={false}>
       <div className="flex w-full justify-center items-center">
         <div className="container flex justify-center flex-col items-center max-w-3xl">
           <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">

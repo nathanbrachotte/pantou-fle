@@ -21,9 +21,10 @@ const AllActivities: React.FC<PageProps<ActivityType>> = ({
 
   const arrayData = removeNodeFieldFromData(data)
   const perLevel = groupActivitiesByLevel(arrayData)
+  const hasContent = arrayData.length > 0
 
   return (
-    <Layout uri={uri}>
+    <Layout uri={uri} enableAds={hasContent}>
       <div className="relative max-w-full px-2 pt-2">
         <ActivitesContent
           arrayData={arrayData}

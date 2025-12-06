@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Layout from '../components/Layout'
 
 const NotFoundPage: React.FC<PageProps> = ({ uri }) => (
-  <Layout uri={uri}>
+  <Layout uri={uri} enableAds={false}>
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
       <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
       <h2 className="text-2xl font-medium text-gray-600 mb-6">

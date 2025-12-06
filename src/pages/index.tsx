@@ -16,9 +16,10 @@ interface IndexPageProps {
 const IndexPage: React.FC<PageProps<IndexPageProps>> = ({ data, uri }) => {
   const arrayData = removeNodeFieldFromData(data.allContentfulActivity.edges)
   const perLevel = groupActivitiesByLevel(arrayData)
+  const hasContent = arrayData.length > 0
 
   return (
-    <Layout uri={uri}>
+    <Layout uri={uri} enableAds={hasContent}>
       <div className="relative max-w-full px-2 pt-2">
         <ActivitesContent
           arrayData={arrayData}

@@ -10,6 +10,7 @@ interface SEOProps {
     { name: string; content: string } | { property: string; content: string }
   >
   image?: string
+  enableAds?: boolean
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -18,6 +19,7 @@ const SEO: React.FC<SEOProps> = ({
   lang = 'fr',
   meta = [],
   image,
+  enableAds = true,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -104,11 +106,13 @@ const SEO: React.FC<SEOProps> = ({
         data-blockingmode="auto"
         type="text/javascript"
       />
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
-        crossOrigin="anonymous"
-      />
+      {enableAds && (
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
+          crossOrigin="anonymous"
+        />
+      )}
     </Helmet>
   )
 }

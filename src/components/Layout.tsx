@@ -26,7 +26,8 @@ config({ ssrFadeout: true })
 const Layout: React.FC<{
   uri: string
   pageData?: ActivityPageData
-}> = ({ children, uri, pageData }) => {
+  enableAds?: boolean
+}> = ({ children, uri, pageData, enableAds = true }) => {
   useKoFiButton()
 
   // useEffect(() => {
@@ -42,7 +43,7 @@ const Layout: React.FC<{
 
   return (
     <>
-      <SEO />
+      <SEO enableAds={enableAds} />
       <OverWebsiteAdSense />
       <main className="min-h-screen w-full flex flex-col justify-between">
         <Header uri={uri} pageData={pageData} />
