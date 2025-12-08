@@ -10,6 +10,7 @@ interface SEOProps {
     { name: string; content: string } | { property: string; content: string }
   >
   image?: string
+  enableAds?: boolean
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -18,6 +19,7 @@ const SEO: React.FC<SEOProps> = ({
   lang = 'fr',
   meta = [],
   image,
+  enableAds = true,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -110,13 +112,15 @@ const SEO: React.FC<SEOProps> = ({
         - type="text/plain" prevents browser from executing until CookieBot changes it
         - data-cookieconsent="marketing" tells CookieBot to only enable after marketing consent
       */}
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
-        crossOrigin="anonymous"
-        type="text/plain"
-        data-cookieconsent="marketing"
-      />
+      {enableAds && (
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
+          crossOrigin="anonymous"
+          type="text/plain"
+          data-cookieconsent="marketing"
+        />
+      )}
     </Helmet>
   )
 }
