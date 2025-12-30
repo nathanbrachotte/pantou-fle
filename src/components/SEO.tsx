@@ -98,18 +98,24 @@ const SEO: React.FC<SEOProps> = ({
               },
             ]
           : []),
-      ].concat(meta)}>
-      {enableAds && (
-        <>
-          {/* eslint-disable-next-line react/self-closing-comp */}
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008"
-            // eslint-disable-next-line react/no-unknown-property, react/jsx-closing-tag-location
-            crossOrigin="anonymous"></script>
-        </>
-      )}
-    </Helmet>
+      ].concat(meta)}
+      script={
+        enableAds
+          ? [
+              {
+                async: true,
+                src: 'https://fundingchoices.google.com/js/fc.js',
+              },
+              {
+                async: true,
+                src:
+                  'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2142870138777008',
+                crossOrigin: 'anonymous',
+              },
+            ]
+          : []
+      }
+    />
   )
 }
 
