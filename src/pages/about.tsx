@@ -13,6 +13,7 @@ const AboutPage: React.FC<PageProps> = ({ uri }) => {
       <SEO
         title="À propos de nous"
         description="Rencontrez Cathy et Nate, les co-fondateurs passionnés derrière Pantou-fle."
+        enableAds={false}
       />
       <div className="flex w-full justify-center items-center">
         <div className="container flex justify-center flex-col items-center max-w-3xl">
