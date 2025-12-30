@@ -102,6 +102,12 @@ const SEO: React.FC<SEOProps> = ({
       script={
         enableAds
           ? [
+              // Google Funding Choices initialization (must come before fc.js)
+              {
+                type: 'text/javascript',
+                innerHTML:
+                  'window.googlefc = window.googlefc || {}; window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];',
+              },
               {
                 async: true,
                 src: 'https://fundingchoices.google.com/js/fc.js',
