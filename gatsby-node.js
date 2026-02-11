@@ -170,6 +170,16 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       )
 
+      // Only create the "all activities" page for "toute-activite" regardless,
+      // but skip specific activity type pages if there are no matching activities
+      // to avoid generating thin/empty pages that hurt AdSense approval
+      if (
+        activity !== ACTIVITY_TYPE[0] &&
+        filteredForActivityTypeActivities.length === 0
+      ) {
+        return
+      }
+
       createPage({
         path: `/${level.toLocaleLowerCase()}/${activity}`,
         component: allActivitiesTemplate,

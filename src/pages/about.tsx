@@ -5,16 +5,14 @@ import { N8Logo } from '../../assets/N8Logo'
 import Heading2 from '../shared/Heading2'
 import Heading1 from '../shared/Heading1'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
 
 const AboutPage: React.FC<PageProps> = ({ uri }) => {
   return (
-    <Layout uri={uri}>
-      <SEO
-        title="À propos de nous"
-        description="Rencontrez Cathy et Nate, les co-fondateurs passionnés derrière Pantou-fle."
-        enableAds={false}
-      />
+    <Layout
+      uri={uri}
+      enableAds={false}
+      title="À propos de nous"
+      description="Rencontrez Cathy et Nate, les co-fondateurs passionnés derrière Pantou-fle.">
       <div className="flex w-full justify-center items-center">
         <div className="container flex justify-center flex-col items-center max-w-3xl">
           <Heading1>Qui sommes-nous ?</Heading1>

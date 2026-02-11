@@ -1,7 +1,6 @@
 import React from 'react'
 import { PageProps } from 'gatsby'
 
-import { OverHeaderAdSense } from '../components/Ads/AdSense'
 import type { Activity as ActivityType } from '../types'
 import { richText } from '../components/RichText'
 import PDF from '../components/PDF'
@@ -21,9 +20,12 @@ const activity: React.FC<PageProps<ActivityType>> = ({
       pageData={{
         activity: data.activityType.type,
         level: data.level.title,
-      }}>
-      {/* <OverHeaderAdSense path={`${rest.uri}-${data.activityType.type}`} /> */}
-
+      }}
+      title={`${data.title} - ${data.level.title}`}
+      description={
+        data.previewDescription ||
+        `Activité de français langue étrangère (FLE) niveau ${data.level.title} : ${data.title}`
+      }>
       <ItemHeader title={`${data.title}`} />
       <div className="z-10 mb-4 md:px-12">
         {data?.pdf?.file?.url && (

@@ -19,7 +19,11 @@ const IndexPage: React.FC<PageProps<IndexPageProps>> = ({ data, uri }) => {
   const hasContent = arrayData.length > 0
 
   return (
-    <Layout uri={uri} enableAds={hasContent}>
+    <Layout
+      uri={uri}
+      enableAds={hasContent}
+      title="Pantou-fle - Ressources FLE gratuites"
+      description="Découvrez toutes nos ressources gratuites pour apprendre le français langue étrangère (FLE). Activités de compréhension, production, vocabulaire et grammaire pour tous les niveaux.">
       <div className="relative max-w-full px-2 pt-2">
         <ActivitesContent
           arrayData={arrayData}

@@ -27,23 +27,14 @@ const Layout: React.FC<{
   uri: string
   pageData?: ActivityPageData
   enableAds?: boolean
-}> = ({ children, uri, pageData, enableAds = true }) => {
+  title?: string
+  description?: string
+}> = ({ children, uri, pageData, enableAds = true, title, description }) => {
   useKoFiButton()
-
-  // useEffect(() => {
-  //   checkCookieConsent()
-  // }, [])
-  // const darkMode = useDarkMode(false, {
-  //   storageKey: 'darkMode',
-  // })
-  // useEffect(() => {
-  //   // eslint-disable-next-line @typescript-eslint/no-extra-semi
-  //   ;(window.adsbygoogle = window.adsbygoogle || [])?.push({})
-  // }, [])
 
   return (
     <>
-      <SEO enableAds={enableAds} />
+      <SEO enableAds={enableAds} title={title} description={description} />
       <main className="min-h-screen w-full flex flex-col justify-between">
         <Header uri={uri} pageData={pageData} />
         <div className="flex-1 grid gap-x-0 gap-y-0 auto-cols-max grid-cols-1 px-2 lg:px-4 lg:grid-cols-10">

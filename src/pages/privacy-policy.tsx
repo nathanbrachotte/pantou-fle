@@ -4,7 +4,11 @@ import Layout from '../components/Layout'
 
 const PrivacyPolicy: React.FC<PageProps> = ({ uri }) => {
   return (
-    <Layout uri={uri} enableAds={false}>
+    <Layout
+      uri={uri}
+      enableAds={false}
+      title="Politique de Confidentialité"
+      description="Politique de confidentialité de Pantou-fle. Découvrez comment nous protégeons vos données personnelles.">
       <div className="flex w-full justify-center items-center">
         <div className="container flex justify-center flex-col items-center max-w-3xl">
           <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">

@@ -51,6 +51,9 @@ const plugins = [
 module.exports = {
   plugins,
   siteMetadata: {
+    title: 'Pantou-fle - Français Langue Étrangère',
+    description:
+      'Ressources pédagogiques gratuites pour apprendre le français langue étrangère (FLE). Activités, exercices et fiches pour tous les niveaux de A1 à C2.',
     siteUrl: 'https://pantou-fle.fr',
     // isMediumUserDefined: !!about.mediumUser,
     deterministicBehaviour: !!DETERMINISTIC,
