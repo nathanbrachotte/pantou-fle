@@ -1,13 +1,15 @@
 ---
-import RoundButton from "@/components/RoundButton.astro";
+import ActivityIcon from "@/components/ActivityIcon.astro";
+import NavPill from "@/components/NavPill.astro";
 import { cn } from "@/lib/utils";
 import {
   getActivityTypeLabel,
   getActivityTypeBackgroundColor,
+  activityTypeHasDarkBackground,
   getCurrentActivity,
   getCurrentLevel,
 } from "@/lib/helpers";
-import { ACTIVITY_TYPE_ENUM, type ActivityType } from "@/lib/constants";
+import { ACTIVITY_TYPE } from "@/lib/constants";
 
 interface Props {
   uri: string;
@@ -19,51 +21,44 @@ interface Props {
 
 const { uri, pageData } = Astro.props;
 
-const activityTypes = Object.values(ACTIVITY_TYPE_ENUM);
 const urlLevel = getCurrentLevel(uri);
+const currentActivity = getCurrentActivity(uri, pageData?.activity);
 
 function isActive(activityType: string): boolean {
-  return getCurrentActivity(uri, pageData?.activity) === activityType;
+  return currentActivity === activityType;
 }
 
-const leftColumn: ActivityType[] = [
-  ACTIVITY_TYPE_ENUM.TOUTE_ACTIVITE,
-  ACTIVITY_TYPE_ENUM.COMPREHENSION_ECRITE,
-  ACTIVITY_TYPE_ENUM.COMPREHENSION_ORALE,
-  ACTIVITY_TYPE_ENUM.FICHE_EXERCICE,
-  ACTIVITY_TYPE_ENUM.PRODUCTION_ECRITE,
-];
-
-const rightColumn: ActivityType[] = [
-  ACTIVITY_TYPE_ENUM.PRODUCTION_ORALE,
-  ACTIVITY_TYPE_ENUM.VOCABULAIRE,
-  ACTIVITY_TYPE_ENUM.GRAMMAIRE,
-  ACTIVITY_TYPE_ENUM.ORTHOGRAPHE,
-  ACTIVITY_TYPE_ENUM.CHANSON,
-];
+function getHref(activityType: string): string {
+  return `/${urlLevel}/${activityType}`;
+}
 ---
 
-<aside class="grid grid-cols-2 pt-4 lg:grid-cols-1 px-2 mb-4 lg:mb-0 gap-1">
-  <div class="space-y-2 pb-2">
-    {leftColumn.map((activityType) => (
-      <RoundButton
-        isActive={isActive(activityType)}
-        href={`/${urlLevel}/${activityType}`}
-        bgColor={getActivityTypeBackgroundColor(activityType)}
-        labelFull={getActivityTypeLabel(activityType, true)}
-        labelShort={getActivityTypeLabel(activityType)}
-      />
-    ))}
+<nav class="py-3" aria-label="Types d'activités">
+  <div class="flex flex-wrap gap-1.5 sm:gap-2">
+    {ACTIVITY_TYPE.map((activityType) => {
+      const active = isActive(activityType);
+      const bgColor = getActivityTypeBackgroundColor(activityType);
+      const darkBg = activityTypeHasDarkBackground(activityType);
+      return (
+        <NavPill href={getHref(activityType)} isActive={active}>
+          <span
+            class={cn(
+              "flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-md flex-shrink-0",
+              active ? "text-white" : bgColor,
+            )}
+          >
+            <ActivityIcon
+              type={activityType}
+              class={cn(
+                "w-3 h-3 sm:w-3.5 sm:h-3.5",
+                active || darkBg ? "text-white" : "text-primary-dark",
+              )}
+            />
+          </span>
+          <span class="sm:hidden">{getActivityTypeLabel(activityType)}</span>
+          <span class="hidden sm:inline">{getActivityTypeLabel(activityType, true)}</span>
+        </NavPill>
+      );
+    })}
   </div>
-  <div class="space-y-2 pb-2">
-    {rightColumn.map((activityType) => (
-      <RoundButton
-        isActive={isActive(activityType)}
-        href={`/${urlLevel}/${activityType}`}
-        bgColor={getActivityTypeBackgroundColor(activityType)}
-        labelFull={getActivityTypeLabel(activityType, true)}
-        labelShort={getActivityTypeLabel(activityType)}
-      />
-    ))}
-  </div>
-</aside>
+</nav>

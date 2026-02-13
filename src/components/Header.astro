@@ -1,7 +1,6 @@
 ---
 import LogoWithLabel from "@/components/LogoWithLabel.astro";
-import Splash from "@/components/Splash.astro";
-import { cn } from "@/lib/utils";
+import NavPill from "@/components/NavPill.astro";
 import { LEVELS } from "@/lib/constants";
 import { getCurrentActivity } from "@/lib/helpers";
 
@@ -15,47 +14,54 @@ interface Props {
 
 const { uri, pageData } = Astro.props;
 
-const LEVELS_LOGOS = ["", "🐣", "🐥", "👶", "🎓", "👨", "🧓"] as const;
+const LEVELS_LOGOS = ["📚", "🐣", "🐥", "👶", "🎓", "👨", "🧓"] as const;
+const LEVELS_LABELS = [
+  "Tous",
+  "A1",
+  "A2",
+  "B1",
+  "B2",
+  "C1",
+  "C2",
+] as const;
+
 const isDev = import.meta.env.DEV;
+
+function isLevelActive(level: string): boolean {
+  const l = level.toLowerCase();
+  if (l === "tous-niveaux") {
+    return uri === "/" || uri.startsWith("/tous-niveaux");
+  }
+  return uri.startsWith(`/${l}/`) || uri.startsWith(`/${l}`);
+}
+
+function getLevelHref(level: string): string {
+  const activityToUse = getCurrentActivity(uri, pageData?.activity);
+  return `/${level.toLowerCase()}/${activityToUse}`;
+}
 ---
 
-<div class="w-full">
+<header class="w-full relative">
   {isDev && (
     <div class="bg-pink-500 sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
   )}
-  <div class="relative mx-auto px-4">
-    <div class="flex items-center justify-start space-x-4 flex-wrap py-2 md:py-4 lg:py-6">
-      <div class="flex-none justify-start mr-4">
-        <a href="/">
-          <span class="sr-only">Home</span>
-          <LogoWithLabel />
-        </a>
-      </div>
-      {LEVELS.map((level, index) => {
-        const levelToUse = level.toLowerCase();
-        const activityToUse = getCurrentActivity(uri, pageData?.activity);
-        const href = `/${levelToUse}/${activityToUse}`;
-        const isActive = uri.includes(levelToUse) && levelToUse !== "tous-niveaux" || (levelToUse === "tous-niveaux" && uri === `/tous-niveaux/${activityToUse}`);
 
-        return (
-          <a
-            href={href}
-            class={cn(
-              "text-primary-dark hover:text-secondary-dark hover:scale-105",
-              "my-2 border-2 bg-background border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10",
-              "transition-all duration-150",
-              isActive && "bg-orange-600 text-white border-background hover:text-white"
-            )}
-          >
-            <span role="img" aria-label={`${level} logo`}>
-              {`${index !== 0 ? level.toUpperCase() : "Tous niveaux"} ${LEVELS_LOGOS[index]}`}
-            </span>
-          </a>
-        );
-      })}
-      <div class="-z-10">
-        <Splash />
-      </div>
+  <div class="relative mx-auto px-3 sm:px-4 lg:px-6">
+    <div class="flex items-center gap-3 sm:gap-4 py-3 lg:py-4">
+      <a href="/" class="flex-shrink-0">
+        <span class="sr-only">Accueil</span>
+        <LogoWithLabel />
+      </a>
+
+      <nav class="flex items-center gap-1.5 sm:gap-2 flex-wrap flex-1 z-10" aria-label="Niveaux">
+        {LEVELS.map((level, index) => (
+          <NavPill href={getLevelHref(level)} isActive={isLevelActive(level)}>
+            <span class="leading-none" aria-hidden="true">{LEVELS_LOGOS[index]}</span>
+            <span>{LEVELS_LABELS[index]}</span>
+          </NavPill>
+        ))}
+      </nav>
     </div>
   </div>
-</div>
+
+</header>

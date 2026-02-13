@@ -75,6 +75,12 @@ export function getActivityTypeBackgroundColor(text: string): string {
   }
 }
 
+/** Returns true when the activity type's background chip is dark enough
+ *  that the icon inside it should be white instead of primary-dark. */
+export function activityTypeHasDarkBackground(text: string): boolean {
+  return ["grammaire", "toute-activite"].includes(text);
+}
+
 export function includesALevel(uri: string): boolean {
   return LEVELS.some((lvl) => uri.includes(lvl.toLowerCase()));
 }

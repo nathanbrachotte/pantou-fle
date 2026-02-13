@@ -31,11 +31,6 @@ export async function getStaticPaths() {
         return a.activityType?.type === activityType;
       });
 
-      // Skip empty activity type pages (but always create "toute-activite")
-      if (activityType !== ACTIVITY_TYPE[0] && filteredActivities.length === 0) {
-        continue;
-      }
-
       paths.push({
         params: {
           level: level.toLowerCase(),

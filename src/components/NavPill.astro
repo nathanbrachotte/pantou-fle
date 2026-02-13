@@ -1,0 +1,41 @@
+---
+/**
+ * Shared pill-style navigation button used by both the level tabs and
+ * the activity-type filter bar, so active / hover / focus states look
+ * identical everywhere.
+ */
+import { cn } from "@/lib/utils";
+
+interface Props {
+  href: string;
+  isActive: boolean;
+  class?: string;
+}
+
+const { href, isActive, class: className } = Astro.props;
+
+const base = [
+  "inline-flex items-center gap-1 sm:gap-1.5",
+  "px-2.5 py-1.5 sm:px-3 sm:py-2",
+  "rounded-lg sm:rounded-xl",
+  "text-xs sm:text-sm font-semibold",
+  "border-2 transition-all duration-150",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-1",
+];
+
+const active = [
+  "bg-primary-dark text-white border-primary-dark shadow-sm",
+];
+
+const inactive = [
+  "bg-white text-primary-dark border-gray-200",
+  "hover:border-secondary-very-light hover:bg-secondary-very-light hover:shadow-sm hover:scale-[1.02]",
+];
+---
+
+<a
+  href={href}
+  class={cn(base, isActive ? active : inactive, className)}
+>
+  <slot />
+</a>
