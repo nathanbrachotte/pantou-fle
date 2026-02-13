@@ -61,7 +61,8 @@ const isExpanded = !defaultCollapsed;
         <svg
           data-level-chevron
           xmlns="http://www.w3.org/2000/svg"
-          class={`w-5 h-5 text-primary-dark/50 transition-transform duration-300${defaultCollapsed ? " -rotate-90" : ""}`}
+          class="w-5 h-5 text-primary-dark/50 transition-transform duration-300"
+          style={defaultCollapsed ? "transform: rotate(-90deg)" : ""}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -115,7 +116,7 @@ const isExpanded = !defaultCollapsed;
           } else {
             btn.setAttribute("aria-expanded", "true");
             content.style.gridTemplateRows = "1fr";
-            if (chevron) chevron.style.transform = "";
+            if (chevron) chevron.style.transform = "rotate(0deg)";
           }
         });
       });
