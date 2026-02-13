@@ -9,6 +9,7 @@ import {
   getCurrentActivity,
   getCurrentLevel,
   hasContent,
+  activityTypeHasAnyContent,
 } from "@/lib/helpers";
 import { ACTIVITY_TYPE } from "@/lib/constants";
 
@@ -43,6 +44,7 @@ function isActivityDisabled(activityType: string): boolean {
 <nav class="py-3" aria-label="Types d'activités">
   <div class="flex flex-wrap gap-1.5 sm:gap-2">
     {ACTIVITY_TYPE.map((activityType) => {
+      if (!activityTypeHasAnyContent(availability, activityType)) return null;
       const active = isActive(activityType);
       const disabled = isActivityDisabled(activityType);
       const bgColor = getActivityTypeBackgroundColor(activityType);

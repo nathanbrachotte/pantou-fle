@@ -2,7 +2,7 @@
 import LogoWithLabel from "@/components/LogoWithLabel.astro";
 import NavPill from "@/components/NavPill.astro";
 import { LEVELS } from "@/lib/constants";
-import { getCurrentActivity, hasContent } from "@/lib/helpers";
+import { getCurrentActivity, hasContent, levelHasAnyContent } from "@/lib/helpers";
 
 interface Props {
   uri: string;
@@ -60,16 +60,19 @@ function isLevelDisabled(level: string): boolean {
       </a>
 
       <nav class="flex items-center gap-1.5 sm:gap-2 flex-wrap flex-1 z-10" aria-label="Niveaux">
-        {LEVELS.map((level, index) => (
-          <NavPill
-            href={getLevelHref(level)}
-            isActive={isLevelActive(level)}
-            isDisabled={isLevelDisabled(level)}
-          >
-            <span class="leading-none" aria-hidden="true">{LEVELS_LOGOS[index]}</span>
-            <span>{LEVELS_LABELS[index]}</span>
-          </NavPill>
-        ))}
+        {LEVELS.map((level, index) => {
+          if (!levelHasAnyContent(availability, level)) return null;
+          return (
+            <NavPill
+              href={getLevelHref(level)}
+              isActive={isLevelActive(level)}
+              isDisabled={isLevelDisabled(level)}
+            >
+              <span class="leading-none" aria-hidden="true">{LEVELS_LOGOS[index]}</span>
+              <span>{LEVELS_LABELS[index]}</span>
+            </NavPill>
+          );
+        })}
       </nav>
     </div>
   </div>

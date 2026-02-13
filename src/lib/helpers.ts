@@ -198,6 +198,27 @@ export function hasContent(
   return availabilitySet.has(`${level.toLowerCase()}:${activityType}`);
 }
 
+/** Check if a level has any content at all (regardless of activity type) */
+export function levelHasAnyContent(
+  availabilitySet: Set<string>,
+  level: string,
+): boolean {
+  if (availabilitySet.size === 0) return true;
+  const l = level.toLowerCase();
+  if (l === "tous-niveaux") return availabilitySet.size > 0;
+  return availabilitySet.has(`${l}:toute-activite`);
+}
+
+/** Check if an activity type has any content at all (regardless of level) */
+export function activityTypeHasAnyContent(
+  availabilitySet: Set<string>,
+  activityType: string,
+): boolean {
+  if (availabilitySet.size === 0) return true;
+  if (activityType === "toute-activite") return availabilitySet.size > 0;
+  return availabilitySet.has(`tous-niveaux:${activityType}`);
+}
+
 export function backgroundToTextColor(bgColor: string): string {
   switch (bgColor) {
     case "primary-dark":
