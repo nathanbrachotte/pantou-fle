@@ -1,16 +1,11 @@
 {
+  "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
-    "allowJs": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "baseUrl": ".",
-    "esModuleInterop": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2019",
-    "jsx": "react"
-  },
-  "exclude": ["node_modules", "dist"],
-  "include": ["src/**/*", "generated"]
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }

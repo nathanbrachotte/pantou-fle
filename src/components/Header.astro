@@ -1,0 +1,61 @@
+---
+import LogoWithLabel from "@/components/LogoWithLabel.astro";
+import Splash from "@/components/Splash.astro";
+import { cn } from "@/lib/utils";
+import { LEVELS } from "@/lib/constants";
+import { getCurrentActivity } from "@/lib/helpers";
+
+interface Props {
+  uri: string;
+  pageData?: {
+    activity: string;
+    level: string;
+  };
+}
+
+const { uri, pageData } = Astro.props;
+
+const LEVELS_LOGOS = ["", "🐣", "🐥", "👶", "🎓", "👨", "🧓"] as const;
+const isDev = import.meta.env.DEV;
+---
+
+<div class="w-full">
+  {isDev && (
+    <div class="bg-pink-500 sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
+  )}
+  <div class="relative mx-auto px-4">
+    <div class="flex items-center justify-start space-x-4 flex-wrap py-2 md:py-4 lg:py-6">
+      <div class="flex-none justify-start mr-4">
+        <a href="/">
+          <span class="sr-only">Home</span>
+          <LogoWithLabel />
+        </a>
+      </div>
+      {LEVELS.map((level, index) => {
+        const levelToUse = level.toLowerCase();
+        const activityToUse = getCurrentActivity(uri, pageData?.activity);
+        const href = `/${levelToUse}/${activityToUse}`;
+        const isActive = uri.includes(levelToUse) && levelToUse !== "tous-niveaux" || (levelToUse === "tous-niveaux" && uri === `/tous-niveaux/${activityToUse}`);
+
+        return (
+          <a
+            href={href}
+            class={cn(
+              "text-primary-dark hover:text-secondary-dark hover:scale-105",
+              "my-2 border-2 bg-background border-background flex-none rounded-xl inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-secondary-dark py-2 px-3 z-10",
+              "transition-all duration-150",
+              isActive && "bg-orange-600 text-white border-background hover:text-white"
+            )}
+          >
+            <span role="img" aria-label={`${level} logo`}>
+              {`${index !== 0 ? level.toUpperCase() : "Tous niveaux"} ${LEVELS_LOGOS[index]}`}
+            </span>
+          </a>
+        );
+      })}
+      <div class="-z-10">
+        <Splash />
+      </div>
+    </div>
+  </div>
+</div>

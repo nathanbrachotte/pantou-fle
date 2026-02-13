@@ -1,0 +1,86 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getAllActivities, type Activity } from "@/lib/contentful";
+import RichText from "@/components/RichText";
+import PDF from "@/components/PDF";
+
+export async function getStaticPaths() {
+  const activities = await getAllActivities();
+
+  return activities.map((activity) => ({
+    params: { slug: activity.slug },
+    props: { activity },
+  }));
+}
+
+interface Props {
+  activity: Activity;
+}
+
+const { activity } = Astro.props;
+const uri = Astro.url.pathname;
+---
+
+<Layout
+  uri={uri}
+  pageData={{
+    activity: activity.activityType?.type || "",
+    level: activity.level?.title || "",
+  }}
+  title={`${activity.title} - ${activity.level?.title || ""}`}
+  description={activity.previewDescription ||
+    `Activité de français langue étrangère (FLE) niveau ${activity.level?.title || ""} : ${activity.title}`}
+>
+  <div class="text-center flex flex-row mb-4">
+    <div class="pl-2 md:pl-8">
+      <button
+        type="button"
+        class="w-full h-full"
+        onclick="history.back()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 md:h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+      </button>
+    </div>
+    <div
+      class="flex-1 flex justify-center items-start ml-2 md:ml-0 self-center"
+    >
+      <div class="md:bg-white md:w-fit md:px-4 md:rounded-xl">
+        <span
+          class="text-primary-dark font-extrabold py-1 text-xl md:text-2xl"
+        >
+          {activity.title}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="z-10 mb-4 md:px-12">
+    {
+      activity?.pdf?.file?.url && (
+        <div class="mb-2">
+          <PDF
+            client:load
+            title={activity.title}
+            url={activity.pdf.file.url}
+          />
+        </div>
+      )
+    }
+    {
+      activity.description && (
+        <RichText client:load description={activity.description} />
+      )
+    }
+  </div>
+</Layout>

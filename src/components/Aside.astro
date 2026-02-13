@@ -1,0 +1,69 @@
+---
+import RoundButton from "@/components/RoundButton.astro";
+import { cn } from "@/lib/utils";
+import {
+  getActivityTypeLabel,
+  getActivityTypeBackgroundColor,
+  getCurrentActivity,
+  getCurrentLevel,
+} from "@/lib/helpers";
+import { ACTIVITY_TYPE_ENUM, type ActivityType } from "@/lib/constants";
+
+interface Props {
+  uri: string;
+  pageData?: {
+    activity: string;
+    level: string;
+  };
+}
+
+const { uri, pageData } = Astro.props;
+
+const activityTypes = Object.values(ACTIVITY_TYPE_ENUM);
+const urlLevel = getCurrentLevel(uri);
+
+function isActive(activityType: string): boolean {
+  return getCurrentActivity(uri, pageData?.activity) === activityType;
+}
+
+const leftColumn: ActivityType[] = [
+  ACTIVITY_TYPE_ENUM.TOUTE_ACTIVITE,
+  ACTIVITY_TYPE_ENUM.COMPREHENSION_ECRITE,
+  ACTIVITY_TYPE_ENUM.COMPREHENSION_ORALE,
+  ACTIVITY_TYPE_ENUM.FICHE_EXERCICE,
+  ACTIVITY_TYPE_ENUM.PRODUCTION_ECRITE,
+];
+
+const rightColumn: ActivityType[] = [
+  ACTIVITY_TYPE_ENUM.PRODUCTION_ORALE,
+  ACTIVITY_TYPE_ENUM.VOCABULAIRE,
+  ACTIVITY_TYPE_ENUM.GRAMMAIRE,
+  ACTIVITY_TYPE_ENUM.ORTHOGRAPHE,
+  ACTIVITY_TYPE_ENUM.CHANSON,
+];
+---
+
+<aside class="grid grid-cols-2 pt-4 lg:grid-cols-1 px-2 mb-4 lg:mb-0 gap-1">
+  <div class="space-y-2 pb-2">
+    {leftColumn.map((activityType) => (
+      <RoundButton
+        isActive={isActive(activityType)}
+        href={`/${urlLevel}/${activityType}`}
+        bgColor={getActivityTypeBackgroundColor(activityType)}
+        labelFull={getActivityTypeLabel(activityType, true)}
+        labelShort={getActivityTypeLabel(activityType)}
+      />
+    ))}
+  </div>
+  <div class="space-y-2 pb-2">
+    {rightColumn.map((activityType) => (
+      <RoundButton
+        isActive={isActive(activityType)}
+        href={`/${urlLevel}/${activityType}`}
+        bgColor={getActivityTypeBackgroundColor(activityType)}
+        labelFull={getActivityTypeLabel(activityType, true)}
+        labelShort={getActivityTypeLabel(activityType)}
+      />
+    ))}
+  </div>
+</aside>

@@ -1,0 +1,38 @@
+---
+import { cn } from "@/lib/utils";
+
+interface Props {
+  isActive: boolean;
+  href: string;
+  bgColor: string;
+  labelFull: string;
+  labelShort: string;
+}
+
+const { isActive, href, bgColor, labelFull, labelShort } = Astro.props;
+---
+
+<div class={cn({ "w-fit bg-primary-dark rounded-xl": isActive })}>
+  <a href={href} class="cursor-pointer group">
+    <div class="flex flex-row items-center justify-start">
+      <div
+        class={cn(
+          bgColor,
+          "flex-none rounded-xl items-center justify-center mr-0 sm:mr-2 p-2",
+        )}
+      >
+        <div class="transition duration-100 ease-in-out group-hover:scale-125 w-5 h-5">
+        </div>
+      </div>
+      <p
+        class={cn(
+          "text-sm rounded-xl px-4 p-2 sm:px-2",
+          isActive && "text-white font-black",
+        )}
+      >
+        <span class="hidden sm:block">{labelFull}</span>
+        <span class="block sm:hidden">{labelShort}</span>
+      </p>
+    </div>
+  </a>
+</div>

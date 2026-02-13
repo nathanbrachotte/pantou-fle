@@ -1,0 +1,19 @@
+---
+// KoFi floating chat widget
+---
+
+<script is:inline>
+  (function () {
+    var scriptTag = document.createElement("script");
+    scriptTag.src = "https://storage.ko-fi.com/cdn/scripts/overlay-widget.js";
+    scriptTag.addEventListener("load", function () {
+      kofiWidgetOverlay.draw("pantou_fle", {
+        type: "floating-chat",
+        "floating-chat.donateButton.text": "Nous soutenir",
+        "floating-chat.donateButton.background-color": "#1C1E52",
+        "floating-chat.donateButton.text-color": "#F9FAFF",
+      });
+    });
+    document.body.appendChild(scriptTag);
+  })();
+</script>

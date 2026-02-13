@@ -1,231 +1,187 @@
-import React, { ReactNode } from 'react'
+import type { ReactNode } from "react";
+import richTextTypes from "@contentful/rich-text-types";
+const { BLOCKS, INLINES, MARKS } = richTextTypes;
+type Node = richTextTypes.Node;
+type Inline = richTextTypes.Inline;
+import richTextRenderer from "@contentful/rich-text-react-renderer";
+const { documentToReactComponents } = richTextRenderer;
+type Options = richTextRenderer.Options;
+import type { Reference } from "@/lib/contentful";
 
-import {
-  BLOCKS,
-  INLINES,
-  MARKS,
-  Inline,
-  Node,
-} from '@contentful/rich-text-types'
-import {
-  documentToReactComponents,
-  Options,
-} from '@contentful/rich-text-react-renderer'
-import styled from 'styled-components'
-import Heading1 from '../shared/Heading1'
-import Heading2 from '../shared/Heading2'
-import Heading3 from '../shared/Heading3'
-import PDF from './PDF'
-import { Reference } from '../types'
-import Game from './Game'
-
-const StyledLink = styled.a`
-  display: inline-block;
-  transition: color 250ms, text-shadow 250ms;
-  cursor: pointer;
-  position: relative;
-  text-decoration: none;
-
-  &:after {
-    position: absolute;
-    z-index: -1;
-    bottom: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-    content: '';
-    width: 100%;
-    height: 3px;
-    transition: all 250ms;
-  }
-
-  &:hover {
-    color: white;
-
-    &::after {
-      height: 110%;
-      width: 110%;
-    }
-  }
-`
-
-const AnimatedLink = (node: Node, children: JSX.Element): ReactNode => {
+function AnimatedLink(node: Node, children: ReactNode): ReactNode {
   const isGenially =
-    node.data.uri.includes('view.genial.ly') ||
-    node.data.uri.includes('educaplay')
+    node.data.uri?.includes("view.genial.ly") ||
+    node.data.uri?.includes("educaplay");
 
   if (isGenially) {
     return (
       <div className="w-2/3 my-4 mx-auto">
-        <Game link={node.data.uri} />
+        <iframe
+          className="rounded-lg z-10 aspect-video w-full"
+          title="iframe"
+          src={node.data.uri}
+          allowFullScreen={false}
+          scrolling="yes"
+        />
       </div>
-    )
+    );
   }
 
   return (
-    <StyledLink
+    <a
       href={node.data.uri}
       target="_blank"
       rel="noreferrer"
-      className="text-secondary-dark after:bg-secondary-dark">
+      className="text-secondary-dark underline hover:text-secondary-light transition-colors"
+    >
       {children}
-    </StyledLink>
-  )
+    </a>
+  );
 }
 
 function defaultInline(type: string, node: Node): ReactNode {
   return (
-    <span key={node.data.target.sys.id}>
-      {`type: ${node.nodeType} id: ${node.data.target.sys.id}`}
+    <span key={node.data.target?.sys?.id}>
+      {`type: ${node.nodeType} id: ${node.data.target?.sys?.id}`}
     </span>
-  )
+  );
 }
 
 function getAssetFromId(
   references: Reference[],
   id: string,
 ): Reference | undefined {
-  const matchingRef = references.find((ref) => {
-    return ref.contentful_id === id
-  })
-
-  return matchingRef
+  return references.find((ref) => ref.contentful_id === id);
 }
 
-export const getOptions: (references: Reference[]) => Options = (
-  references: Reference[],
-) => ({
-  renderMark: {
-    [MARKS.BOLD]: (text: string): ReactNode => (
-      <span className="font-bold">{text}</span>
-    ),
-    [MARKS.ITALIC]: (text: string): ReactNode => <i>{text}</i>,
-    [MARKS.UNDERLINE]: (text: string): ReactNode => <u>{text}</u>,
-    [MARKS.CODE]: (text: string): ReactNode => <code>{text}</code>,
-  },
-  renderNode: {
-    [BLOCKS.EMBEDDED_ENTRY]: (node: Node): ReactNode =>
-      defaultInline(INLINES.ASSET_HYPERLINK, node as Inline),
-    [BLOCKS.EMBEDDED_ASSET]: (node: Node): ReactNode => {
-      const { id } = node.data.target.sys
-
-      const asset = getAssetFromId(references, id)
-
-      if (!asset) {
-        return null
-      }
-
-      switch (asset.file.contentType) {
-        case 'application/pdf':
-          return (
-            <div className="w-full my-4 mx-auto">
-              <PDF url={asset.file.url} title={asset.file.fileName} />
-            </div>
-          )
-        case 'image/png':
-          return (
-            <img
-              src={asset.file.url}
-              alt={asset.file.fileName}
-              className="rounded-lg aspect-video w-1/2 my-4 mx-auto"
-            />
-          )
-        default:
-          return 'Nothing to see here...'
-      }
+function getOptions(references: Reference[]): Options {
+  return {
+    renderMark: {
+      [MARKS.BOLD]: (text) => <span className="font-bold">{text}</span>,
+      [MARKS.ITALIC]: (text) => <i>{text}</i>,
+      [MARKS.UNDERLINE]: (text) => <u>{text}</u>,
+      [MARKS.CODE]: (text) => <code>{text}</code>,
     },
-    [INLINES.HYPERLINK]: AnimatedLink,
-    [BLOCKS.DOCUMENT]: (_: Node, children: JSX.Element): ReactNode => children,
-    [BLOCKS.PARAGRAPH]: (_: Node, children: JSX.Element): ReactNode => (
-      <p>{children}</p>
-    ),
-    [BLOCKS.HEADING_1]: (_: Node, children: JSX.Element): ReactNode => (
-      <Heading1>{children}</Heading1>
-    ),
-    [BLOCKS.HEADING_2]: (_: Node, children: JSX.Element): ReactNode => (
-      <Heading2>{children}</Heading2>
-    ),
-    [BLOCKS.HEADING_3]: (_: Node, children: JSX.Element): ReactNode => (
-      <Heading3>{children}</Heading3>
-    ),
-    [BLOCKS.HEADING_4]: (_: Node, children: JSX.Element): ReactNode => (
-      <h4>{children}</h4>
-    ),
-    [BLOCKS.HEADING_5]: (_: Node, children: JSX.Element): ReactNode => (
-      <h5>{children}</h5>
-    ),
-    [BLOCKS.HEADING_6]: (_: Node, children: JSX.Element): ReactNode => (
-      <h6>{children}</h6>
-    ),
-    [BLOCKS.EMBEDDED_ENTRY]: (_: Node, children: JSX.Element): ReactNode => (
-      <div>{children}</div>
-    ),
-    [BLOCKS.UL_LIST]: (_: Node, children: JSX.Element): ReactNode => (
-      <ul>{children}</ul>
-    ),
-    [BLOCKS.OL_LIST]: (_: Node, children: JSX.Element): ReactNode => (
-      <ol>{children}</ol>
-    ),
-    [BLOCKS.LIST_ITEM]: (_: Node, children: JSX.Element): ReactNode => (
-      <li className="ml-8 list-outside list-disc marker:text-primary-dark">
-        {children}
-      </li>
-    ),
-    [BLOCKS.QUOTE]: (_: Node, children: JSX.Element): ReactNode => (
-      <blockquote className="p-2 bg-primary-light mt-2 mb-2 border-l-4 border-primary-dark italic">
-        {children}
-      </blockquote>
-    ),
-    [BLOCKS.HR]: () => <hr />,
-    [BLOCKS.TABLE]: (_: Node, children: JSX.Element): ReactNode => (
-      <table>
-        <tbody>{children}</tbody>
-      </table>
-    ),
-    [BLOCKS.TABLE_ROW]: (node: Node, children: JSX.Element): ReactNode => (
-      <tr>{children}</tr>
-    ),
-    [BLOCKS.TABLE_HEADER_CELL]: (
-      node: Node,
-      children: JSX.Element,
-    ): ReactNode => <th>{children}</th>,
-    [BLOCKS.TABLE_CELL]: (node: Node, children: JSX.Element): ReactNode => (
-      <td>{children}</td>
-    ),
-    [INLINES.ASSET_HYPERLINK]: (node: Node): ReactNode =>
-      defaultInline(INLINES.ASSET_HYPERLINK, node as Inline),
-    [INLINES.ENTRY_HYPERLINK]: (node: Node): ReactNode =>
-      defaultInline(INLINES.ENTRY_HYPERLINK, node as Inline),
-    [INLINES.EMBEDDED_ENTRY]: (node: Node): ReactNode =>
-      defaultInline(INLINES.EMBEDDED_ENTRY, node as Inline),
-  },
-})
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: (node: Node): ReactNode => {
+        const id = node.data.target?.sys?.id;
+        if (!id) return null;
 
-interface DocType {
+        const asset = getAssetFromId(references, id);
+        if (!asset) return null;
+
+        switch (asset.file?.contentType) {
+          case "application/pdf":
+            return (
+              <div className="w-full my-4 mx-auto">
+                <iframe
+                  title={asset.file.fileName}
+                  src={`${asset.file.url}#toolbar=1&navpanels=0`}
+                  className="w-full aspect-[3/4]"
+                />
+              </div>
+            );
+          case "image/png":
+            return (
+              <img
+                src={asset.file.url}
+                alt={asset.file.fileName}
+                className="rounded-lg aspect-video w-1/2 my-4 mx-auto"
+              />
+            );
+          default:
+            return null;
+        }
+      },
+      [INLINES.HYPERLINK]: AnimatedLink as any,
+      [BLOCKS.DOCUMENT]: (_: Node, children: ReactNode): ReactNode => (
+        <>{children}</>
+      ),
+      [BLOCKS.PARAGRAPH]: (_: Node, children: ReactNode): ReactNode => (
+        <p>{children}</p>
+      ),
+      [BLOCKS.HEADING_1]: (_: Node, children: ReactNode): ReactNode => (
+        <span className="text-primary-dark font-extrabold py-1 text-xl md:text-2xl">
+          {children}
+        </span>
+      ),
+      [BLOCKS.HEADING_2]: (_: Node, children: ReactNode): ReactNode => (
+        <p className="text-primary-dark font-bold py-1 text-lg md:text-xl">
+          {children}
+        </p>
+      ),
+      [BLOCKS.HEADING_3]: (_: Node, children: ReactNode): ReactNode => (
+        <p className="text-base md:text-lg text-primary-dark font-semibold">
+          {children}
+        </p>
+      ),
+      [BLOCKS.HEADING_4]: (_: Node, children: ReactNode): ReactNode => (
+        <h4>{children}</h4>
+      ),
+      [BLOCKS.HEADING_5]: (_: Node, children: ReactNode): ReactNode => (
+        <h5>{children}</h5>
+      ),
+      [BLOCKS.HEADING_6]: (_: Node, children: ReactNode): ReactNode => (
+        <h6>{children}</h6>
+      ),
+      [BLOCKS.UL_LIST]: (_: Node, children: ReactNode): ReactNode => (
+        <ul>{children}</ul>
+      ),
+      [BLOCKS.OL_LIST]: (_: Node, children: ReactNode): ReactNode => (
+        <ol>{children}</ol>
+      ),
+      [BLOCKS.LIST_ITEM]: (_: Node, children: ReactNode): ReactNode => (
+        <li className="ml-8 list-outside list-disc marker:text-primary-dark">
+          {children}
+        </li>
+      ),
+      [BLOCKS.QUOTE]: (_: Node, children: ReactNode): ReactNode => (
+        <blockquote className="p-2 bg-primary-light mt-2 mb-2 border-l-4 border-primary-dark italic">
+          {children}
+        </blockquote>
+      ),
+      [BLOCKS.HR]: () => <hr />,
+      [BLOCKS.TABLE]: (_: Node, children: ReactNode): ReactNode => (
+        <table>
+          <tbody>{children}</tbody>
+        </table>
+      ),
+      [BLOCKS.TABLE_ROW]: (_: Node, children: ReactNode): ReactNode => (
+        <tr>{children}</tr>
+      ),
+      [BLOCKS.TABLE_HEADER_CELL]: (
+        _: Node,
+        children: ReactNode,
+      ): ReactNode => <th>{children}</th>,
+      [BLOCKS.TABLE_CELL]: (_: Node, children: ReactNode): ReactNode => (
+        <td>{children}</td>
+      ),
+      [INLINES.ASSET_HYPERLINK]: (node: Node): ReactNode =>
+        defaultInline(INLINES.ASSET_HYPERLINK, node as Inline),
+      [INLINES.ENTRY_HYPERLINK]: (node: Node): ReactNode =>
+        defaultInline(INLINES.ENTRY_HYPERLINK, node as Inline),
+      [INLINES.EMBEDDED_ENTRY]: (node: Node): ReactNode =>
+        defaultInline(INLINES.EMBEDDED_ENTRY, node as Inline),
+    },
+  };
+}
+
+interface RichTextProps {
   description: {
-    raw: string
-    references: Reference[]
-  }
-  [key: string | number]: any
+    raw: string;
+    references: Reference[];
+  };
 }
 
-export const richText = (text: DocType): ReactNode | null => {
-  const description = text?.description?.raw
-  const references = text?.description?.references
-  const data = description && JSON.parse(description)
+export default function RichText({ description }: RichTextProps) {
+  if (!description?.raw) return null;
 
-  return description
-    ? documentToReactComponents(data, getOptions(references))
-    : null
-}
+  const data =
+    typeof description.raw === "string"
+      ? JSON.parse(description.raw)
+      : description.raw;
 
-export const poorText = (
-  text: DocType,
-  charLimit: number,
-): ReactNode | null => {
-  const description = text?.description?.raw
-  const data = description && JSON.parse(description)
-  const reactComps = documentToReactComponents(data)
-
-  // https://www.npmjs.com/package/@contentful/rich-text-react-renderer
-  return data ? reactComps : null
+  return (
+    <div>{documentToReactComponents(data, getOptions(description.references || []))}</div>
+  );
 }

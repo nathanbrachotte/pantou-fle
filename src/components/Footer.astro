@@ -1,0 +1,137 @@
+---
+import Logo from "@/assets/Logo.astro";
+import LogoLabel from "@/assets/LogoLabel.astro";
+import FacebookIcon from "@/assets/FacebookIcon.astro";
+import InstagramIcon from "@/assets/InstagramIcon.astro";
+import YoutubeIcon from "@/assets/YoutubeIcon.astro";
+import EmailIcon from "@/assets/EmailIcon.astro";
+import { colors } from "@/lib/constants";
+import SquareButton from "@/components/SquareButton.astro";
+
+const year = new Intl.DateTimeFormat("fr-FR", { year: "numeric" }).format(
+  Date.now(),
+);
+---
+
+<div class="bg-whitish w-full">
+  <div
+    class="grid pt-6 px-2 sm:px-8 md:pb-0 md:grid-cols-2 md:grid-rows-1"
+  >
+    <div
+      class="flex-1 flex flex-col justify-between row-start-2 md:h-full md:row-start-1"
+    >
+      <div class="pt-4">
+        <div class="flex flex-row justify-start items-end">
+          <div class="w-14">
+            <Logo />
+          </div>
+          <div class="pl-2 w-28">
+            <LogoLabel />
+          </div>
+        </div>
+        <p class="font-nunito text-gray-600 py-2 w-4/5 lg:w-2/3 xl:w-1/2">
+          Le site de ressource pour apprendre le Français langue étrangère de
+          manière ludique
+        </p>
+        <a
+          href="/about"
+          class="text-primary-dark group hidden lg:flex mt-2 mb-8 sm:mt-8 rounded-sm text-center items-center justify-start text-base font-medium col-span-2 md:col-span-1"
+        >
+          <div class="h-6 w-6 mr-2 group-hover:animate-waving-hand">
+            <span role="img" aria-label="Waving hand">👋🏻</span>
+          </div>
+          <span class="text-md font-bold group-hover:underline"
+            >Qui sommes-nous ?</span
+          >
+        </a>
+      </div>
+      <div class="flex flex-col">
+        <div
+          class="flex flex-row justify-start items-end row-start-1 pt-4"
+        >
+          <a
+            class="pr-2"
+            href="https://www.facebook.com/apprendreAvecPantouFLE"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FacebookIcon color={colors["primary-dark"]} size={26} />
+          </a>
+          <a
+            class="pr-2"
+            target="_blank"
+            href="https://www.instagram.com/pantou_fle/"
+            rel="noreferrer"
+          >
+            <InstagramIcon color={colors["primary-dark"]} size={26} />
+          </a>
+          <a
+            class="pr-2"
+            target="_blank"
+            href="https://www.youtube.com/channel/UCYFLgaAWqetra1x03v7XacQ/featured"
+            rel="noreferrer"
+          >
+            <YoutubeIcon color={colors["primary-dark"]} size={26} />
+          </a>
+          <a
+            class="pr-2"
+            target="_blank"
+            href="mailto:cathy.nguyen.fle@gmail.com"
+            rel="noreferrer"
+          >
+            <EmailIcon color={colors["primary-dark"]} size={26} />
+          </a>
+        </div>
+        <div class="flex flex-col text-xs pt-2">
+          <p class="text-primary">
+            @ {year} Pantou-fle - Tous droits réservés
+          </p>
+          <a
+            href="/privacy-policy"
+            class="text-primary hover:text-primary-dark transition-colors mt-1"
+          >
+            Politique de confidentialité
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex justify-center md:justify-end">
+      <div class="w-full lg:w-2/3 max-w-lg">
+        <form
+          class="bg-background shadow-lg rounded-lg px-4 pt-6 pb-2 sm:px-8"
+          action="https://www.getrevue.co/profile/pantou-fle/add_subscriber"
+          method="post"
+          id="revue-form"
+          name="revue-form"
+        >
+          <span role="img" aria-label="Newsletter" class="text-6xl">📫</span>
+          <div class="mb-6">
+            <input
+              class="bg-gray-100 appearance-none rounded-lg w-full py-2 px-3 text-gray-600 mb-3 leading-large mt-2 outline-none"
+              placeholder="Prénom (optionel)"
+              type="text"
+              name="member[first_name]"
+              id="member_first_name"
+            />
+            <div class="flex flex-row mb-3">
+              <input
+                class="bg-gray-100 appearance-none rounded-l-lg w-full py-2 px-3 text-gray-600 leading-large outline-none"
+                placeholder="Adresse email"
+                type="email"
+                name="member[email]"
+                id="member_email"
+              />
+              <SquareButton />
+            </div>
+            <p class="text-sm text-primary-dark">
+              Ne manquez aucune nouvelle resource en vous abonnant à notre
+              newsletter!
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="h-20"></div>
+</div>

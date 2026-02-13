@@ -1,0 +1,40 @@
+---
+import type { Activity } from "@/lib/contentful";
+import type { Level } from "@/lib/constants";
+import ActivityPreview from "@/components/ActivityPreview.astro";
+
+interface Props {
+  level: Level;
+  activities: Activity[];
+}
+
+const { level, activities } = Astro.props;
+
+if (!activities || activities.length === 0) return;
+---
+
+<div class="relative max-w-full px-2 pt-2">
+  <h2 class="flex flex-row text-2xl font-bold tracking-tight text-left">
+    <span class="text-primary-dark font-bold py-1 text-lg md:text-xl"
+      >{level}</span
+    >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5 mt-2"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+      ></path>
+    </svg>
+  </h2>
+  <ul class="grid py-2 gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2">
+    {
+      activities.map((fiche) => (
+        <ActivityPreview fiche={fiche} />
+      ))
+    }
+  </ul>
+</div>

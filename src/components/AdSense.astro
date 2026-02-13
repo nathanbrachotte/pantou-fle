@@ -1,0 +1,30 @@
+---
+import { AD_CLIENT } from "@/lib/constants";
+
+interface Props {
+  adSlot: string;
+  adFormat?: string;
+  adLayoutKey?: string;
+  isAutoRelaxed?: boolean;
+  className?: string;
+}
+
+const { adSlot, adFormat, adLayoutKey, isAutoRelaxed, className } = Astro.props;
+
+const format = isAutoRelaxed ? "autorelaxed" : adFormat || "auto";
+---
+
+<div class={className || "px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 w-full"}>
+  <ins
+    class="adsbygoogle"
+    style="display:block;text-align:center;min-height:100px;"
+    data-ad-client={AD_CLIENT}
+    data-ad-slot={adSlot}
+    data-ad-format={format}
+    data-full-width-responsive="true"
+    {...(adLayoutKey ? { "data-ad-layout-key": adLayoutKey } : {})}
+  ></ins>
+  <script is:inline>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>

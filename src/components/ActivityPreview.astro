@@ -1,0 +1,82 @@
+---
+import type { Activity } from "@/lib/contentful";
+import { getActivityTypeLabel } from "@/lib/helpers";
+
+interface Props {
+  fiche: Activity;
+}
+
+const { fiche } = Astro.props;
+
+const category = getActivityTypeLabel(fiche.activityType?.type || "");
+const previewDescription = fiche?.previewDescription;
+const preview = fiche?.preview?.file?.url;
+const levelTitle = fiche?.level?.title || "";
+---
+
+<li class="overflow-hidden rounded-lg bg-background max-w-3xl group">
+  <a
+    href={`/${fiche.slug}`}
+    class="flex flex-row flex-wrap items-center justify-center"
+  >
+    <div class="flex-auto w-full lg:w-5/12 self-start">
+      <div class="relative">
+        {
+          preview ? (
+            <div class="rounded-lg aspect-video overflow-hidden">
+              <img
+                src={`${preview}?w=400&fm=webp`}
+                alt="activity preview"
+                class="object-cover object-center"
+                srcset={`${preview}?w=400&h=200&fm=webp&q=80 400w, ${preview}?w=800&h=400&fm=webp&q=80 800w`}
+                sizes="(max-width: 400px) 400px, 800px"
+                loading="lazy"
+              />
+            </div>
+          ) : (
+            <div class="rounded-lg aspect-video overflow-hidden bg-gray-100" />
+          )
+        }
+      </div>
+    </div>
+    <div class="flex-auto w-7/12 p-2 px-0 lg:px-4 self-stretch">
+      <div class="flex flex-col justify-between items-stretch h-full">
+        <p class="flex-none text-xs text-secondary-light font-light pb-1">
+          {category}
+        </p>
+        <div class="flex-1 h-full">
+          <p
+            class="text-primary-dark font-bold text-md lg:text-lg xl:text-xl"
+          >
+            {fiche.title}
+          </p>
+          {
+            previewDescription && (
+              <span class="text-primary text-sm overflow-hidden text-ellipsis line-clamp-2">
+                {previewDescription}
+              </span>
+            )
+          }
+        </div>
+        <div
+          class="none flex flex-row flex-wrap justify-between items-center"
+        >
+          <div class="flex-row flex">
+            <div class="mr-1">
+              <div>
+                <div
+                  class="text-center text-xs inline-flex items-center px-2 sm:px-3 py-1 bg-secondary-dark text-whitish rounded-full"
+                >
+                  {levelTitle}
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-primary text-xs pt-1">
+            {new Date(fiche.createdAt).toLocaleDateString("fr-FR")}
+          </p>
+        </div>
+      </div>
+    </div>
+  </a>
+</li>

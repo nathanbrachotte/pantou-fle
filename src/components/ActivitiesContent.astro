@@ -1,0 +1,56 @@
+---
+import LevelSection from "@/components/LevelSection.astro";
+import AdSense from "@/components/AdSense.astro";
+import { getActivityTypeLabel } from "@/lib/helpers";
+import { LEVEL_ENUM, type Level } from "@/lib/constants";
+import type { Activity } from "@/lib/contentful";
+
+interface Props {
+  activities: Activity[];
+  activity: string;
+  uri: string;
+  perLevel: Record<Level, Activity[]>;
+}
+
+const { activities, activity, uri, perLevel } = Astro.props;
+
+const LEVEL_KEYS: Level[] = [
+  LEVEL_ENUM.A1,
+  LEVEL_ENUM.A2,
+  LEVEL_ENUM.B1,
+  LEVEL_ENUM.B2,
+  LEVEL_ENUM.C1,
+  LEVEL_ENUM.C2,
+];
+
+const isEmpty = activities.length === 0;
+---
+
+{
+  isEmpty ? (
+    <div class="flex flex-col items-center justify-center p-8 text-center min-h-[300px] rounded-lg">
+      <div class="mb-4 text-6xl">📚</div>
+      <h3 class="text-xl font-semibold text-gray-900 mb-2">
+        Aucun contenu disponible pour le moment
+      </h3>
+      <p class="text-gray-600 max-w-sm">
+        Il n'y a pas encore de contenu disponible pour cette section. Revenez
+        plus tard ! 😊
+      </p>
+    </div>
+  ) : (
+    <>
+      <div class="mx-auto text-center flex flex-row mb-2 md:pl-2 lg:pl-0 mt-4">
+        <div class="flex-1">
+          <span class="text-primary-dark font-extrabold py-1 text-xl md:text-2xl">
+            {getActivityTypeLabel(activity, true)}
+          </span>
+        </div>
+      </div>
+      {LEVEL_KEYS.map((level) => (
+        <LevelSection level={level} activities={perLevel[level]} />
+      ))}
+      <AdSense adSlot="8497527064" isAutoRelaxed />
+    </>
+  )
+}

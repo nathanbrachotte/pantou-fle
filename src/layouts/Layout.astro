@@ -1,0 +1,113 @@
+---
+import { SEO } from "astro-seo";
+import "@/styles/global.css";
+import "@fontsource/m-plus-rounded-1c";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Aside from "@/components/Aside.astro";
+import KoFiScript from "@/components/KoFiScript.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  enableAds?: boolean;
+  uri: string;
+  pageData?: {
+    activity: string;
+    level: string;
+  };
+}
+
+const {
+  title,
+  description,
+  image,
+  enableAds = true,
+  uri,
+  pageData,
+} = Astro.props;
+
+const defaultTitle = "Pantou-fle - Français Langue Étrangère";
+const metaDescription =
+  description ||
+  "Ressources pédagogiques gratuites pour apprendre le français langue étrangère (FLE). Activités, exercices et fiches pour tous les niveaux de A1 à C2.";
+const fullTitle = title || defaultTitle;
+const AD_CLIENT = "ca-pub-2142870138777008";
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={fullTitle}
+      description={metaDescription}
+      openGraph={{
+        basic: {
+          title: fullTitle,
+          type: "website",
+          image: image || "",
+        },
+        optional: {
+          description: metaDescription,
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: fullTitle,
+        description: metaDescription,
+        ...(image ? { image } : {}),
+      }}
+    />
+
+    {
+      enableAds && (
+        <>
+          <script
+            is:inline
+            set:html="window.googlefc = window.googlefc || {}; window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];"
+          />
+          <script async src="https://fundingchoices.google.com/js/fc.js" />
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`}
+            crossorigin="anonymous"
+          />
+        </>
+      )
+    }
+
+    {/* Simple Analytics */}
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"
+    ></script>
+    <noscript>
+      <img
+        src="https://queue.simpleanalyticscdn.com/noscript.gif"
+        alt=""
+        referrerpolicy="no-referrer-when-downgrade"
+      />
+    </noscript>
+  </head>
+  <body>
+    <main class="min-h-screen w-full flex flex-col justify-between">
+      <Header uri={uri} pageData={pageData} />
+      <div
+        class="flex-1 grid gap-x-0 gap-y-0 auto-cols-max grid-cols-1 px-2 lg:px-4 lg:grid-cols-10"
+      >
+        <div class="col-span-2">
+          <Aside uri={uri} pageData={pageData} />
+        </div>
+        <div class="col-span-8 pb-8">
+          <slot />
+        </div>
+      </div>
+      <Footer />
+    </main>
+    <KoFiScript />
+  </body>
+</html>

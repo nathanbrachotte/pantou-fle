@@ -1,0 +1,158 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const uri = Astro.url.pathname;
+---
+
+<Layout
+  uri={uri}
+  enableAds={false}
+  title="À propos de nous"
+  description="Rencontrez Cathy et Nate, les co-fondateurs passionnés derrière Pantou-fle."
+>
+  <div class="flex w-full justify-center items-center">
+    <div
+      class="container flex justify-center flex-col items-center max-w-3xl"
+    >
+      <span
+        class="text-primary-dark font-extrabold py-1 text-xl md:text-2xl"
+      >
+        Qui sommes-nous ?
+      </span>
+      <div
+        class="grid md:grid-cols-2 gap-12 mt-2 md:mt-8 justify-center"
+      >
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-sm">
+          <div class="relative h-80 w-full">
+            <img
+              src="/cathy.webp"
+              alt="Cathy"
+              class="h-full w-full object-cover object-center"
+            />
+            <a
+              class="absolute bottom-2 right-2 h-10 hover:scale-105"
+              href="https://www.linkedin.com/in/cathy-nguyen-014b8ba2/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg
+                class="h-10 w-10 bg-white rounded-lg"
+                fill="#0A66C2"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title>LinkedIn</title>
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+          <div class="p-6">
+            <h2 class="text-2xl font-semibold mb-2">Cathy</h2>
+            <p class="text-gray-600 mb-4">Co-founder</p>
+            <p class="text-gray-800">
+              Professeure française originaire de Lyon. Après l'obtention du
+              master en "Sciences de l'éducation" et en "Didactique du français
+              langue étrangère" (FLE), j'ai travaillé pour plusieurs académies de
+              langue et en Alliance Française auprès de différents publics :
+              enfants, adolescents et adultes allant du niveau A1 au niveau B2.
+              Passionnée par la conception pédagogique, j'ai crée le site
+              pédagogique Pantou-fle.fr à la fois pour les professeurs et les
+              apprenants qui propose des ressources adaptées, motivantes et
+              contemporaines.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden max-w-sm">
+          <div class="relative h-80 w-full">
+            <img
+              src="/nate.webp"
+              alt="Nathan"
+              class="h-full w-full object-cover object-center"
+            />
+            <a
+              class="absolute bottom-2 right-2 h-10 hover:scale-105"
+              href="https://www.linkedin.com/in/nathan-brachotte/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg
+                class="h-10 w-10 bg-white rounded-lg"
+                fill="#0A66C2"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title>LinkedIn</title>
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                ></path>
+              </svg>
+            </a>
+            <a
+              class="absolute bottom-2 right-14 h-10 w-10 bg-gray-50 rounded-lg p-2 hover:scale-105"
+              href="https://twitter.com/nathanbrachotte"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg
+                fill="#000000"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-full w-full"
+              >
+                <title>X</title>
+                <path
+                  d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+                ></path>
+              </svg>
+            </a>
+            <a
+              class="absolute bottom-2 left-2 h-10 hover:scale-105"
+              href="https://nathanbrachotte.dev"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="/n8-logo.svg"
+                alt="N8"
+                class="h-10 w-10 bg-white rounded-lg"
+              />
+            </a>
+          </div>
+          <div class="p-6">
+            <h2 class="text-2xl font-semibold mb-2">Nathan</h2>
+            <p class="text-gray-600 mb-4">Co-founder</p>
+            <p class="text-gray-800">
+              Software Engineer à Berlin, spécialisé dans les frameworks
+              JavaScript. Nous avons construit ce site web parce que l'accès à
+              des ressources gratuites et de haute qualité pour apprendre est très
+              important pour nous. En tant qu'ingénieur logiciel, j'ai eu la
+              chance d'avoir eu accès à des ressources gratuites et de haute
+              qualité pour apprendre tout au long de ma carrière. Notre objectif
+              est de créer une plateforme qui soit rend la pareil à toute personne
+              souhaitant apprendre le français.
+            </p>
+          </div>
+        </div>
+      </div>
+      <section class="mt-8 sm:mt-16 mb-8">
+        <p class="text-primary-dark font-bold py-1 text-lg md:text-xl">
+          Notre vision pour Pantou-fle
+        </p>
+        <p class="text-lg">
+          Nous voulons créer une plateforme éducative innovante qui rend
+          l&apos;apprentissage du français accessible à tous, en combinant
+          l&apos;expertise pédagogique et la technologie. Nous aspirons à offrir
+          des ressources gratuites, adaptées et motivantes, permettant aux
+          apprenants du monde entier de progresser dans leur maîtrise du
+          français.
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>

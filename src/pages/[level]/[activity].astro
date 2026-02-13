@@ -1,0 +1,86 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getAllActivities, type Activity } from "@/lib/contentful";
+import {
+  groupActivitiesByLevel,
+  getActivityTypeLabel,
+  getCurrentLevel,
+} from "@/lib/helpers";
+import { LEVELS, ACTIVITY_TYPE } from "@/lib/constants";
+import ActivitiesContent from "@/components/ActivitiesContent.astro";
+
+export async function getStaticPaths() {
+  const allActivities = await getAllActivities();
+
+  const paths: {
+    params: { level: string; activity: string };
+    props: { filteredActivities: Activity[]; activitySlug: string };
+  }[] = [];
+
+  for (const level of LEVELS) {
+    // Filter activities by level
+    const filteredByLevel = allActivities.filter((a) => {
+      if (level === LEVELS[0]) return true; // "tous-niveaux" = all
+      return a.level?.title?.toLowerCase() === level.toLowerCase();
+    });
+
+    for (const activityType of ACTIVITY_TYPE) {
+      // Filter by activity type
+      const filteredActivities = filteredByLevel.filter((a) => {
+        if (activityType === ACTIVITY_TYPE[0]) return true; // "toute-activite" = all
+        return a.activityType?.type === activityType;
+      });
+
+      // Skip empty activity type pages (but always create "toute-activite")
+      if (activityType !== ACTIVITY_TYPE[0] && filteredActivities.length === 0) {
+        continue;
+      }
+
+      paths.push({
+        params: {
+          level: level.toLowerCase(),
+          activity: activityType,
+        },
+        props: {
+          filteredActivities,
+          activitySlug: activityType,
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  filteredActivities: Activity[];
+  activitySlug: string;
+}
+
+const { filteredActivities, activitySlug } = Astro.props;
+const uri = Astro.url.pathname;
+
+const perLevel = groupActivitiesByLevel(filteredActivities);
+const hasContent = filteredActivities.length > 0;
+
+const level = getCurrentLevel(uri);
+const activityLabel = getActivityTypeLabel(activitySlug, true);
+const pageTitle = `${activityLabel} - Niveau ${level.toUpperCase()}`;
+const pageDescription = `Découvrez nos activités de ${activityLabel.toLowerCase()} en français langue étrangère (FLE) pour le niveau ${level.toUpperCase()}. ${filteredActivities.length} ressource${filteredActivities.length > 1 ? "s" : ""} disponible${filteredActivities.length > 1 ? "s" : ""}.`;
+---
+
+<Layout
+  uri={uri}
+  enableAds={hasContent}
+  title={pageTitle}
+  description={pageDescription}
+>
+  <div class="relative max-w-full px-2 pt-2">
+    <ActivitiesContent
+      activities={filteredActivities}
+      activity={activitySlug}
+      uri={uri}
+      perLevel={perLevel}
+    />
+  </div>
+</Layout>
