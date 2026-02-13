@@ -42,7 +42,7 @@ function isActivityDisabled(activityType: string): boolean {
 ---
 
 <nav class="py-3" aria-label="Types d'activités">
-  <div class="flex flex-wrap gap-1.5 sm:gap-2">
+  <div class="flex flex-wrap lg:grid lg:grid-cols-5 gap-1.5 sm:gap-2">
     {ACTIVITY_TYPE.map((activityType) => {
       if (!activityTypeHasAnyContent(availability, activityType)) return null;
       const active = isActive(activityType);
