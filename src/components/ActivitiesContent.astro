@@ -1,18 +1,23 @@
 ---
 import LevelSection from "@/components/LevelSection.astro";
 import AdSense from "@/components/AdSense.astro";
-import { getActivityTypeLabel } from "@/lib/helpers";
+import ActivityIcon from "@/components/ActivityIcon.astro";
+import {
+  getActivityTypeLabel,
+  getActivityTypeBackgroundColor,
+  activityTypeHasDarkBackground,
+} from "@/lib/helpers";
+import { cn } from "@/lib/utils";
 import { LEVEL_ENUM, type Level } from "@/lib/constants";
 import type { Activity } from "@/lib/contentful";
 
 interface Props {
   activities: Activity[];
   activity: string;
-  uri: string;
   perLevel: Record<Level, Activity[]>;
 }
 
-const { activities, activity, uri, perLevel } = Astro.props;
+const { activities, activity, perLevel } = Astro.props;
 
 const LEVEL_KEYS: Level[] = [
   LEVEL_ENUM.A1,
@@ -24,33 +29,58 @@ const LEVEL_KEYS: Level[] = [
 ];
 
 const isEmpty = activities.length === 0;
+const label = getActivityTypeLabel(activity, true);
+const bgColor = getActivityTypeBackgroundColor(activity);
+const darkBg = activityTypeHasDarkBackground(activity);
+
+/** Collapse all sections by default when more than one level has content */
+const levelsWithContent = LEVEL_KEYS.filter((l) => perLevel[l]?.length > 0).length;
+const defaultCollapsed = levelsWithContent > 1;
 ---
 
 {
   isEmpty ? (
-    <div class="flex flex-col items-center justify-center p-8 text-center min-h-[300px] rounded-lg">
-      <div class="mb-4 text-6xl">📚</div>
-      <h3 class="text-xl font-semibold text-gray-900 mb-2">
+    <div class="flex flex-col items-center justify-center p-12 text-center min-h-[340px]">
+      <div class="mb-5 text-6xl">📚</div>
+      <h3 class="text-xl font-bold text-primary-dark mb-2">
         Aucun contenu disponible pour le moment
       </h3>
-      <p class="text-gray-600 max-w-sm">
+      <p class="text-gray-500 max-w-sm leading-relaxed">
         Il n'y a pas encore de contenu disponible pour cette section. Revenez
-        plus tard ! 😊
+        plus tard !
       </p>
     </div>
   ) : (
-    <>
-      <div class="mx-auto text-center flex flex-row mb-2 md:pl-2 lg:pl-0 mt-4">
-        <div class="flex-1">
-          <span class="text-primary-dark font-extrabold py-1 text-xl md:text-2xl">
-            {getActivityTypeLabel(activity, true)}
-          </span>
-        </div>
+    <div class="space-y-10 mt-4">
+      {/* Page header with activity icon */}
+      <div class="flex items-center justify-center gap-3">
+        <span
+          class={cn(
+            "flex items-center justify-center w-10 h-10 rounded-xl",
+            bgColor,
+          )}
+        >
+          <ActivityIcon
+            type={activity}
+            class={cn("w-5 h-5", darkBg ? "text-white" : "text-primary-dark")}
+          />
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-primary-dark">
+          {label}
+        </h1>
+        <span class="text-sm font-medium text-gray-400 bg-gray-100 rounded-full px-3 py-1">
+          {activities.length}
+        </span>
       </div>
-      {LEVEL_KEYS.map((level) => (
-        <LevelSection level={level} activities={perLevel[level]} />
+
+      {/* Level sections */}
+      {LEVEL_KEYS.map((level, index) => (
+        <>
+          <LevelSection level={level} activities={perLevel[level]} defaultCollapsed={defaultCollapsed} />
+          {/* Ad between some sections */}
+          {index === 1 && <AdSense adSlot="8497527064" isAutoRelaxed />}
+        </>
       ))}
-      <AdSense adSlot="8497527064" isAutoRelaxed />
-    </>
+    </div>
   )
 }

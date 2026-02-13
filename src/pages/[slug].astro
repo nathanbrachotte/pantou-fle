@@ -3,6 +3,13 @@ import Layout from "@/layouts/Layout.astro";
 import { getAllActivities, type Activity } from "@/lib/contentful";
 import RichText from "@/components/RichText";
 import PDF from "@/components/PDF";
+import ActivityIcon from "@/components/ActivityIcon.astro";
+import {
+  getActivityTypeLabel,
+  getActivityTypeBackgroundColor,
+  activityTypeHasDarkBackground,
+} from "@/lib/helpers";
+import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
   const activities = await getAllActivities();
@@ -19,28 +26,41 @@ interface Props {
 
 const { activity } = Astro.props;
 const uri = Astro.url.pathname;
+
+const activitySlug = activity.activityType?.type || "";
+const category = getActivityTypeLabel(activitySlug);
+const levelTitle = activity.level?.title || "";
+const bgColor = getActivityTypeBackgroundColor(activitySlug);
+const darkBg = activityTypeHasDarkBackground(activitySlug);
+const preview = activity.preview?.file?.url;
+const date = new Date(activity.createdAt).toLocaleDateString("fr-FR", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 ---
 
 <Layout
   uri={uri}
   pageData={{
-    activity: activity.activityType?.type || "",
-    level: activity.level?.title || "",
+    activity: activitySlug,
+    level: levelTitle,
   }}
-  title={`${activity.title} - ${activity.level?.title || ""}`}
+  title={`${activity.title} - ${levelTitle}`}
   description={activity.previewDescription ||
-    `Activité de français langue étrangère (FLE) niveau ${activity.level?.title || ""} : ${activity.title}`}
+    `Activité de français langue étrangère (FLE) niveau ${levelTitle} : ${activity.title}`}
 >
-  <div class="text-center flex flex-row mb-4">
-    <div class="pl-2 md:pl-8">
+  <article class="mt-2 sm:mt-4">
+    {/* Back link */}
+    <div class="mb-4 sm:mb-6">
       <button
         type="button"
-        class="w-full h-full"
         onclick="history.back()"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-primary-dark transition-colors group"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 md:h-8"
+          class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -51,36 +71,96 @@ const uri = Astro.url.pathname;
             stroke-linejoin="round"
             d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
         </svg>
+        Retour
       </button>
     </div>
-    <div
-      class="flex-1 flex justify-center items-start ml-2 md:ml-0 self-center"
-    >
-      <div class="md:bg-white md:w-fit md:px-4 md:rounded-xl">
-        <span
-          class="text-primary-dark font-extrabold py-1 text-xl md:text-2xl"
-        >
+
+    {/* Hero section */}
+    <div class="rounded-2xl overflow-hidden border border-gray-100 bg-white shadow-sm mb-6 sm:mb-8">
+      {/* Preview image */}
+      {preview && (
+        <div class="relative">
+          <img
+            src={`${preview}?w=1200&fm=webp&q=85`}
+            alt={activity.title || "activity preview"}
+            class="w-full aspect-[21/9] sm:aspect-[3/1] object-cover"
+            srcset={`${preview}?w=600&fm=webp&q=80 600w, ${preview}?w=1200&fm=webp&q=85 1200w`}
+            sizes="(max-width: 768px) 100vw, 1200px"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        </div>
+      )}
+
+      {/* Title & metadata */}
+      <div class={cn("px-5 sm:px-8 py-5 sm:py-6", !preview && "pt-6 sm:pt-8")}>
+        {/* Badges row */}
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          {/* Category chip */}
+          <span
+            class={cn(
+              "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold",
+              bgColor,
+              darkBg ? "text-white" : "text-primary-dark",
+            )}
+          >
+            <ActivityIcon
+              type={activitySlug}
+              class={cn("w-3.5 h-3.5", darkBg ? "text-white" : "text-primary-dark")}
+            />
+            {category}
+          </span>
+
+          {/* Level badge */}
+          {levelTitle && (
+            <span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-primary-dark text-white text-xs font-bold">
+              Niveau {levelTitle}
+            </span>
+          )}
+
+          {/* Date */}
+          <span class="text-xs text-gray-400 ml-auto hidden sm:block">
+            Publié le {date}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-primary-dark leading-tight">
           {activity.title}
+        </h1>
+
+        {/* Preview description */}
+        {activity.previewDescription && (
+          <p class="mt-2 text-sm sm:text-base text-gray-500 leading-relaxed max-w-3xl">
+            {activity.previewDescription}
+          </p>
+        )}
+
+        {/* Mobile date */}
+        <span class="text-xs text-gray-400 mt-3 block sm:hidden">
+          Publié le {date}
         </span>
       </div>
     </div>
-  </div>
-  <div class="z-10 mb-4 md:px-12">
-    {
-      activity?.pdf?.file?.url && (
-        <div class="mb-2">
+
+    {/* Content area */}
+    <div class="space-y-6 sm:space-y-8">
+      {/* PDF viewer */}
+      {activity?.pdf?.file?.url && (
+        <section>
           <PDF
             client:load
             title={activity.title}
             url={activity.pdf.file.url}
           />
-        </div>
-      )
-    }
-    {
-      activity.description && (
-        <RichText client:load description={activity.description} />
-      )
-    }
-  </div>
+        </section>
+      )}
+
+      {/* Rich text content */}
+      {activity.description && (
+        <section class="rounded-2xl border border-gray-100 bg-white shadow-sm px-5 sm:px-8 py-6 sm:py-8">
+          <RichText client:load description={activity.description} />
+        </section>
+      )}
+    </div>
+  </article>
 </Layout>

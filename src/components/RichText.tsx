@@ -15,9 +15,9 @@ function AnimatedLink(node: Node, children: ReactNode): ReactNode {
 
   if (isGenially) {
     return (
-      <div className="w-2/3 my-4 mx-auto">
+      <div className="w-full sm:w-2/3 my-6 mx-auto">
         <iframe
-          className="rounded-lg z-10 aspect-video w-full"
+          className="rounded-xl z-10 aspect-video w-full shadow-sm border border-gray-100"
           title="iframe"
           src={node.data.uri}
           allowFullScreen={false}
@@ -32,7 +32,7 @@ function AnimatedLink(node: Node, children: ReactNode): ReactNode {
       href={node.data.uri}
       target="_blank"
       rel="noreferrer"
-      className="text-secondary-dark underline hover:text-secondary-light transition-colors"
+      className="text-secondary-dark underline decoration-secondary-dark/30 underline-offset-2 hover:text-secondary-light hover:decoration-secondary-light/50 transition-colors"
     >
       {children}
     </a>
@@ -57,10 +57,20 @@ function getAssetFromId(
 function getOptions(references: Reference[]): Options {
   return {
     renderMark: {
-      [MARKS.BOLD]: (text) => <span className="font-bold">{text}</span>,
-      [MARKS.ITALIC]: (text) => <i>{text}</i>,
-      [MARKS.UNDERLINE]: (text) => <u>{text}</u>,
-      [MARKS.CODE]: (text) => <code>{text}</code>,
+      [MARKS.BOLD]: (text) => (
+        <strong className="font-bold text-primary-dark">{text}</strong>
+      ),
+      [MARKS.ITALIC]: (text) => <em className="italic">{text}</em>,
+      [MARKS.UNDERLINE]: (text) => (
+        <u className="underline underline-offset-2 decoration-primary/30">
+          {text}
+        </u>
+      ),
+      [MARKS.CODE]: (text) => (
+        <code className="bg-primary-light/50 text-primary-dark px-1.5 py-0.5 rounded-md text-sm font-mono">
+          {text}
+        </code>
+      ),
     },
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node: Node): ReactNode => {
@@ -73,7 +83,7 @@ function getOptions(references: Reference[]): Options {
         switch (asset.file?.contentType) {
           case "application/pdf":
             return (
-              <div className="w-full my-4 mx-auto">
+              <div className="w-full my-6 mx-auto rounded-xl overflow-hidden border border-gray-100 shadow-sm">
                 <iframe
                   title={asset.file.fileName}
                   src={`${asset.file.url}#toolbar=1&navpanels=0`}
@@ -83,11 +93,13 @@ function getOptions(references: Reference[]): Options {
             );
           case "image/png":
             return (
-              <img
-                src={asset.file.url}
-                alt={asset.file.fileName}
-                className="rounded-lg aspect-video w-1/2 my-4 mx-auto"
-              />
+              <figure className="my-6 mx-auto w-full sm:w-2/3">
+                <img
+                  src={asset.file.url}
+                  alt={asset.file.fileName}
+                  className="rounded-xl w-full shadow-sm border border-gray-100"
+                />
+              </figure>
             );
           default:
             return null;
@@ -98,63 +110,81 @@ function getOptions(references: Reference[]): Options {
         <>{children}</>
       ),
       [BLOCKS.PARAGRAPH]: (_: Node, children: ReactNode): ReactNode => (
-        <p>{children}</p>
+        <p className="text-gray-700 leading-relaxed mb-4 last:mb-0">
+          {children}
+        </p>
       ),
       [BLOCKS.HEADING_1]: (_: Node, children: ReactNode): ReactNode => (
-        <span className="text-primary-dark font-extrabold py-1 text-xl md:text-2xl">
+        <h1 className="text-xl md:text-2xl font-extrabold text-primary-dark mt-8 mb-4 first:mt-0">
           {children}
-        </span>
+        </h1>
       ),
       [BLOCKS.HEADING_2]: (_: Node, children: ReactNode): ReactNode => (
-        <p className="text-primary-dark font-bold py-1 text-lg md:text-xl">
+        <h2 className="text-lg md:text-xl font-bold text-primary-dark mt-6 mb-3 first:mt-0">
           {children}
-        </p>
+        </h2>
       ),
       [BLOCKS.HEADING_3]: (_: Node, children: ReactNode): ReactNode => (
-        <p className="text-base md:text-lg text-primary-dark font-semibold">
+        <h3 className="text-base md:text-lg font-semibold text-primary-dark mt-5 mb-2 first:mt-0">
           {children}
-        </p>
+        </h3>
       ),
       [BLOCKS.HEADING_4]: (_: Node, children: ReactNode): ReactNode => (
-        <h4>{children}</h4>
+        <h4 className="text-base font-semibold text-primary-dark mt-4 mb-2 first:mt-0">
+          {children}
+        </h4>
       ),
       [BLOCKS.HEADING_5]: (_: Node, children: ReactNode): ReactNode => (
-        <h5>{children}</h5>
+        <h5 className="text-sm font-semibold text-primary-dark mt-4 mb-2 first:mt-0">
+          {children}
+        </h5>
       ),
       [BLOCKS.HEADING_6]: (_: Node, children: ReactNode): ReactNode => (
-        <h6>{children}</h6>
+        <h6 className="text-sm font-medium text-primary mt-3 mb-2 first:mt-0">
+          {children}
+        </h6>
       ),
       [BLOCKS.UL_LIST]: (_: Node, children: ReactNode): ReactNode => (
-        <ul>{children}</ul>
+        <ul className="my-4 space-y-1.5">{children}</ul>
       ),
       [BLOCKS.OL_LIST]: (_: Node, children: ReactNode): ReactNode => (
-        <ol>{children}</ol>
+        <ol className="my-4 space-y-1.5 list-decimal">{children}</ol>
       ),
       [BLOCKS.LIST_ITEM]: (_: Node, children: ReactNode): ReactNode => (
-        <li className="ml-8 list-outside list-disc marker:text-primary-dark">
+        <li className="ml-6 list-outside list-disc marker:text-secondary-dark text-gray-700 leading-relaxed">
           {children}
         </li>
       ),
       [BLOCKS.QUOTE]: (_: Node, children: ReactNode): ReactNode => (
-        <blockquote className="p-2 bg-primary-light mt-2 mb-2 border-l-4 border-primary-dark italic">
+        <blockquote className="my-6 pl-4 py-3 pr-4 bg-primary-light/40 rounded-r-xl border-l-4 border-primary-dark italic text-primary-dark/80">
           {children}
         </blockquote>
       ),
-      [BLOCKS.HR]: () => <hr />,
+      [BLOCKS.HR]: () => (
+        <hr className="my-8 border-t border-gray-200" />
+      ),
       [BLOCKS.TABLE]: (_: Node, children: ReactNode): ReactNode => (
-        <table>
-          <tbody>{children}</tbody>
-        </table>
+        <div className="my-6 overflow-x-auto rounded-xl border border-gray-200">
+          <table className="w-full text-sm">
+            <tbody>{children}</tbody>
+          </table>
+        </div>
       ),
       [BLOCKS.TABLE_ROW]: (_: Node, children: ReactNode): ReactNode => (
-        <tr>{children}</tr>
+        <tr className="border-b border-gray-100 last:border-b-0">
+          {children}
+        </tr>
       ),
       [BLOCKS.TABLE_HEADER_CELL]: (
         _: Node,
         children: ReactNode,
-      ): ReactNode => <th>{children}</th>,
+      ): ReactNode => (
+        <th className="px-4 py-3 text-left text-xs font-bold text-primary-dark uppercase tracking-wider bg-primary-light/30">
+          {children}
+        </th>
+      ),
       [BLOCKS.TABLE_CELL]: (_: Node, children: ReactNode): ReactNode => (
-        <td>{children}</td>
+        <td className="px-4 py-3 text-gray-700">{children}</td>
       ),
       [INLINES.ASSET_HYPERLINK]: (node: Node): ReactNode =>
         defaultInline(INLINES.ASSET_HYPERLINK, node as Inline),
@@ -182,6 +212,8 @@ export default function RichText({ description }: RichTextProps) {
       : description.raw;
 
   return (
-    <div>{documentToReactComponents(data, getOptions(description.references || []))}</div>
+    <div className="rich-text">
+      {documentToReactComponents(data, getOptions(description.references || []))}
+    </div>
   );
 }

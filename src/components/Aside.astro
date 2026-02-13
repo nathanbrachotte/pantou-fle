@@ -8,6 +8,7 @@ import {
   activityTypeHasDarkBackground,
   getCurrentActivity,
   getCurrentLevel,
+  hasContent,
 } from "@/lib/helpers";
 import { ACTIVITY_TYPE } from "@/lib/constants";
 
@@ -17,9 +18,10 @@ interface Props {
     activity: string;
     level: string;
   };
+  availability?: Set<string>;
 }
 
-const { uri, pageData } = Astro.props;
+const { uri, pageData, availability = new Set<string>() } = Astro.props;
 
 const urlLevel = getCurrentLevel(uri);
 const currentActivity = getCurrentActivity(uri, pageData?.activity);
@@ -31,27 +33,33 @@ function isActive(activityType: string): boolean {
 function getHref(activityType: string): string {
   return `/${urlLevel}/${activityType}`;
 }
+
+function isActivityDisabled(activityType: string): boolean {
+  if (availability.size === 0) return false;
+  return !hasContent(availability, urlLevel, activityType);
+}
 ---
 
 <nav class="py-3" aria-label="Types d'activités">
   <div class="flex flex-wrap gap-1.5 sm:gap-2">
     {ACTIVITY_TYPE.map((activityType) => {
       const active = isActive(activityType);
+      const disabled = isActivityDisabled(activityType);
       const bgColor = getActivityTypeBackgroundColor(activityType);
       const darkBg = activityTypeHasDarkBackground(activityType);
       return (
-        <NavPill href={getHref(activityType)} isActive={active}>
+        <NavPill href={getHref(activityType)} isActive={active} isDisabled={disabled}>
           <span
             class={cn(
               "flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-md flex-shrink-0",
-              active ? "text-white" : bgColor,
+              disabled ? "text-gray-300" : active ? "text-white" : bgColor,
             )}
           >
             <ActivityIcon
               type={activityType}
               class={cn(
                 "w-3 h-3 sm:w-3.5 sm:h-3.5",
-                active || darkBg ? "text-white" : "text-primary-dark",
+                disabled ? "text-gray-300" : (active || darkBg) ? "text-white" : "text-primary-dark",
               )}
             />
           </span>

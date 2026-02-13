@@ -81,6 +81,32 @@ export function activityTypeHasDarkBackground(text: string): boolean {
   return ["grammaire", "toute-activite"].includes(text);
 }
 
+/** Returns a text color class for each activity type (used on card tags). */
+export function getActivityTypeTextColor(text: string): string {
+  switch (text) {
+    case "comprehension-ecrite":
+      return "text-tertiary";
+    case "comprehension-orale":
+      return "text-primary";
+    case "fiche-exercice":
+      return "text-secondary-light";
+    case "orthographe":
+      return "text-primary";
+    case "production-ecrite":
+      return "text-tertiary";
+    case "production-orale":
+      return "text-secondary-light";
+    case "vocabulaire":
+      return "text-secondary-dark";
+    case "grammaire":
+      return "text-primary-dark";
+    case "chanson":
+      return "text-secondary-dark";
+    default:
+      return "text-primary-dark";
+  }
+}
+
 export function includesALevel(uri: string): boolean {
   return LEVELS.some((lvl) => uri.includes(lvl.toLowerCase()));
 }
@@ -129,6 +155,47 @@ export function groupActivitiesByLevel(
   });
 
   return perLevel;
+}
+
+/**
+ * Builds a Set of "level:activityType" keys that have at least one activity.
+ * Used to disable nav pills that would lead to empty pages.
+ *
+ * Special rules:
+ * - "tous-niveaux:X" is available if ANY level has content for X
+ * - "Y:toute-activite" is available if ANY activity type has content for Y
+ * - "tous-niveaux:toute-activite" is always available when there's any content
+ */
+export function buildAvailabilitySet(activities: Activity[]): Set<string> {
+  const set = new Set<string>();
+
+  if (activities.length > 0) {
+    set.add("tous-niveaux:toute-activite");
+  }
+
+  for (const a of activities) {
+    const level = a.level?.title?.toLowerCase() || "";
+    const type = a.activityType?.type || "";
+
+    if (level && type) {
+      set.add(`${level}:${type}`);
+      // A specific level has at least one activity -> "level:toute-activite" is valid
+      set.add(`${level}:toute-activite`);
+      // A specific type has at least one activity -> "tous-niveaux:type" is valid
+      set.add(`tous-niveaux:${type}`);
+    }
+  }
+
+  return set;
+}
+
+/** Check if a (level, activityType) combination has content */
+export function hasContent(
+  availabilitySet: Set<string>,
+  level: string,
+  activityType: string,
+): boolean {
+  return availabilitySet.has(`${level.toLowerCase()}:${activityType}`);
 }
 
 export function backgroundToTextColor(bgColor: string): string {

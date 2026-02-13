@@ -1,13 +1,14 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { getAllActivities } from "@/lib/contentful";
-import { groupActivitiesByLevel } from "@/lib/helpers";
+import { groupActivitiesByLevel, buildAvailabilitySet } from "@/lib/helpers";
 import ActivitiesContent from "@/components/ActivitiesContent.astro";
 
 const activities = await getAllActivities();
 const perLevel = groupActivitiesByLevel(activities);
 const hasContent = activities.length > 0;
 const uri = Astro.url.pathname;
+const availability = buildAvailabilitySet(activities);
 ---
 
 <Layout
@@ -15,12 +16,12 @@ const uri = Astro.url.pathname;
   enableAds={hasContent}
   title="Pantou-fle - Ressources FLE gratuites"
   description="Découvrez toutes nos ressources gratuites pour apprendre le français langue étrangère (FLE). Activités de compréhension, production, vocabulaire et grammaire pour tous les niveaux."
+  availability={availability}
 >
   <div class="relative max-w-full px-2 pt-2">
     <ActivitiesContent
       activities={activities}
       activity="toute-activite"
-      uri={uri}
       perLevel={perLevel}
     />
   </div>

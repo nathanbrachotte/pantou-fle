@@ -18,6 +18,7 @@ interface Props {
     activity: string;
     level: string;
   };
+  availability?: Set<string>;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   enableAds = true,
   uri,
   pageData,
+  availability = new Set<string>(),
 } = Astro.props;
 
 const defaultTitle = "Pantou-fle - Français Langue Étrangère";
@@ -35,6 +37,7 @@ const metaDescription =
   "Ressources pédagogiques gratuites pour apprendre le français langue étrangère (FLE). Activités, exercices et fiches pour tous les niveaux de A1 à C2.";
 const fullTitle = title || defaultTitle;
 const AD_CLIENT = "ca-pub-2142870138777008";
+const isDev = import.meta.env.DEV;
 ---
 
 <!doctype html>
@@ -100,10 +103,10 @@ const AD_CLIENT = "ca-pub-2142870138777008";
       <Splash />
     </div>
 
-    <Header uri={uri} pageData={pageData} />
+    <Header uri={uri} pageData={pageData} availability={availability} />
 
     <div class="w-full max-w-screen-xl mx-auto px-3 sm:px-4 lg:px-6">
-      <Aside uri={uri} pageData={pageData} />
+      <Aside uri={uri} pageData={pageData} availability={availability} />
 
       <main class="pb-8">
         <slot />
@@ -113,5 +116,13 @@ const AD_CLIENT = "ca-pub-2142870138777008";
     <div class="flex-1"></div>
     <Footer />
     <KoFiScript />
+
+    {isDev && (
+      <div class="fixed bottom-3 left-3 z-50 flex flex-col gap-1 text-[10px] font-mono pointer-events-none">
+        <span class={`px-2 py-1 rounded-md shadow-md ${enableAds ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}>
+          Ads: {enableAds ? "ON" : "OFF"}
+        </span>
+      </div>
+    )}
   </body>
 </html>

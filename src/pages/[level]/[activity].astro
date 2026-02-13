@@ -5,6 +5,7 @@ import {
   groupActivitiesByLevel,
   getActivityTypeLabel,
   getCurrentLevel,
+  buildAvailabilitySet,
 } from "@/lib/helpers";
 import { LEVELS, ACTIVITY_TYPE } from "@/lib/constants";
 import ActivitiesContent from "@/components/ActivitiesContent.astro";
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
 
   const paths: {
     params: { level: string; activity: string };
-    props: { filteredActivities: Activity[]; activitySlug: string };
+    props: { filteredActivities: Activity[]; activitySlug: string; allActivities: Activity[] };
   }[] = [];
 
   for (const level of LEVELS) {
@@ -39,6 +40,7 @@ export async function getStaticPaths() {
         props: {
           filteredActivities,
           activitySlug: activityType,
+          allActivities,
         },
       });
     }
@@ -50,13 +52,15 @@ export async function getStaticPaths() {
 interface Props {
   filteredActivities: Activity[];
   activitySlug: string;
+  allActivities: Activity[];
 }
 
-const { filteredActivities, activitySlug } = Astro.props;
+const { filteredActivities, activitySlug, allActivities } = Astro.props;
 const uri = Astro.url.pathname;
 
 const perLevel = groupActivitiesByLevel(filteredActivities);
 const hasContent = filteredActivities.length > 0;
+const availability = buildAvailabilitySet(allActivities);
 
 const level = getCurrentLevel(uri);
 const activityLabel = getActivityTypeLabel(activitySlug, true);
@@ -69,12 +73,12 @@ const pageDescription = `Découvrez nos activités de ${activityLabel.toLowerCas
   enableAds={hasContent}
   title={pageTitle}
   description={pageDescription}
+  availability={availability}
 >
   <div class="relative max-w-full px-2 pt-2">
     <ActivitiesContent
       activities={filteredActivities}
       activity={activitySlug}
-      uri={uri}
       perLevel={perLevel}
     />
   </div>

@@ -2,7 +2,7 @@
 import LogoWithLabel from "@/components/LogoWithLabel.astro";
 import NavPill from "@/components/NavPill.astro";
 import { LEVELS } from "@/lib/constants";
-import { getCurrentActivity } from "@/lib/helpers";
+import { getCurrentActivity, hasContent } from "@/lib/helpers";
 
 interface Props {
   uri: string;
@@ -10,9 +10,10 @@ interface Props {
     activity: string;
     level: string;
   };
+  availability?: Set<string>;
 }
 
-const { uri, pageData } = Astro.props;
+const { uri, pageData, availability = new Set<string>() } = Astro.props;
 
 const LEVELS_LOGOS = ["📚", "🐣", "🐥", "👶", "🎓", "👨", "🧓"] as const;
 const LEVELS_LABELS = [
@@ -26,6 +27,7 @@ const LEVELS_LABELS = [
 ] as const;
 
 const isDev = import.meta.env.DEV;
+const currentActivity = getCurrentActivity(uri, pageData?.activity);
 
 function isLevelActive(level: string): boolean {
   const l = level.toLowerCase();
@@ -36,8 +38,12 @@ function isLevelActive(level: string): boolean {
 }
 
 function getLevelHref(level: string): string {
-  const activityToUse = getCurrentActivity(uri, pageData?.activity);
-  return `/${level.toLowerCase()}/${activityToUse}`;
+  return `/${level.toLowerCase()}/${currentActivity}`;
+}
+
+function isLevelDisabled(level: string): boolean {
+  if (availability.size === 0) return false;
+  return !hasContent(availability, level, currentActivity);
 }
 ---
 
@@ -55,7 +61,11 @@ function getLevelHref(level: string): string {
 
       <nav class="flex items-center gap-1.5 sm:gap-2 flex-wrap flex-1 z-10" aria-label="Niveaux">
         {LEVELS.map((level, index) => (
-          <NavPill href={getLevelHref(level)} isActive={isLevelActive(level)}>
+          <NavPill
+            href={getLevelHref(level)}
+            isActive={isLevelActive(level)}
+            isDisabled={isLevelDisabled(level)}
+          >
             <span class="leading-none" aria-hidden="true">{LEVELS_LOGOS[index]}</span>
             <span>{LEVELS_LABELS[index]}</span>
           </NavPill>

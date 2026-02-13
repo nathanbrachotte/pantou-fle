@@ -1,6 +1,13 @@
 ---
 import type { Activity } from "@/lib/contentful";
-import { getActivityTypeLabel } from "@/lib/helpers";
+import {
+  getActivityTypeLabel,
+  getActivityTypeBackgroundColor,
+  getActivityTypeTextColor,
+  activityTypeHasDarkBackground,
+} from "@/lib/helpers";
+import ActivityIcon from "@/components/ActivityIcon.astro";
+import { cn } from "@/lib/utils";
 
 interface Props {
   fiche: Activity;
@@ -8,74 +15,84 @@ interface Props {
 
 const { fiche } = Astro.props;
 
-const category = getActivityTypeLabel(fiche.activityType?.type || "");
+const activitySlug = fiche.activityType?.type || "";
+const category = getActivityTypeLabel(activitySlug);
 const previewDescription = fiche?.previewDescription;
 const preview = fiche?.preview?.file?.url;
 const levelTitle = fiche?.level?.title || "";
+const bgColor = getActivityTypeBackgroundColor(activitySlug);
+const textColor = getActivityTypeTextColor(activitySlug);
+const darkBg = activityTypeHasDarkBackground(activitySlug);
 ---
 
-<li class="overflow-hidden rounded-lg bg-background max-w-3xl group">
+<li class="group list-none">
   <a
     href={`/${fiche.slug}`}
-    class="flex flex-row flex-wrap items-center justify-center"
+    class="block rounded-2xl bg-white border border-gray-100 overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-200"
   >
-    <div class="flex-auto w-full lg:w-5/12 self-start">
-      <div class="relative">
-        {
-          preview ? (
-            <div class="rounded-lg aspect-video overflow-hidden">
-              <img
-                src={`${preview}?w=400&fm=webp`}
-                alt="activity preview"
-                class="object-cover object-center"
-                srcset={`${preview}?w=400&h=200&fm=webp&q=80 400w, ${preview}?w=800&h=400&fm=webp&q=80 800w`}
-                sizes="(max-width: 400px) 400px, 800px"
-                loading="lazy"
-              />
-            </div>
-          ) : (
-            <div class="rounded-lg aspect-video overflow-hidden bg-gray-100" />
-          )
-        }
-      </div>
-    </div>
-    <div class="flex-auto w-7/12 p-2 px-0 lg:px-4 self-stretch">
-      <div class="flex flex-col justify-between items-stretch h-full">
-        <p class="flex-none text-xs text-secondary-light font-light pb-1">
-          {category}
-        </p>
-        <div class="flex-1 h-full">
-          <p
-            class="text-primary-dark font-bold text-md lg:text-lg xl:text-xl"
-          >
-            {fiche.title}
-          </p>
-          {
-            previewDescription && (
-              <span class="text-primary text-sm overflow-hidden text-ellipsis line-clamp-2">
-                {previewDescription}
-              </span>
-            )
-          }
+    {/* Image */}
+    <div class="relative overflow-hidden">
+      {preview ? (
+        <img
+          src={`${preview}?w=600&fm=webp`}
+          alt={fiche.title || "activity preview"}
+          class="w-full aspect-[16/10] object-cover group-hover:scale-105 transition-transform duration-300"
+          srcset={`${preview}?w=400&h=250&fm=webp&q=80 400w, ${preview}?w=800&h=500&fm=webp&q=80 800w`}
+          sizes="(max-width: 640px) 100vw, 50vw"
+          loading="lazy"
+        />
+      ) : (
+        <div class="w-full aspect-[16/10] bg-gradient-to-br from-primary-light to-secondary-very-light flex items-center justify-center">
+          <ActivityIcon type={activitySlug} class="w-12 h-12 text-primary-dark/30" />
         </div>
-        <div
-          class="none flex flex-row flex-wrap justify-between items-center"
+      )}
+
+      {/* Category chip overlaid on image */}
+      <div class="absolute top-3 left-3">
+        <span
+          class={cn(
+            "inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-sm shadow-sm",
+            bgColor,
+            darkBg ? "text-white" : "text-primary-dark",
+          )}
         >
-          <div class="flex-row flex">
-            <div class="mr-1">
-              <div>
-                <div
-                  class="text-center text-xs inline-flex items-center px-2 sm:px-3 py-1 bg-secondary-dark text-whitish rounded-full"
-                >
-                  {levelTitle}
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="text-primary text-xs pt-1">
-            {new Date(fiche.createdAt).toLocaleDateString("fr-FR")}
-          </p>
+          <ActivityIcon
+            type={activitySlug}
+            class={cn("w-3 h-3", darkBg ? "text-white" : "text-primary-dark")}
+          />
+          {category}
+        </span>
+      </div>
+
+      {/* Level badge overlaid on image */}
+      {levelTitle && (
+        <div class="absolute top-3 right-3">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary-dark text-white text-xs font-bold shadow-sm">
+            {levelTitle}
+          </span>
         </div>
+      )}
+    </div>
+
+    {/* Content */}
+    <div class="p-4">
+      <h3 class="text-primary-dark font-bold text-base sm:text-lg leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+        {fiche.title}
+      </h3>
+
+      {previewDescription && (
+        <p class="mt-1.5 text-sm text-gray-500 leading-relaxed line-clamp-2">
+          {previewDescription}
+        </p>
+      )}
+
+      <div class="mt-3 flex items-center justify-between">
+        <span class={cn("text-xs font-medium", textColor)}>
+          {category}
+        </span>
+        <time class="text-xs text-gray-400">
+          {new Date(fiche.createdAt).toLocaleDateString("fr-FR")}
+        </time>
       </div>
     </div>
   </a>
