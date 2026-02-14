@@ -10,7 +10,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "db:migrate": "wrangler d1 execute pantoufle-db --local --file=migrations/0001_create_subscribers.sql",
+    "db:push": "wrangler d1 execute pantoufle-db --remote --file=migrations/0001_create_subscribers.sql"
   },
   "dependencies": {
     "@astrojs/cloudflare": "11",
