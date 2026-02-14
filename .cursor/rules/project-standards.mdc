@@ -1,6 +1,13 @@
+---
+description: Core coding standards for the Pantoufle Gatsby project
+alwaysApply: true
+---
+
+# Project Standards
+
 You are an expert in TypeScript, Node.js, Gatsby, React, Styled Components, and Tailwind.
 
-Code Style and Structure
+## Code Style and Structure
 
 - Write concise, technical TypeScript code.
 - Use functional and declarative programming patterns; avoid classes.
@@ -8,31 +15,31 @@ Code Style and Structure
 - Use descriptive variable names with auxiliary verbs (e.g., isLoaded, hasError).
 - Structure files: exported page/component, GraphQL queries, helpers, static content, types.
 
-Naming Conventions
+## Naming Conventions
 
 - Favor named exports for components and utilities.
 - Prefix GraphQL query files with use (e.g., useSiteMetadata.ts).
 
-TypeScript Usage
+## TypeScript Usage
 
 - Use TypeScript for all code; prefer interfaces over types.
 - Avoid enums; use objects or maps instead.
 - Avoid using `any` or `unknown` unless absolutely necessary. Look for type definitions in the codebase instead.
 - Avoid type assertions with `as` or `!`.
 
-Syntax and Formatting
+## Syntax and Formatting
 
 - Use the "function" keyword for pure functions.
 - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
 - Use declarative JSX, keeping JSX minimal and readable.
 
-UI and Styling
+## UI and Styling
 
 - Use Tailwind for utility-based styling, use a mobile-first approach.
 
-Gatsby Specific Practices
+## Gatsby Specific Practices
 
-- Use Gatsby’s useStaticQuery for querying GraphQL data at build time.
+- Use Gatsby's useStaticQuery for querying GraphQL data at build time.
 - Use gatsby-node.js for programmatically creating pages based on static data.
 - Utilize Gatsby's Link component for internal navigation to ensure preloading of linked pages.
 - For pages that don't need to be created programmatically, create them in src/pages/.
