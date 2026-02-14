@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     );
   }
 
-  const { env } = locals.runtime;
+  const { env, ctx } = locals.runtime;
   const db = env.DB;
   const resendApiKey = env.RESEND_API_KEY;
 
@@ -63,11 +63,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
         .run();
     }
 
-    // Send notification emails (fire-and-forget, don't block the response)
+    // Send notification emails in the background via waitUntil
+    // (keeps the worker alive after the response is sent)
     if (resendApiKey && SITE_CONFIG.adminEmails.length > 0) {
       console.log(`[newsletter] Sending notification email for: ${email}`);
-      sendNotificationEmails(resendApiKey, email, firstName).catch((err) =>
-        console.error("[newsletter] Failed to send notification email:", err),
+      ctx.waitUntil(
+        sendNotificationEmails(resendApiKey, email, firstName).catch((err) =>
+          console.error("[newsletter] Failed to send notification email:", err),
+        ),
       );
     } else {
       console.log("[newsletter] Skipping notification — no API key or no admin emails configured");
