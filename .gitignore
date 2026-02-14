@@ -51,6 +51,7 @@ jspm_packages/
 
 # dotenv environment variables file
 .env*
+.dev.vars
 
 # next.js build output
 .next
@@ -59,6 +60,9 @@ jspm_packages/
 # Astro
 .astro/
 dist/
+
+# Wrangler local state (D1 databases, KV, etc.)
+.wrangler/
 
 # Legacy Gatsby
 .cache/
