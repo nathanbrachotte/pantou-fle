@@ -7,6 +7,7 @@ import Footer from "@/components/Footer.astro";
 import Aside from "@/components/Aside.astro";
 import KoFiScript from "@/components/KoFiScript.astro";
 import Splash from "@/components/Splash.astro";
+import PromoBanner from "@/components/PromoBanner.astro";
 
 interface Props {
   title?: string;
@@ -114,6 +115,7 @@ const isDev = import.meta.env.DEV;
     </div>
 
     <div class="flex-1"></div>
+    <PromoBanner />
     <Footer />
     <KoFiScript />
 

@@ -1,0 +1,128 @@
+---
+/**
+ * A small promotional banner for MyMoneyViz.com, shown above the footer.
+ * Dismissible — stores preference in localStorage so it stays hidden once closed.
+ * Styled to match the MyMoneyViz.com dark + gold brand.
+ */
+---
+
+<div
+  id="promo-banner"
+  class="hidden w-full"
+  style="background: #09090b;"
+>
+  {/* Top gold accent line */}
+  <div class="h-px" style="background: linear-gradient(90deg, transparent, #c9a44c 30%, #e8c960 50%, #c9a44c 70%, transparent);"></div>
+
+  <div class="max-w-screen-xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
+    <div class="flex items-center justify-between gap-3">
+      {/* Clickable content area */}
+      <a
+        href="https://www.mymoneyviz.com/fr?ref=pantoufle"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-3 sm:gap-4 group min-w-0 flex-1"
+      >
+        {/* Logo */}
+        <img
+          src="/logo.png"
+          alt="MyMoneyViz"
+          width="40"
+          height="40"
+          class="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full"
+          loading="lazy"
+        />
+
+        {/* Text — desktop */}
+        <div class="min-w-0 hidden sm:block">
+          <p class="text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+            MyMoneyViz
+            <span
+              class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+              style="background: rgba(201, 164, 76, 0.15); color: #e8c960; border: 1px solid rgba(201, 164, 76, 0.25);"
+            >
+              Gratuit
+            </span>
+          </p>
+          <p class="text-[13px] mt-0.5" style="color: #a1a1aa;">
+            Visualisez l'ensemble de votre patrimoine &mdash; Créé par Nate, le dev de Pantou-fle
+          </p>
+        </div>
+
+        {/* Text — mobile */}
+        <div class="min-w-0 sm:hidden">
+          <p class="text-sm font-semibold text-white truncate">
+            MyMoneyViz
+          </p>
+          <p class="text-xs truncate" style="color: #71717a;">
+            Visualisez votre patrimoine gratuitement
+          </p>
+        </div>
+      </a>
+
+      {/* CTA + Close */}
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        {/* CTA button — styled like MyMoneyViz.com buttons */}
+        <a
+          href="https://www.mymoneyviz.com/fr?ref=pantoufle"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+          style="background: rgba(201, 164, 76, 0.1); color: #e8c960; border: 1px solid rgba(201, 164, 76, 0.3);"
+          onmouseover="this.style.background='rgba(201, 164, 76, 0.2)'; this.style.borderColor='rgba(201, 164, 76, 0.5)';"
+          onmouseout="this.style.background='rgba(201, 164, 76, 0.1)'; this.style.borderColor='rgba(201, 164, 76, 0.3)';"
+        >
+          Découvrir
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+
+        {/* Close button */}
+        <button
+          id="promo-banner-close"
+          type="button"
+          aria-label="Fermer la bannière"
+          class="inline-flex items-center justify-center w-7 h-7 rounded-lg transition-colors"
+          style="color: #52525b;"
+          onmouseover="this.style.color='#e4e4e7'; this.style.background='rgba(255,255,255,0.06)';"
+          onmouseout="this.style.color='#52525b'; this.style.background='transparent';"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = "promo-banner-dismissed";
+    var banner = document.getElementById("promo-banner");
+    var closeBtn = document.getElementById("promo-banner-close");
+
+    if (!banner || !closeBtn) return;
+
+    // Show banner only if not previously dismissed
+    try {
+      if (localStorage.getItem(STORAGE_KEY) !== "1") {
+        banner.classList.remove("hidden");
+      }
+    } catch (e) {
+      // localStorage unavailable — show the banner anyway
+      banner.classList.remove("hidden");
+    }
+
+    closeBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      banner.classList.add("hidden");
+      try {
+        localStorage.setItem(STORAGE_KEY, "1");
+      } catch (e) {
+        // silent fail
+      }
+    });
+  })();
+</script>
