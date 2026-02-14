@@ -93,6 +93,8 @@ const isNewsletterEnabled = SITE_CONFIG.newsletter.enabled;
             </p>
             <form
               id="newsletter-form"
+              method="POST"
+              action="/api/newsletter"
               class="flex flex-col gap-2.5"
             >
               <input
@@ -181,44 +183,42 @@ const isNewsletterEnabled = SITE_CONFIG.newsletter.enabled;
   });
 </script>
 
-{isNewsletterEnabled && (
-  <script>
-    const form = document.getElementById("newsletter-form") as HTMLFormElement | null;
-    const messageEl = document.getElementById("newsletter-message");
-    const submitBtn = document.getElementById("newsletter-submit") as HTMLButtonElement | null;
+<script>
+  const form = document.getElementById("newsletter-form") as HTMLFormElement | null;
+  const messageEl = document.getElementById("newsletter-message");
+  const submitBtn = document.getElementById("newsletter-submit") as HTMLButtonElement | null;
 
-    form?.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      if (!submitBtn || !messageEl) return;
+    if (!submitBtn || !messageEl) return;
 
-      submitBtn.disabled = true;
-      messageEl.textContent = "";
-      messageEl.className = "text-xs mt-1 min-h-[1.25rem]";
+    submitBtn.disabled = true;
+    messageEl.textContent = "";
+    messageEl.className = "text-xs mt-1 min-h-[1.25rem]";
 
-      try {
-        const formData = new FormData(form);
-        const response = await fetch("/api/newsletter", {
-          method: "POST",
-          body: formData,
-        });
+    try {
+      const formData = new FormData(form);
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        body: formData,
+      });
 
-        const data: { message?: string; error?: string } = await response.json();
+      const data: { message?: string; error?: string } = await response.json();
 
-        if (response.ok) {
-          messageEl.textContent = data.message ?? "Inscription réussie !";
-          messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-success";
-          form.reset();
-        } else {
-          messageEl.textContent = data.error ?? "Une erreur est survenue.";
-          messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-error";
-        }
-      } catch {
-        messageEl.textContent = "Une erreur est survenue. Veuillez réessayer.";
+      if (response.ok) {
+        messageEl.textContent = data.message ?? "Inscription réussie !";
+        messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-success";
+        form.reset();
+      } else {
+        messageEl.textContent = data.error ?? "Une erreur est survenue.";
         messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-error";
-      } finally {
-        submitBtn.disabled = false;
       }
-    });
-  </script>
-)}
+    } catch {
+      messageEl.textContent = "Une erreur est survenue. Veuillez réessayer.";
+      messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-error";
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>
