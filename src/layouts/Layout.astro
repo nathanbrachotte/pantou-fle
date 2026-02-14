@@ -84,6 +84,15 @@ const isDev = import.meta.env.DEV;
       )
     }
 
+    {/* Kill old Gatsby service worker and clear stale caches */}
+    <script is:inline>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").then(function (reg) {
+          reg.update();
+        });
+      }
+    </script>
+
     {/* Simple Analytics */}
     <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"
     ></script>
