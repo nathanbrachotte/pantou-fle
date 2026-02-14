@@ -23,4 +23,13 @@ export const SITE_CONFIG = {
     /** Sender display name */
     senderName: "Pantou-FLE Newsletter",
   },
+
+  ads: {
+    /**
+     * Set to false to stop rendering manual AdSense ad-slot components.
+     * The global adsbygoogle.js script (needed for Auto Ads & consent)
+     * keeps loading regardless of this flag.
+     */
+    manualSlots: false,
+  },
 } as const;

@@ -1,9 +1,12 @@
 ---
+import { SITE_CONFIG } from "@/config";
+
 interface Props {
   enableAds: boolean;
 }
 
 const { enableAds } = Astro.props;
+const manualSlots = SITE_CONFIG.ads.manualSlots;
 ---
 
 {/* Tailwind breakpoint indicator */}
@@ -22,8 +25,9 @@ const { enableAds } = Astro.props;
     "fixed left-0 top-[22px] z-50 flex w-[30px] items-center justify-center py-[2.5px] text-[10px] font-mono uppercase text-white pointer-events-none",
     enableAds ? "bg-green-600" : "bg-red-600",
   ]}
+  title={`Auto Ads: ${enableAds ? "on" : "off"} | Manual slots: ${manualSlots ? "on" : "off"}`}
 >
-  {enableAds ? "Ad" : "–"}
+  {enableAds ? (manualSlots ? "Ad" : "Au") : "–"}
 </div>
 
 {/* Runtime ad script detection */}
