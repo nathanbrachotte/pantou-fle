@@ -101,10 +101,10 @@ const isDev = import.meta.env.DEV;
       <Splash />
     </div>
 
-    <Header uri={uri} pageData={pageData} availability={availability} />
+    <Header uri={uri} {...(pageData ? { pageData } : {})} availability={availability} />
 
     <div class="w-full max-w-screen-xl mx-auto px-3 sm:px-4 lg:px-6">
-      <Aside uri={uri} pageData={pageData} availability={availability} />
+      <Aside uri={uri} {...(pageData ? { pageData } : {})} availability={availability} />
 
       <main class="pb-8">
         <slot />
@@ -117,5 +117,33 @@ const isDev = import.meta.env.DEV;
     <KoFiScript />
 
     {isDev && <DevIndicator enableAds={enableAds} />}
+
+    {/* Patch missing title on third-party iframes (AdSense, Ko-fi) for accessibility */}
+    <script is:inline>
+      (function () {
+        var TITLE_MAP = {
+          "ko-fi": "Support via Ko-fi",
+          "tpc.googlesyndication": "Publicité",
+          "googlesyndication": "Publicité",
+          "googleads": "Publicité",
+        };
+
+        function patchIframes() {
+          document.querySelectorAll("iframe:not([title])").forEach(function (iframe) {
+            var src = iframe.src || "";
+            for (var key in TITLE_MAP) {
+              if (src.indexOf(key) !== -1) {
+                iframe.title = TITLE_MAP[key];
+                return;
+              }
+            }
+            iframe.title = "Contenu tiers";
+          });
+        }
+
+        var observer = new MutationObserver(patchIframes);
+        observer.observe(document.body, { childList: true, subtree: true });
+      })();
+    </script>
   </body>
 </html>
