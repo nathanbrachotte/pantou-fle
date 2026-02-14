@@ -1,4 +1,3 @@
-import { useRef, useState, useEffect } from "react";
 
 interface PDFProps {
   title: string;
@@ -24,27 +23,11 @@ function handleDownload(url: string, title: string) {
 }
 
 export default function PDF({ title, url }: PDFProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState<number | undefined>(
-    undefined,
-  );
-
-  useEffect(() => {
-    function handleResize() {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
-    }
-    const observer = new ResizeObserver(handleResize);
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-    handleResize();
-    return () => observer.disconnect();
-  }, []);
+  const fullUrl = url.startsWith("//") ? `https:${url}` : url;
+  const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(fullUrl)}&embedded=true`;
 
   return (
-    <div ref={containerRef} className="mx-auto w-full max-w-screen-sm">
+    <div className="mx-auto w-full max-w-lg">
       {/* Header bar */}
       <div className="flex items-center justify-between px-4 py-3 bg-primary-dark rounded-t-2xl">
         <div className="flex items-center gap-2 text-white min-w-0">
@@ -68,7 +51,7 @@ export default function PDF({ title, url }: PDFProps) {
         </div>
         <button
           type="button"
-          onClick={() => handleDownload(url, title)}
+          onClick={() => handleDownload(fullUrl, title)}
           className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-primary-dark bg-white rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0 cursor-pointer"
         >
           <svg
@@ -89,12 +72,11 @@ export default function PDF({ title, url }: PDFProps) {
         </button>
       </div>
 
-      {/* PDF viewer */}
+      {/* PDF viewer via Google Docs for reliable fit-to-width */}
       <div className="relative pb-[140%] border-x border-b border-gray-200 rounded-b-2xl overflow-hidden bg-gray-50">
         <iframe
-          key={containerWidth}
           title={title}
-          src={`${url}#toolbar=0&navpanes=0&view=FitH`}
+          src={viewerUrl}
           className="absolute top-0 left-0 w-full h-full border-0"
         />
       </div>

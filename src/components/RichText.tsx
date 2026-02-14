@@ -81,16 +81,20 @@ function getOptions(references: Reference[]): Options {
         if (!asset) return null;
 
         switch (asset.file?.contentType) {
-          case "application/pdf":
+          case "application/pdf": {
+            const pdfUrl = asset.file.url.startsWith("//")
+              ? `https:${asset.file.url}`
+              : asset.file.url;
+            const pdfViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
             return (
-              <div className="w-full my-6 mx-auto rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+              <div className="w-full max-w-2xl my-6 mx-auto rounded-xl overflow-hidden border border-gray-100 shadow-sm">
                 {/* Download bar */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-primary-dark">
                   <span className="text-sm font-medium text-white truncate opacity-90">
                     {asset.file.fileName}
                   </span>
                   <a
-                    href={asset.file.url}
+                    href={pdfUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-primary-dark bg-white rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
@@ -114,11 +118,12 @@ function getOptions(references: Reference[]): Options {
                 </div>
                 <iframe
                   title={asset.file.fileName}
-                  src={`${asset.file.url}#toolbar=0&navpanes=0&view=FitH`}
+                  src={pdfViewerUrl}
                   className="w-full aspect-[3/4] border-0"
                 />
               </div>
             );
+          }
           case "image/png":
             return (
               <figure className="my-6 mx-auto w-full sm:w-2/3">
