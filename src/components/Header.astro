@@ -26,7 +26,6 @@ const LEVELS_LABELS = [
   "C2",
 ] as const;
 
-const isDev = import.meta.env.DEV;
 const currentActivity = getCurrentActivity(uri, pageData?.activity);
 
 function isLevelActive(level: string): boolean {
@@ -48,10 +47,6 @@ function isLevelDisabled(level: string): boolean {
 ---
 
 <header class="w-full relative">
-  {isDev && (
-    <div class="bg-pink-500 sm:bg-yellow-400 md:bg-green-400 lg:bg-blue-400 xl:bg-purple-400 2xl:bg-indigo-900 h-1" />
-  )}
-
   <div class="relative mx-auto px-3 sm:px-4 lg:px-6">
     <div class="flex items-center gap-3 sm:gap-4 py-3 lg:py-4">
       <a href="/" class="flex-shrink-0">

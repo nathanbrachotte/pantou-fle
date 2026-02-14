@@ -5,13 +5,11 @@ interface Props {
   adSlot: string;
   adFormat?: string;
   adLayoutKey?: string;
-  isAutoRelaxed?: boolean;
   className?: string;
 }
 
-const { adSlot, adFormat, adLayoutKey, isAutoRelaxed, className } = Astro.props;
-
-const format = isAutoRelaxed ? "autorelaxed" : adFormat || "auto";
+const { adSlot, adFormat = "auto", adLayoutKey, className } = Astro.props;
+const isDev = import.meta.env.DEV;
 ---
 
 <div class={className || "w-full empty:hidden [&:has(.adsbygoogle:empty)]:hidden"}>
@@ -20,11 +18,18 @@ const format = isAutoRelaxed ? "autorelaxed" : adFormat || "auto";
     style="display:block;text-align:center;"
     data-ad-client={AD_CLIENT}
     data-ad-slot={adSlot}
-    data-ad-format={format}
+    data-ad-format={adFormat}
     data-full-width-responsive="true"
     {...(adLayoutKey ? { "data-ad-layout-key": adLayoutKey } : {})}
+    {...(isDev ? { "data-adtest": "on" } : {})}
   ></ins>
   <script is:inline>
-    (adsbygoogle = window.adsbygoogle || []).push({});
+    (function() {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.warn("[AdSense] Failed to push ad:", e);
+      }
+    })();
   </script>
 </div>

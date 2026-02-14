@@ -5,21 +5,46 @@ interface PDFProps {
   url: string;
 }
 
+function handleDownload(url: string, title: string) {
+  fetch(url)
+    .then((res) => res.blob())
+    .then((blob) => {
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = `${title}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    })
+    .catch(() => {
+      window.open(url, "_blank");
+    });
+}
+
 export default function PDF({ title, url }: PDFProps) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [width, setWidth] = useState<number | undefined>(undefined);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState<number | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     function handleResize() {
-      setWidth(window.innerWidth);
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
     }
-    window.addEventListener("resize", handleResize);
+    const observer = new ResizeObserver(handleResize);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
     handleResize();
-    return () => window.removeEventListener("resize", handleResize);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="mx-auto w-full md:w-3/4 max-w-screen-md">
+    <div ref={containerRef} className="mx-auto w-full max-w-screen-sm">
       {/* Header bar */}
       <div className="flex items-center justify-between px-4 py-3 bg-primary-dark rounded-t-2xl">
         <div className="flex items-center gap-2 text-white min-w-0">
@@ -41,11 +66,10 @@ export default function PDF({ title, url }: PDFProps) {
             {title}
           </span>
         </div>
-        <a
-          href={url}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-primary-dark bg-white rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+        <button
+          type="button"
+          onClick={() => handleDownload(url, title)}
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-primary-dark bg-white rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -61,19 +85,17 @@ export default function PDF({ title, url }: PDFProps) {
               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
             />
           </svg>
-          Télécharger
-        </a>
+          Télécharger le PDF
+        </button>
       </div>
 
       {/* PDF viewer */}
       <div className="relative pb-[140%] border-x border-b border-gray-200 rounded-b-2xl overflow-hidden bg-gray-50">
         <iframe
-          key={width}
-          ref={iframeRef}
+          key={containerWidth}
           title={title}
-          src={`${url}#toolbar=1&navpanels=0`}
-          width={width}
-          className="absolute top-0 left-0 w-full h-full"
+          src={`${url}#toolbar=0&navpanes=0&view=FitH`}
+          className="absolute top-0 left-0 w-full h-full border-0"
         />
       </div>
     </div>

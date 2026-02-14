@@ -84,10 +84,38 @@ function getOptions(references: Reference[]): Options {
           case "application/pdf":
             return (
               <div className="w-full my-6 mx-auto rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                {/* Download bar */}
+                <div className="flex items-center justify-between px-4 py-2.5 bg-primary-dark">
+                  <span className="text-sm font-medium text-white truncate opacity-90">
+                    {asset.file.fileName}
+                  </span>
+                  <a
+                    href={asset.file.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-primary-dark bg-white rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                      />
+                    </svg>
+                    Télécharger
+                  </a>
+                </div>
                 <iframe
                   title={asset.file.fileName}
-                  src={`${asset.file.url}#toolbar=1&navpanels=0`}
-                  className="w-full aspect-[3/4]"
+                  src={`${asset.file.url}#toolbar=0&navpanes=0&view=FitH`}
+                  className="w-full aspect-[3/4] border-0"
                 />
               </div>
             );

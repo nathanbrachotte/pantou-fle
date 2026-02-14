@@ -8,6 +8,8 @@ import Aside from "@/components/Aside.astro";
 import KoFiScript from "@/components/KoFiScript.astro";
 import Splash from "@/components/Splash.astro";
 import PromoBanner from "@/components/PromoBanner.astro";
+import DevIndicator from "@/components/DevIndicator.astro";
+import { AD_CLIENT } from "@/lib/constants";
 
 interface Props {
   title?: string;
@@ -37,7 +39,6 @@ const metaDescription =
   description ||
   "Ressources pédagogiques gratuites pour apprendre le français langue étrangère (FLE). Activités, exercices et fiches pour tous les niveaux de A1 à C2.";
 const fullTitle = title || defaultTitle;
-const AD_CLIENT = "ca-pub-2142870138777008";
 const isDev = import.meta.env.DEV;
 ---
 
@@ -70,20 +71,16 @@ const isDev = import.meta.env.DEV;
       }}
     />
 
+    {/* Google AdSense: meta verification + script */}
+    <meta name="google-adsense-account" content={AD_CLIENT} />
     {
       enableAds && (
-        <>
-          <script
-            is:inline
-            set:html="window.googlefc = window.googlefc || {}; window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];"
-          />
-          <script async src="https://fundingchoices.google.com/js/fc.js" />
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`}
-            crossorigin="anonymous"
-          />
-        </>
+        <script
+          is:inline
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`}
+          crossorigin="anonymous"
+        />
       )
     }
 
@@ -119,12 +116,6 @@ const isDev = import.meta.env.DEV;
     <Footer />
     <KoFiScript />
 
-    {isDev && (
-      <div class="fixed bottom-3 left-3 z-50 flex flex-col gap-1 text-[10px] font-mono pointer-events-none">
-        <span class={`px-2 py-1 rounded-md shadow-md ${enableAds ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}>
-          Ads: {enableAds ? "ON" : "OFF"}
-        </span>
-      </div>
-    )}
+    {isDev && <DevIndicator enableAds={enableAds} />}
   </body>
 </html>

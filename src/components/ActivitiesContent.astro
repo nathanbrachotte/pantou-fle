@@ -8,6 +8,7 @@ import {
   activityTypeHasDarkBackground,
 } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
+import { AD_SLOTS } from "@/lib/constants";
 import { LEVEL_ENUM, type Level } from "@/lib/constants";
 import type { Activity } from "@/lib/contentful";
 
@@ -78,7 +79,7 @@ const defaultCollapsed = levelsWithContent > 1;
         <>
           <LevelSection level={level} activities={perLevel[level]} defaultCollapsed={defaultCollapsed} />
           {/* Ad between some sections */}
-          {index === 1 && <AdSense adSlot="8497527064" isAutoRelaxed />}
+          {index === 1 && <AdSense adSlot={AD_SLOTS.BOTTOM_OF_PAGE} />}
         </>
       ))}
     </div>

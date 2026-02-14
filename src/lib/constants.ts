@@ -1,6 +1,21 @@
 export const ICON_SIZE = 20;
 
 export const AD_CLIENT = "ca-pub-2142870138777008";
+
+/** All registered AdSense ad slots for this site */
+export const AD_SLOTS = {
+  /** Full-width banner across the top of the page */
+  OVER_WEBSITE: "2882619175",
+  /** Banner above the header / navigation */
+  OVER_HEADER: "5603770416",
+  /** In-feed ad between activity sections (fluid format) */
+  IN_BETWEEN_ACTIVITIES: "7581801144",
+  /** Ad at the bottom of activity content */
+  BOTTOM_OF_PAGE: "8497527064",
+} as const;
+
+export type AdSlot = (typeof AD_SLOTS)[keyof typeof AD_SLOTS];
+
 export const COOKIE_CONSENT_NAME = "cookieconsent_status";
 
 export const NON_BREAKING_SPACE = `\u00A0`;
