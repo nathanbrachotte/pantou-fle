@@ -15,7 +15,6 @@ const socialLinks = [
   { href: "https://www.facebook.com/apprendreAvecPantouFLE", label: "Facebook", Icon: FacebookIcon },
   { href: "https://www.instagram.com/pantou_fle/", label: "Instagram", Icon: InstagramIcon },
   { href: "https://www.youtube.com/channel/UCYFLgaAWqetra1x03v7XacQ/featured", label: "YouTube", Icon: YoutubeIcon },
-  { href: `mailto:${SITE_CONFIG.contactEmail}`, label: "Email", Icon: EmailIcon },
 ] as const;
 
 const isNewsletterEnabled = SITE_CONFIG.newsletter.enabled;
@@ -58,6 +57,26 @@ const isNewsletterEnabled = SITE_CONFIG.newsletter.enabled;
                   <Icon color={colors["primary-dark"]} size={20} />
                 </a>
               ))}
+              {/* Email — copy to clipboard instead of mailto */}
+              <div class="relative">
+                <button
+                  id="copy-email-btn"
+                  type="button"
+                  aria-label="Copier l'adresse email"
+                  data-email={SITE_CONFIG.contactEmail}
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-secondary-very-light hover:bg-secondary-very-light hover:scale-105 transition-all duration-200 cursor-pointer"
+                >
+                  <EmailIcon color={colors["primary-dark"]} size={20} />
+                </button>
+                <span
+                  id="copy-email-tooltip"
+                  class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 opacity-0 transition-opacity duration-200 whitespace-nowrap rounded-md bg-primary-dark text-white text-xs font-medium px-2.5 py-1.5 shadow-lg"
+                  role="status"
+                  aria-live="polite"
+                >
+                  Copié !
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -132,6 +151,35 @@ const isNewsletterEnabled = SITE_CONFIG.newsletter.enabled;
     </div>
   </div>
 </footer>
+
+<script>
+  const copyBtn = document.getElementById("copy-email-btn") as HTMLButtonElement | null;
+  const tooltip = document.getElementById("copy-email-tooltip");
+
+  copyBtn?.addEventListener("click", async () => {
+    const email = copyBtn.dataset.email;
+    if (!email || !tooltip) return;
+
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // Fallback for older browsers
+      const textarea = document.createElement("textarea");
+      textarea.value = email;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    }
+
+    tooltip.style.opacity = "1";
+    setTimeout(() => {
+      tooltip.style.opacity = "0";
+    }, 1500);
+  });
+</script>
 
 {isNewsletterEnabled && (
   <script>
