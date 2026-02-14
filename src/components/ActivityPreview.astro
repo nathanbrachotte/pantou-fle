@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import type { Activity } from "@/lib/contentful";
 import {
   getActivityTypeLabel,
@@ -18,7 +19,8 @@ const { fiche } = Astro.props;
 const activitySlug = fiche.activityType?.type || "";
 const category = getActivityTypeLabel(activitySlug);
 const previewDescription = fiche?.previewDescription;
-const preview = fiche?.preview?.file?.url;
+const rawPreviewUrl = fiche?.preview?.file?.url;
+const preview = rawPreviewUrl?.startsWith("//") ? `https:${rawPreviewUrl}` : rawPreviewUrl;
 const levelTitle = fiche?.level?.title || "";
 const bgColor = getActivityTypeBackgroundColor(activitySlug);
 const textColor = getActivityTypeTextColor(activitySlug);
@@ -33,13 +35,14 @@ const darkBg = activityTypeHasDarkBackground(activitySlug);
     {/* Image */}
     <div class="relative overflow-hidden rounded-t-2xl">
       {preview ? (
-        <img
-          src={`${preview}?w=600&fm=webp`}
+        <Image
+          src={`${preview}?w=800&fm=webp&q=80`}
           alt={fiche.title || "activity preview"}
+          width={800}
+          height={500}
           class="w-full aspect-[16/10] object-cover group-hover:scale-105 transition-transform duration-300"
-          srcset={`${preview}?w=400&h=250&fm=webp&q=80 400w, ${preview}?w=800&h=500&fm=webp&q=80 800w`}
-          sizes="(max-width: 640px) 100vw, 50vw"
           loading="lazy"
+          decoding="async"
         />
       ) : (
         <div class="w-full aspect-[16/10] bg-gradient-to-br from-primary-light to-secondary-very-light flex items-center justify-center">

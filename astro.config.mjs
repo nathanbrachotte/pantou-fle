@@ -8,6 +8,9 @@ export default defineConfig({
   site: "https://pantou-fle.fr",
   output: "hybrid",
   adapter: cloudflare(),
+  image: {
+    domains: ["images.ctfassets.net"],
+  },
   integrations: [
     sitemap(),
     react(),

@@ -4,6 +4,7 @@
  * Dismissible — stores preference in localStorage so it stays hidden once closed.
  * Styled to match the MyMoneyViz.com dark + gold brand.
  */
+import { Image } from "astro:assets";
 import { routes } from "@/lib/constants";
 ---
 
@@ -24,13 +25,12 @@ import { routes } from "@/lib/constants";
         rel="noopener noreferrer"
         class="flex-shrink-0"
       >
-        <img
+        <Image
           src="/logo.png"
           alt="MyMoneyViz"
-          width="36"
-          height="36"
+          width={36}
+          height={36}
           class="block rounded-full"
-          style="width: 36px; height: 36px;"
           loading="lazy"
         />
       </a>
