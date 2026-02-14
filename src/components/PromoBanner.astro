@@ -4,6 +4,7 @@
  * Dismissible — stores preference in localStorage so it stays hidden once closed.
  * Styled to match the MyMoneyViz.com dark + gold brand.
  */
+import { routes } from "@/lib/constants";
 ---
 
 <div
@@ -15,56 +16,59 @@
   <div class="h-px" style="background: linear-gradient(90deg, transparent, #c9a44c 30%, #e8c960 50%, #c9a44c 70%, transparent);"></div>
 
   <div class="max-w-screen-xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
-    <div class="flex items-center justify-between gap-3">
-      {/* Clickable content area */}
+    <div class="flex items-center gap-3 sm:gap-4">
+      {/* Logo — sized to content only */}
       <a
-        href="https://www.mymoneyviz.com/fr?ref=pantoufle"
+        href={routes.myMoneyViz}
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-3 sm:gap-4 group min-w-0 flex-1"
+        class="flex-shrink-0"
       >
-        {/* Logo */}
         <img
           src="/logo.png"
           alt="MyMoneyViz"
-          width="40"
-          height="40"
-          class="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full"
+          width="36"
+          height="36"
+          class="block rounded-full"
+          style="width: 36px; height: 36px;"
           loading="lazy"
         />
-
-        {/* Text — desktop */}
-        <div class="min-w-0 hidden sm:block">
-          <p class="text-sm sm:text-base font-semibold text-white flex items-center gap-2">
-            MyMoneyViz
-            <span
-              class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
-              style="background: rgba(201, 164, 76, 0.15); color: #e8c960; border: 1px solid rgba(201, 164, 76, 0.25);"
-            >
-              Gratuit
-            </span>
-          </p>
-          <p class="text-[13px] mt-0.5" style="color: #a1a1aa;">
-            Visualisez l'ensemble de votre patrimoine &mdash; Créé par Nate, le dev de Pantou-fle
-          </p>
-        </div>
-
-        {/* Text — mobile */}
-        <div class="min-w-0 sm:hidden">
-          <p class="text-sm font-semibold text-white truncate">
-            MyMoneyViz
-          </p>
-          <p class="text-xs truncate" style="color: #71717a;">
-            Visualisez votre patrimoine gratuitement
-          </p>
-        </div>
       </a>
+
+      {/* Text — desktop */}
+      <div class="min-w-0 hidden sm:block">
+        <p class="text-sm sm:text-base font-semibold text-white flex items-center gap-2">
+          <a href={routes.myMoneyViz} target="_blank" rel="noopener noreferrer" class="hover:underline underline-offset-2">MyMoneyViz</a>
+          <span
+            class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+            style="background: rgba(201, 164, 76, 0.15); color: #e8c960; border: 1px solid rgba(201, 164, 76, 0.25);"
+          >
+            Gratuit
+          </span>
+        </p>
+        <p class="text-[13px] mt-0.5" style="color: #a1a1aa;">
+          Visualisez l'ensemble de votre patrimoine. Réalisé par <a href={routes.about} class="underline underline-offset-2 hover:text-white transition-colors" style="color: #d4d4d8;">Nate</a>, le dev de Pantou-fle
+        </p>
+      </div>
+
+      {/* Text — mobile */}
+      <a href={routes.myMoneyViz} target="_blank" rel="noopener noreferrer" class="min-w-0 sm:hidden">
+        <p class="text-sm font-semibold text-white truncate">
+          MyMoneyViz
+        </p>
+        <p class="text-xs truncate" style="color: #71717a;">
+          Visualisez votre patrimoine gratuitement
+        </p>
+      </a>
+
+      {/* Spacer to push CTA + close to the right */}
+      <div class="flex-1"></div>
 
       {/* CTA + Close */}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         {/* CTA button — styled like MyMoneyViz.com buttons */}
         <a
-          href="https://www.mymoneyviz.com/fr?ref=pantoufle"
+          href={routes.myMoneyViz}
           target="_blank"
           rel="noopener noreferrer"
           class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
@@ -105,21 +109,33 @@
 
     if (!banner || !closeBtn) return;
 
-    // Show banner only if not previously dismissed
+    // Show banner unless dismissed during this browsing session
     try {
-      if (localStorage.getItem(STORAGE_KEY) !== "1") {
+      if (sessionStorage.getItem(STORAGE_KEY) !== "1") {
         banner.classList.remove("hidden");
       }
     } catch (e) {
-      // localStorage unavailable — show the banner anyway
+      // sessionStorage unavailable — show the banner anyway
       banner.classList.remove("hidden");
     }
 
+    // Simple Analytics helper — safe to call even if SA hasn't loaded yet
+    function track(event) {
+      if (typeof sa_event === "function") sa_event(event);
+    }
+
+    // Track clicks on any link inside the banner (logo, title, CTA)
+    banner.addEventListener("click", function (e) {
+      var link = e.target.closest("a[target='_blank']");
+      if (link) track("promo_banner_click");
+    });
+
     closeBtn.addEventListener("click", function (e) {
       e.preventDefault();
+      track("promo_banner_dismiss");
       banner.classList.add("hidden");
       try {
-        localStorage.setItem(STORAGE_KEY, "1");
+        sessionStorage.setItem(STORAGE_KEY, "1");
       } catch (e) {
         // silent fail
       }

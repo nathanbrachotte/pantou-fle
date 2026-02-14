@@ -3,5 +3,12 @@
   "compatibility_date": "2026-02-13",
   "assets": {
     "directory": "./dist"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "pantoufle-db",
+      "database_id": "e4828cdd-a183-4824-8371-1d4b2864a878"
+    }
+  ]
 }

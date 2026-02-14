@@ -76,5 +76,7 @@ export type Color = keyof typeof colors;
 
 export const routes = {
   home: "/",
+  about: "/about",
   kofi: "https://ko-fi.com/pantou_fle",
+  myMoneyViz: "https://www.mymoneyviz.com/fr?ref=pantoufle",
 };

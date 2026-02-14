@@ -5,6 +5,7 @@ import InstagramIcon from "@/assets/InstagramIcon.astro";
 import YoutubeIcon from "@/assets/YoutubeIcon.astro";
 import EmailIcon from "@/assets/EmailIcon.astro";
 import { colors } from "@/lib/constants";
+import { SITE_CONFIG } from "@/config";
 
 const year = new Intl.DateTimeFormat("fr-FR", { year: "numeric" }).format(
   Date.now(),
@@ -14,8 +15,10 @@ const socialLinks = [
   { href: "https://www.facebook.com/apprendreAvecPantouFLE", label: "Facebook", Icon: FacebookIcon },
   { href: "https://www.instagram.com/pantou_fle/", label: "Instagram", Icon: InstagramIcon },
   { href: "https://www.youtube.com/channel/UCYFLgaAWqetra1x03v7XacQ/featured", label: "YouTube", Icon: YoutubeIcon },
-  { href: "mailto:cathy.nguyen.fle@gmail.com", label: "Email", Icon: EmailIcon },
+  { href: `mailto:${SITE_CONFIG.contactEmail}`, label: "Email", Icon: EmailIcon },
 ] as const;
+
+const isNewsletterEnabled = SITE_CONFIG.newsletter.enabled;
 ---
 
 <footer class="w-full mt-auto">
@@ -60,48 +63,49 @@ const socialLinks = [
         </div>
 
         {/* Right — newsletter */}
-        <div class="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 sm:p-6 md:flex-1 md:max-w-md">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="text-2xl" aria-hidden="true">📫</span>
-            <h3 class="text-sm font-bold text-primary-dark">Newsletter</h3>
-          </div>
-          <p class="text-xs sm:text-sm text-gray-500 mb-4">
-            Ne manquez aucune nouvelle ressource en vous abonnant !
-          </p>
-          <form
-            action="https://www.getrevue.co/profile/pantou-fle/add_subscriber"
-            method="post"
-            id="revue-form"
-            name="revue-form"
-            class="flex flex-col gap-2.5"
-          >
-            <input
-              class="w-full rounded-xl border border-gray-200 bg-whitish px-3.5 py-2.5 text-sm text-primary-dark placeholder:text-gray-400 outline-none focus:border-primary-light focus:ring-2 focus:ring-primary-light/50 transition-all"
-              placeholder="Prénom (optionnel)"
-              type="text"
-              name="member[first_name]"
-              id="member_first_name"
-            />
-            <div class="flex gap-2">
-              <input
-                class="flex-1 rounded-xl border border-gray-200 bg-whitish px-3.5 py-2.5 text-sm text-primary-dark placeholder:text-gray-400 outline-none focus:border-primary-light focus:ring-2 focus:ring-primary-light/50 transition-all"
-                placeholder="Adresse email"
-                type="email"
-                name="member[email]"
-                id="member_email"
-              />
-              <button
-                type="submit"
-                name="member[subscribe]"
-                class="inline-flex items-center justify-center rounded-xl bg-primary-dark text-white px-4 py-2.5 hover:bg-primary transition-colors shadow-sm hover:shadow-md"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </button>
+        {isNewsletterEnabled && (
+          <div class="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 sm:p-6 md:flex-1 md:max-w-md">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-2xl" aria-hidden="true">📫</span>
+              <h3 class="text-sm font-bold text-primary-dark">Newsletter</h3>
             </div>
-          </form>
-        </div>
+            <p class="text-xs sm:text-sm text-gray-500 mb-4">
+              Ne manquez aucune nouvelle ressource en vous abonnant !
+            </p>
+            <form
+              id="newsletter-form"
+              class="flex flex-col gap-2.5"
+            >
+              <input
+                class="w-full rounded-xl border border-gray-200 bg-whitish px-3.5 py-2.5 text-sm text-primary-dark placeholder:text-gray-400 outline-none focus:border-primary-light focus:ring-2 focus:ring-primary-light/50 transition-all"
+                placeholder="Prénom (optionnel)"
+                type="text"
+                name="first_name"
+                id="newsletter_first_name"
+              />
+              <div class="flex gap-2">
+                <input
+                  class="flex-1 rounded-xl border border-gray-200 bg-whitish px-3.5 py-2.5 text-sm text-primary-dark placeholder:text-gray-400 outline-none focus:border-primary-light focus:ring-2 focus:ring-primary-light/50 transition-all"
+                  placeholder="Adresse email"
+                  type="email"
+                  name="email"
+                  id="newsletter_email"
+                  required
+                />
+                <button
+                  type="submit"
+                  id="newsletter-submit"
+                  class="inline-flex items-center justify-center rounded-xl bg-primary-dark text-white px-4 py-2.5 hover:bg-primary transition-colors shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <p id="newsletter-message" class="text-xs mt-1 min-h-[1.25rem]" aria-live="polite"></p>
+            </form>
+          </div>
+        )}
       </div>
 
       {/* Bottom centered section — links + copyright */}
@@ -128,3 +132,45 @@ const socialLinks = [
     </div>
   </div>
 </footer>
+
+{isNewsletterEnabled && (
+  <script>
+    const form = document.getElementById("newsletter-form") as HTMLFormElement | null;
+    const messageEl = document.getElementById("newsletter-message");
+    const submitBtn = document.getElementById("newsletter-submit") as HTMLButtonElement | null;
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (!submitBtn || !messageEl) return;
+
+      submitBtn.disabled = true;
+      messageEl.textContent = "";
+      messageEl.className = "text-xs mt-1 min-h-[1.25rem]";
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch("/api/newsletter", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data: { message?: string; error?: string } = await response.json();
+
+        if (response.ok) {
+          messageEl.textContent = data.message ?? "Inscription réussie !";
+          messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-success";
+          form.reset();
+        } else {
+          messageEl.textContent = data.error ?? "Une erreur est survenue.";
+          messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-error";
+        }
+      } catch {
+        messageEl.textContent = "Une erreur est survenue. Veuillez réessayer.";
+        messageEl.className = "text-xs mt-1 min-h-[1.25rem] text-error";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+)}
