@@ -105,7 +105,7 @@ async function sendNotificationEmails(
     body: JSON.stringify({
       from: `${SITE_CONFIG.newsletter.senderName} <${SITE_CONFIG.newsletter.senderEmail}>`,
       // to: [...SITE_CONFIG.adminEmails],
-      to: ["nathan.brachotte.pro+pantoufle@gmail.com"],
+      to: SITE_CONFIG.adminEmails[0],
       subject: `📫 Nouvel abonné newsletter : ${nameDisplay}`,
       html: `
         <h2>Nouvel abonné à la newsletter Pantou-FLE !</h2>
