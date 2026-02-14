@@ -7,9 +7,10 @@ interface Props {
   level: Level;
   activities: Activity[];
   defaultCollapsed?: boolean;
+  eagerCount?: number;
 }
 
-const { level, activities, defaultCollapsed = false } = Astro.props;
+const { level, activities, defaultCollapsed = false, eagerCount = 0 } = Astro.props;
 
 if (!activities || activities.length === 0) return;
 
@@ -82,8 +83,8 @@ const isExpanded = !defaultCollapsed;
   >
     <div class="overflow-hidden">
       <ul class="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-5">
-        {activities.map((fiche) => (
-          <ActivityPreview fiche={fiche} />
+        {activities.map((fiche, index) => (
+          <ActivityPreview fiche={fiche} eager={index < eagerCount} />
         ))}
       </ul>
     </div>

@@ -12,9 +12,10 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   fiche: Activity;
+  eager?: boolean;
 }
 
-const { fiche } = Astro.props;
+const { fiche, eager = false } = Astro.props;
 
 const activitySlug = fiche.activityType?.type || "";
 const category = getActivityTypeLabel(activitySlug);
@@ -41,8 +42,8 @@ const darkBg = activityTypeHasDarkBackground(activitySlug);
           width={800}
           height={500}
           class="w-full aspect-[16/10] object-cover group-hover:scale-105 transition-transform duration-300"
-          loading="lazy"
-          decoding="async"
+          loading={eager ? "eager" : "lazy"}
+          decoding={eager ? "sync" : "async"}
         />
       ) : (
         <div class="w-full aspect-[16/10] bg-gradient-to-br from-primary-light to-secondary-very-light flex items-center justify-center">
