@@ -16,6 +16,7 @@ interface Props {
   description?: string;
   image?: string;
   enableAds?: boolean;
+  noindex?: boolean;
   uri: string;
   pageData?: {
     activity: string;
@@ -29,10 +30,14 @@ const {
   description,
   image,
   enableAds = true,
+  noindex = false,
   uri,
   pageData,
   availability = new Set<string>(),
 } = Astro.props;
+
+const canonicalPath = uri.endsWith("/") ? uri : `${uri}/`;
+const canonicalUrl = `https://pantou-fle.fr${canonicalPath}`;
 
 const defaultTitle = "Pantou-fle - Français Langue Étrangère";
 const metaDescription =
@@ -51,6 +56,9 @@ const isDev = import.meta.env.DEV;
     <meta name="generator" content={Astro.generator} />
 
     <SEO
+      canonical={canonicalUrl}
+      noindex={noindex}
+      nofollow={noindex}
       title={fullTitle}
       description={metaDescription}
       openGraph={{
@@ -58,6 +66,7 @@ const isDev = import.meta.env.DEV;
           title: fullTitle,
           type: "website",
           image: image || "",
+          url: canonicalUrl,
         },
         optional: {
           description: metaDescription,

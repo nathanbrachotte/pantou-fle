@@ -6,6 +6,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
   site: "https://pantou-fle.fr",
+  trailingSlash: "always",
   output: "hybrid",
   adapter: cloudflare({
     imageService: "passthrough",
