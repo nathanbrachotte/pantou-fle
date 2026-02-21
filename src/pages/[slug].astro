@@ -55,7 +55,7 @@ const date = new Date(activity.createdAt).toLocaleDateString("fr-FR", {
     <div class="mb-4 sm:mb-6">
       <button
         type="button"
-        onclick="history.back()"
+        onclick="if (window.history.length > 1) { history.back(); } else { window.location.href = '/'; }"
         class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-primary-dark transition-colors group"
       >
         <svg
